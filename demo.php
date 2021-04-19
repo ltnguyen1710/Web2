@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 require_once('login.php');
-$loginResult = 'Welcome';
+$loginResult = '';
 if (isset($_POST['usrname'])) {
   $loginResult = "Hi, " . login($_POST['usrname'], $_POST['psw']);
 }
@@ -182,12 +182,12 @@ if (isset($_POST['usrname'])) {
     <div class="w3-hide-large" style="margin-top:83px"></div>
 
     <!-- Top header -->
+    
     <header class="w3-container w3-xlarge">
-      <p class="w3-left"><?= $loginResult ?>
-      </p>
+      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?>
+    
 
       <p class="w3-right">
-
 
         <!-- Account icon -->
         <?php
