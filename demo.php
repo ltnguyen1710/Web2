@@ -11,6 +11,7 @@ if (isset($_POST['username'])) {
 require ('register_submit.php');
 if(isset($_POST["username1"]) ){
   Register($_POST["username1"],$_POST["psw1"],$_POST["repsw"]);
+  
 }
 ?>
 <html>
@@ -210,6 +211,7 @@ if(isset($_POST["username1"]) ){
         <?php
         }
         ?>
+        
         <!-- Shopping icon -->
         <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
           <i onclick="document.getElementById('shoppingcart').style.display='block'" class="fa fa-shopping-cart "></i>

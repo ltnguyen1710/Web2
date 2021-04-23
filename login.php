@@ -9,16 +9,16 @@ function createDBConnection(){
     
     return $con;
 }
-function login($user, $pass)
+function login($username, $passwork)
 {
     $con = createDBConnection();
-    $sql = "Select * from users where username='" . $user . "'";
+    $sql = "Select * from customer where usernameCU ='" . $username . "'";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
         if ($row = $result->fetch_assoc()) {
-            if ($row['password'] = $pass) {
-                $_SESSION['username'] = $user;
-                return $user;
+            if ($row['password'] = $passwork) {
+                $_SESSION['username'] = $username;
+                return $username;
             }
         }
     }
