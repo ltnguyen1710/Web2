@@ -1,15 +1,17 @@
 <?php
 session_start();
-function login($user, $pass)
-{
+function createDBConnection(){
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "dct119c2";
     $con = new mysqli($servername, $username, $password, $dbname);
-    if ($con->connect_error) {
-        die("Connection failed " . $con->connect_error);
-    }
+    
+    return $con;
+}
+function login($user, $pass)
+{
+    $con = createDBConnection();
     $sql = "Select * from users where username='" . $user . "'";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
@@ -29,4 +31,5 @@ function isLogined()
 function logout(){
     unset($_SESSION['username']);
 }
+
 ?>
