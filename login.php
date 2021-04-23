@@ -1,22 +1,24 @@
 <?php
 session_start();
-function login($user, $pass)
-{
+function createDBConnection(){
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "dct119c2";
     $con = new mysqli($servername, $username, $password, $dbname);
-    if ($con->connect_error) {
-        die("Connection failed " . $con->connect_error);
-    }
-    $sql = "Select * from users where username='" . $user . "'";
+    
+    return $con;
+}
+function login($username, $passwork)
+{
+    $con = createDBConnection();
+    $sql = "Select * from customer where usernameCU ='" . $username . "'";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
         if ($row = $result->fetch_assoc()) {
-            if ($row['password'] = $pass) {
-                $_SESSION['username'] = $user;
-                return $user;
+            if ($row['password'] = $passwork) {
+                $_SESSION['username'] = $username;
+                return $username;
             }
         }
     }
@@ -56,4 +58,5 @@ function isLogined()
 function logout(){
     unset($_SESSION['username']);
 }
+
 ?>

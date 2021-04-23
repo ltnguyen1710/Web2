@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <?php
-require_once('login.php');
+require ('login.php');
+
 $loginResult = '';
-if (isset($_POST['usrname'])) {
-  $loginResult = "Hi, " . login($_POST['usrname'], $_POST['psw']);
+if (isset($_POST['username'])) {
+  $loginResult = "Hi, " . login($_POST['username'], $_POST['psw']);
+}
+?>
+<?php 
+require ('register_submit.php');
+if(isset($_POST["username1"]) ){
+  Register($_POST["username1"],$_POST["psw1"],$_POST["repsw"]);
+  
 }
 ?>
 <html>
@@ -203,6 +211,7 @@ if (isset($_POST['usrname'])) {
         <?php
         }
         ?>
+        
         <!-- Shopping icon -->
         <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
           <i onclick="document.getElementById('shoppingcart').style.display='block'" class="fa fa-shopping-cart "></i>
@@ -292,7 +301,7 @@ if (isset($_POST['usrname'])) {
           <form action='demo.php' method="post" class="w3-container">
             <div class="w3-section">
               <label><b>User name</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="usrname" required value="checker">
+              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username" required value="checker">
               <label><b>Password</b></label>
               <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required value="12345">
               <input class="w3-button w3-block w3-black w3-section w3-padding" type="submit" value="Log in">
@@ -318,7 +327,7 @@ if (isset($_POST['usrname'])) {
             <h1>Create account</h1>
           </div>
 
-          <form class="w3-container" action="/action_page.php">
+          <form class="w3-container" action="demo.php" method="POST">
             <div class="w3-section">
 
               <label><b>Full name</b></label>
@@ -340,21 +349,22 @@ if (isset($_POST['usrname'])) {
               <br>
               <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email">
               <label><b>User name</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="usrname" required>
+              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" required>
               <label><b>Password</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="psw" required>
+              <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="psw1" required>
               <label><b>Confirm password</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Confirm Password" name="psw" required>
+              <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Confirm Password" name="repsw" required>
 
             </div>
-          </form>
+          
 
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
             <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-            <span class="w3-button  w3-black w3-right" href="#" onclick="document.getElementById('id02').style.display='none',alert('Sign up successful !')">Submit
+            <input  class="w3-button  w3-black w3-right" name ="submit" href="#" type="Submit" onclick="alert('Sign up successful !')">
           </div>
 
         </div>
+        </form>
       </div>
 
       <!--check out-->
