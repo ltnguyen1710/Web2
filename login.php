@@ -50,6 +50,7 @@ function isLoginedAdmin(){
 }
 function logoutAdmin(){
     unset($_SESSION['admin']);
+    header('Location: admin.php');
 }
 function isLogined()
 {
@@ -57,6 +58,7 @@ function isLogined()
 }
 function logout(){
     unset($_SESSION['username']);
+    header('Location: index.php');
 }
 
 ?>

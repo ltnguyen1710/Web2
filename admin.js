@@ -10,7 +10,7 @@ function themsp()
 function suasp(ten,gia,hinh,mota)
 {
     document.getElementById("f77").style.display="block";
-    document.getElementById("oldname").innerHTML=ten;
+    document.getElementById("oldname").value=ten;
     document.getElementById("ten").value=ten;
     document.getElementById("gia1").value=gia;
     document.getElementById("hinh").value=hinh;
@@ -18,7 +18,7 @@ function suasp(ten,gia,hinh,mota)
 }
 function xoasp()
 {
-     confirm("Do you really want to delete this product ?");
+     return confirm("Do you really want to delete this product ?")  ;
     
 }
 function capnhat()

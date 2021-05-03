@@ -52,7 +52,23 @@ if (isset($_REQUEST['Update'])) {
 
 }
 ?>
+<?php
+if (isset($_REQUEST['Delete'])) {
+    $conn = createDbConnection();
+    $sql = sprintf("DELETE FROM sanpham  WHERE tenSP = '%s'", $_REQUEST['ten'] );
+    var_dump($sql);
+    if ($conn->query($sql) === TRUE) {
+        echo "Deleted successfully";
+        header("Location:Productmanagement.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
 
+    $conn->close();
+
+
+}
+?>
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -167,7 +183,9 @@ if (isset($_REQUEST['Update'])) {
         border: solid 1px black;
     }
 </style>
-
+<?php
+if (isLoginedAdmin()) {
+?>
 <body class="w3-content" style="max-width:1200px">
 
     <!-- Sidebar/menu -->
@@ -177,7 +195,7 @@ if (isset($_REQUEST['Update'])) {
             <a href="#"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
         </div>
         <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-            <a href="admin.html" class="w3-button w3-block w3-white w3-left-align">Customer management</a>
+            <a href="admin.php" class="w3-button w3-block w3-white w3-left-align">Customer management</a>
             <a href="T-shirt.html" class="w3-bar-item w3-button w3-light-grey"><i
                     class="fa fa-caret-right w3-margin-right"></i>Product management</a>
         </div>
@@ -186,7 +204,7 @@ if (isset($_REQUEST['Update'])) {
 
     <!-- Top menu on small screens -->
     <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-        <div class="w3-bar-item w3-padding-24 w3-wide"><a href="demo.php" class="w3-button">CHECKERVIET</div>
+        <div class="w3-bar-item w3-padding-24 w3-wide"><a href="#" class="w3-button">CHECKERVIET</div>
         <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
                 class="fa fa-bars"></i></a>
     </header>
@@ -207,7 +225,7 @@ if (isset($_REQUEST['Update'])) {
             <p class="w3-right">
 
                 <!-- Log out icon -->
-                <a href="demo.html" class="w3-bar-item w3-button  w3-right">
+                <a href="logout.php" class="w3-bar-item w3-button  w3-right">
                     <i class="fa fa-sign-out  "></i>
                 </a>
 
@@ -235,20 +253,17 @@ if (isset($_REQUEST['Update'])) {
             <div class="w3-col l3 s6">
                 <div class="w3-container">
                     <div class="w3-display-container">
-                        <img src="<?= $row['hinhanhSP'] ?>" style="width:80%">
-                        <span class="w3-tag w3-display-topleft">New</span>
-                        <div class="w3-display-middle w3-display-hover">
-                            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-                        </div>
+                        <img src="<?= $row['hinhanhSP'] ?>" style="width:200px">
+                        <span class="w3-tag w3-display-topleft">New</span>                        
                     </div>
-                    <p><?= $row['tenSP'] ?><br><b> <?= $row['giaSP'] ?></b></p>
+                    <p><?= $row['tenSP'] ?><br><b>$ <?= $row['giaSP'] ?></b></p>
                     <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
                         <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>')">Update
+                                onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>')">Update and Delete
                             </button>
                         </p>
                     </a>
-                    <p><button onclick="xoasp()">Delete</button></p>
+                    
                 </div>
             </div>
             
@@ -280,10 +295,8 @@ if (isset($_REQUEST['Update'])) {
                         </li>
                         <li>
                             <b><label for="url">New image</label></b>
-                            <br>
-                            <span>Choose new image of product</span>
-                            <br>
-                            <input type="file" name="myFile">
+                            
+                            <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" maxlength="100" name="myFile">
                         </li>
                         <li>
                             <b><label for="bio">Description</label></b>
@@ -310,9 +323,9 @@ if (isset($_REQUEST['Update'])) {
 
                 <form class="w3-container " id="f77" action="Productmanagement.php">
                     <ul>
-                    
+                    <input type="hidden" id="oldname" name="oldname"/>
                         <li>
-                        <h1><label  id="oldname" name="oldname"></label></h1>                        
+                                               
                             <b><label  >Name:</label></b>                           
 
                             <input class="w3-input w3-input w3-border w3-margin-bottom " id="ten" name="ten" type="text" maxlength="100">
@@ -324,7 +337,7 @@ if (isset($_REQUEST['Update'])) {
 
                         </li>
                         <li>
-                            <b><span>Image:</span></b> <input type="file" name="myFile">
+                            <b><span>Image:</span></b>
                             <input class="w3-input w3-input w3-border w3-margin-bottom " id="hinh" name="hinh" type="text"    
                                 maxlength="100">
 
@@ -340,6 +353,7 @@ if (isset($_REQUEST['Update'])) {
                         </li>
                         <li>
                             <input type="submit" value="Update" name="Update" onclick="capnhat()">
+                            <input type="submit" name="Delete" onclick="return xoasp()"  value="Delete">
                         </li>
                 </form>
 
@@ -479,5 +493,5 @@ if (isset($_REQUEST['Update'])) {
 
     <script src="IMGDEMO/jquery-2.1.4.min.js"></script>
 </body>
-
+<?php } ?>
 </html>

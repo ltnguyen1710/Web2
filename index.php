@@ -298,7 +298,7 @@ if(isset($_POST["username1"]) ){
             <h1>Log in</h1>
           </div>
 
-          <form action='demo.php' method="post" class="w3-container">
+          <form action='index.php' method="post" class="w3-container">
             <div class="w3-section">
               <label><b>User name</b></label>
               <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username" required value="checker">
@@ -327,7 +327,7 @@ if(isset($_POST["username1"]) ){
             <h1>Create account</h1>
           </div>
 
-          <form class="w3-container" action="demo.php" method="POST">
+          <form class="w3-container" action="index.php" method="POST">
             <div class="w3-section">
 
               <label><b>Full name</b></label>
@@ -360,7 +360,7 @@ if(isset($_POST["username1"]) ){
 
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
             <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-            <input  class="w3-button  w3-black w3-right" name ="submit" href="#" type="Submit" onclick="alert('Sign up successful !')">
+            <input  class="w3-button  w3-black w3-right" name ="submit" value="Submit" href="#" type="Submit" onclick="alert('Sign up successful !')">
           </div>
 
         </div>
