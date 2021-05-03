@@ -1,4 +1,58 @@
 <!DOCTYPE html>
+<?php
+require_once('login.php');
+?>
+
+<?php
+
+if (isset($_REQUEST['Insert'])) {
+    $conn = createDbConnection();
+
+    $sql = sprintf("INSERT INTO sanpham (thongtinSP,tenSP,giaSP,hinhanhSP) 
+                    VALUES ( '%s', '%s', '%s' ,'%s')"
+                  , $_REQUEST['bio'],
+                    $_REQUEST['name'], $_REQUEST['gia'],
+                    $_REQUEST['myFile']);
+    var_dump($sql);
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+        header("Location:Productmanagement.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+}
+?>
+<?php
+
+if (isset($_REQUEST['Update'])) {
+    $conn = createDbConnection();
+
+    $sql = sprintf(
+        "UPDATE sanpham 
+            SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' 
+            WHERE tenSP = '%s'", 
+        $_REQUEST['ten'],
+        $_REQUEST['gia1'],
+        $_REQUEST['hinh'],
+        $_REQUEST['mota'],
+        $_REQUEST['oldname']
+    );
+    var_dump($sql);
+    if ($conn->query($sql) === TRUE) {
+        echo "The record updated successfully";
+        header("Location:Productmanagement.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+
+
+}
+?>
+
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -132,7 +186,7 @@
 
     <!-- Top menu on small screens -->
     <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-        <div class="w3-bar-item w3-padding-24 w3-wide"><a href="demo.html" class="w3-button">CHECKERVIET</div>
+        <div class="w3-bar-item w3-padding-24 w3-wide"><a href="demo.php" class="w3-button">CHECKERVIET</div>
         <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
                 class="fa fa-bars"></i></a>
     </header>
@@ -170,167 +224,39 @@
 
         <!-- Product grid -->
         <div class="w3-row w3-whitescale">
+        <?php
+        $conn = createDBConnection();
+        $sql = "SELECT * FROM sanpham";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+        ?>
+        
 
             <div class="w3-col l3 s6">
                 <div class="w3-container">
                     <div class="w3-display-container">
-                        <img src="Images/T-SHIRT/1.1.jpg" style="width:100%">
+                        <img src="<?= $row['hinhanhSP'] ?>" style="width:80%">
                         <span class="w3-tag w3-display-topleft">New</span>
                         <div class="w3-display-middle w3-display-hover">
                             <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
                         </div>
                     </div>
-                    <p>BXD - ALEX OVERPRINT TEES/BLACK<br><b>$24.99</b></p>
+                    <p><?= $row['tenSP'] ?><br><b> <?= $row['giaSP'] ?></b></p>
                     <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
                         <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('BXD - ALEX OVERPRINT TEES/BLACK','$24.99','Images/T-SHIRT/1.1.jpg')">Fix
+                                onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>')">Update
                             </button>
                         </p>
                     </a>
                     <p><button onclick="xoasp()">Delete</button></p>
                 </div>
             </div>
-
-            <div class="w3-col l3 s6">
-                <div class="w3-container">
-                    <div class="w3-display-container">
-                        <img src="Images/T-SHIRT/2.1.jpg" style="width:100%">
-                        <span class="w3-tag w3-display-topleft">New</span>
-                        <div class="w3-display-middle w3-display-hover">
-                            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-                    <p>BXD - CHECKERBOARD GREEN SHIRT<br><b>$34.99</b></p>
-                    <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                        <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('BXD - CHECKERBOARD GREEN SHIRT','$34.99','Images/T-SHIRT/2.1.jpg')">Fix
-                            </button>
-                        </p>
-                    </a>
-                    <p><button onclick="xoasp()">Delete</button></p>
-                </div>
-            </div>
-
-            <div class="w3-col l3 s6">
-                <div class="w3-container">
-                    <div class="w3-display-container">
-                        <img src="Images/T-SHIRT/3.1.jpg" style="width:100%">
-                        <span class="w3-tag w3-display-topleft">New</span>
-                        <div class="w3-display-middle w3-display-hover">
-                            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-                    <p>BXD - LOGO TEES/BLACK<br><br><b>$21.99</b></p>
-                    <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                        <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('BXD - LOGO TEES/BLACK','$21.99','Images/T-SHIRT/3.1.jpg')">Fix
-                            </button>
-                        </p>
-                    </a>
-                    <p><button onclick="xoasp()">Delete</button></p>
-                </div>
-            </div>
-
-            <div class="w3-col l3 s6">
-                <div class="w3-container">
-                    <div class="w3-display-container">
-                        <img src="Images/T-SHIRT/4.1.jpg" style="width:100%">
-                        <span class="w3-tag w3-display-topleft">New</span>
-                        <div class="w3-display-middle w3-display-hover">
-                            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-                    <p>BXD - MONOGRAM SHIRT/BLACK<br><b>$30.99</b></p>
-                    <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                        <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('BXD - MONOGRAM SHIRT/BLACK','$30.99','Images/T-SHIRT/4.1.jpg')">Fix
-                            </button>
-                        </p>
-                    </a>
-                    <p><button onclick="xoasp()">Delete</button></p>
-                </div>
-            </div>
-
-            <div class="w3-col l3 s6">
-                <div class="w3-container">
-                    <div class="w3-display-container">
-                        <img src="Images/T-SHIRT/5.1.jpg" style="width:100%">
-                        <span class="w3-tag w3-display-topleft">New</span>
-                        <div class="w3-display-middle w3-display-hover">
-                            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-                    <p>BXD - SKELETON COIN TEES/BLACK<br><b>$29.99</b></p>
-                    <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                        <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('BXD - SKELETON COIN TEES/BLACK','$29.99','Images/T-SHIRT/5.1.jpg')">Fix
-                            </button>
-                        </p>
-                    </a>
-                    <p><button onclick="xoasp()">Delete</button></p>
-                </div>
-            </div>
-
-            <div class="w3-col l3 s6">
-                <div class="w3-container">
-                    <div class="w3-display-container">
-                        <img src="Images/T-SHIRT/6.1.jpg" style="width:100%">
-                        <div class="w3-display-middle w3-display-hover">
-                            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-                    <p>BOBUI BALLOON - TEE/RED<br><b>$19.99</b></p>
-                    <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                        <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('BOBUI BALLOON - TEE/RED','$19.99','Images/T-SHIRT/6.1.jpg')">Fix
-                            </button>
-                        </p>
-                    </a>
-                    <p><button onclick="xoasp()">Delete</button></p>
-                </div>
-            </div>
-
-            <div class="w3-col l3 s6">
-                <div class="w3-container">
-                    <div class="w3-display-container">
-                        <img src="Images/T-SHIRT/7.1.jpg" style="width:100%">
-                        <div class="w3-display-middle w3-display-hover">
-                            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-                    <p>BOBUI BALLOON - TEE/BLACK<br><b>$33.99</b></p>
-                    <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                        <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('BOBUI BALLOON - TEE/BLACK','$33.99','Images/T-SHIRT/7.1.jpg')">Fix
-                            </button>
-                        </p>
-                    </a>
-                    <p><button onclick="xoasp()">Delete</button></p>
-                </div>
-            </div>
-
-            <div class="w3-col l3 s6">
-                <div class="w3-container">
-                    <div class="w3-display-container">
-                        <img src="Images/T-SHIRT/8.1.jpg" style="width:100%">
-                        <div class="w3-display-middle w3-display-hover">
-                            <button class="w3-button w3-black">Buy now <i class="fa fa-shopping-cart"></i></button>
-                        </div>
-                    </div>
-                    <p>BOBUI BALLOON - TEE/WHITE<br><b>$19.99</b></p>
-                    <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                        <p><button
-                                onclick="document.getElementById('suasp').style.display='block',suasp('BOBUI BALLOON - TEE/WHITE','$19.99','Images/T-SHIRT/8.1.jpg')">Fix
-                            </button>
-                        </p>
-                    </a>
-                    <p><button onclick="xoasp()">Delete</button></p>
-                </div>
-            </div>
-
-        </div>
-
-        <!--insert product-->
+            
+            <?php
+            }
+           ?>
+           </div>
+                   <!--insert product-->
         <div id="themsp" class="w3-modal">
             <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
@@ -340,7 +266,7 @@
 
                 </div>
 
-                <form class="w3-container" id="f7">
+                <form class="w3-container" id="f7" action="Productmanagement.php">
                     <ul>
                         <li>
                             <b><label for="name">Enter name of product</label></b>
@@ -365,7 +291,7 @@
                                 onkeyup="adjust_textarea(this)"></textarea>
                         </li>
                         <li>
-                            <input type="submit" value="Insert" onclick="them()">
+                            <input type="submit" value="Insert" name="Insert" onclick="them()">
                         </li>
                     </ul>
                 </form>
@@ -382,43 +308,38 @@
 
                 </div>
 
-                <form class="w3-container " id="f77">
+                <form class="w3-container " id="f77" action="Productmanagement.php">
                     <ul>
+                    
                         <li>
-                            <b><label for="name">Name:</label></b>
-                           
-                            <br>
-                            <span>Enter new name product</span>
-                            <input class="w3-input w3-input w3-border w3-margin-bottom " id="ten" type="text" maxlength="100">
+                        <h1><label  id="oldname" name="oldname"></label></h1>                        
+                            <b><label  >Name:</label></b>                           
+
+                            <input class="w3-input w3-input w3-border w3-margin-bottom " id="ten" name="ten" type="text" maxlength="100">
                         </li>
                         <li>
-                            <b><label>Price:</label></b><label for="email" id="gia"></label>
-                            <br>
-                            <span>New Price</span>
-                            <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" name="gia"
-                                maxlength="100">
+                            <b><label >Price:</label></b>
+                                                        
+                            <input class="w3-input w3-input w3-border w3-margin-bottom " id="gia1" name="gia1"  type="text" maxlength="100">
 
                         </li>
                         <li>
-                            <b><span>Present image:</span></b>
-                            <label for="url" id="hinh"></label>
+                            <b><span>Image:</span></b> <input type="file" name="myFile">
+                            <input class="w3-input w3-input w3-border w3-margin-bottom " id="hinh" name="hinh" type="text"    
+                                maxlength="100">
+
                         </li>
+                        
+                         
                         <li>
-                            <b><span>New image</span></b>
-                            <br>
-                            <input type="file" name="myFile">
-                        </li>
-                        <li>
-                            <b><label for="bio">Description</label></b>
-                            <br>
-                            <span>New description</span>
-                            <br>
-                            <textarea class="w3-input w3-input w3-border w3-margin-bottom " name="bio"
+                            <b><label >Description</label></b>
+                            
+                            <textarea class="w3-input w3-input w3-border w3-margin-bottom " id="mota" name="mota" 
                                 onkeyup="adjust_textarea(this)"></textarea>
 
                         </li>
                         <li>
-                            <input type="submit" value="Update" onclick="capnhat()">
+                            <input type="submit" value="Update" name="Update" onclick="capnhat()">
                         </li>
                 </form>
 

@@ -7,12 +7,14 @@ function themsp()
     document.getElementById("nutthemsp").style.display='none';
 
 }
-function suasp(ten,gia,hinh)
+function suasp(ten,gia,hinh,mota)
 {
     document.getElementById("f77").style.display="block";
+    document.getElementById("oldname").innerHTML=ten;
     document.getElementById("ten").value=ten;
-    document.getElementById("gia").innerHTML=gia;
-    document.getElementById("hinh").innerHTML=hinh;
+    document.getElementById("gia1").value=gia;
+    document.getElementById("hinh").value=hinh;
+    document.getElementById("mota").value=mota;
 }
 function xoasp()
 {
