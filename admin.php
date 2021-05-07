@@ -124,7 +124,7 @@ if (isLoginedAdmin()) {
         <p class="w3-right">
 
           <!-- Log out icon -->
-          <a href="logout.php" class="w3-bar-item w3-button  w3-right">
+          <a href="logoutadmin.php" class="w3-bar-item w3-button  w3-right">
             <i class="fa fa-sign-out  "></i>
           </a>
 
