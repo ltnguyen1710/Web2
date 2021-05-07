@@ -20,9 +20,6 @@ if(isset($_POST["username1"]) ){
 
 
 
-
-
-
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -153,7 +150,7 @@ if(isset($_POST["username1"]) ){
   <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
       <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-      <a href="demo.html"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
+      <a href="index.php"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
     </div>
     <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
 
@@ -226,20 +223,20 @@ if(isset($_POST["username1"]) ){
         <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
           <i onclick="document.getElementById('shoppingcart').style.display='block'" class="fa fa-shopping-cart "></i>
         </a>
-        <!-- Find icon -->
-        <form name = "fromTim" method = "GET" action = "Search.php">
+         <!-- Find icon -->
+         <form name = "fromTim" method = "GET" action = "Search.php">
 
-           <input type="submit" class="w3-bar-item w3-button  w3-right fa fa_search" name="timkiem" value=""> </input> 
+                <input type="submit" class="w3-bar-item w3-button  w3-right fa fa_search" name="timkiem" value=""> </input> 
 
-        
-        
+
+
         <!-- Bottom Bar Start -->
-      <div class="w3-bar-item  bottom-bar">
-        <div  class="w3-modal-find w3-padding-32 w3-right">
-          <div class="search" class="w3-container  ">
-              <input type="text" name="tukhoa"  placeholder="Search for names.." title="Type in a name">          
-      </div>
-      </form>
+                <div class="w3-bar-item  bottom-bar">
+                <div  class="w3-modal-find w3-padding-32 w3-right">
+                <div class="search" class="w3-container  ">
+                     <input type="text" name="tukhoa"  placeholder="Search for names..." title="Type in a name">          
+                </div>
+        </form>
       <!-- Bottom Bar End -->
       <!-- Shopping -->
       <div id="shoppingcart" class="w3-modal">
@@ -258,15 +255,41 @@ if(isset($_POST["username1"]) ){
 
           <div class="cart-items w3-container">
 
-           
+            <div class="cart-row">
+              <div class="cart-item cart-column">
+                <img class="cart-item-image" src="Images/T-SHIRT/2.1.jpg" width="100" height="100">
+                <span class="cart-item-title">BXD - CHECKERBOARD GREEN SHIRT</span>
+              </div>
+              <span class="cart-price cart-column">34.99$</span>
+              <div class="cart-quantity cart-column">
+                <input class="cart-quantity-input" type="number" min='0' value="1">
+                <button class="btn btn-danger" type="button" onclick="alert('Deleted')">Delete</button>
+              </div>
+            </div>
+
+            <div class="cart-row">
+
+              <div class="cart-item cart-column">
+                <img class="cart-item-image" src="Images/T-SHIRT/3.1.jpg" width="100" height="100">
+                <span class="cart-item-title">BXD - LOGO TEES/BLACK</span>
+              </div>
+              <span class="cart-price cart-column">21.99$</span>
+              <div class="cart-quantity cart-column">
+                <input class="cart-quantity-input" type="number" min='0' value="2">
+                <button class="btn btn-danger" type="button" onclick="alert('Deleted')">Delete</button>
+              </div>
+
+            </div>
+
+            <div class="cart-total">
+              <strong class="cart-total-title">Total Price:</strong>
+              <span class="cart-total-price">78.79$</span>
+            </div>
 
           </div>
-          <div class="cart-total">
-            <strong class="cart-total-title">Total Price:</strong>
-            <span class="cart-total-price" id="price"></span>
-          </div>
+
           <div class="w3-container w3-border-top w3-padding-24 ">
-            <button onclick="thanhtoan(document.getElementById('price').innerHTML)" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
+            <button onclick="document.getElementById('checkout').style.display='block'" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
           </div>
 
         </div>
@@ -344,7 +367,7 @@ if(isset($_POST["username1"]) ){
           
 
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-            <button onclick="document.getElementById('id02').style.display='none',document.getElementById('price1').innerHTML=document.getElementById('price').innerHTML " type="button" class="w3-button w3-grey">Cancel</button>
+            <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
             <input  class="w3-button  w3-black w3-right" name ="submit" value="Submit" href="#" type="Submit" onclick="alert('Sign up successful !')">
           </div>
 
@@ -360,20 +383,15 @@ if(isset($_POST["username1"]) ){
             <span onclick="document.getElementById('checkout').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
             <h1>Checkout</h1>
           </div>
-          <?php
-          $con = createDBConnection();
-          $sql = "SELECT * FROM khachhang WHERE userKH='" . $_SESSION['username'] . "'";
-         $result = $con->query($sql);
-        $row = $result->fetch_assoc()
-         ?>
+
           <form class="w3-container">
             <div class="w3-section">
-              <label><b>Full name</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?=$row['hoTen']?>" name="adress" required>
-              <label><b>Phone number</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?=$row['sdt']?>" name="tel" required>
               <label><b>Adress</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter Adress">
+              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter adress" name="adress" required>
+              <label><b>Phone number</b></label>
+              <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="Enter phone number" name="tel" required>
+              <label><b>Email:</b></label>
+              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email">
               <label><b>Nation</b></label>
               <select name="nation">
                 <option value="">Vietnam</option>
@@ -391,7 +409,7 @@ if(isset($_POST["username1"]) ){
           </form>
           <div class="cart-total">
             <strong class="cart-total-title">Total Price:</strong>
-            <span class="cart-total-price" id="price1"></span>
+            <span class="cart-total-price">78.79$</span>
           </div>
 
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
@@ -403,69 +421,7 @@ if(isset($_POST["username1"]) ){
       </div>
     </header>
 
-    <!-- Image header -->
-    <div class="w3-display-container w3-container">
-      <div class="slideshow-container">
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/1.jpg" style="width:100%">
-
-        </div>
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/2.jpg" style="width:100%">
-
-        </div>
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/3.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/4.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/5.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/6.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/7.jpg" style="width:100%">
-
-        </div>
-
-      </div>
-
-      <br>
-
-      <div style="text-align:center">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
-      <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
-        <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
-        <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
-        <h1 class="w3-hide-small">COLLECTION 2016</h1>
-        <p><a href="#jeans" class="w3-button w3-white w3-padding-large w3-large">SHOP NOW</a></p>
-      </div>
-    </div>
-
+    
     <script>
       var slideIndex = 0;
       showSlides();
@@ -496,14 +452,17 @@ if(isset($_POST["username1"]) ){
 
     <!-- Product grid -->
     <div class="w3-row w3-whitescale" id ="myTable">
-    <?php
-      $con = createDBConnection();
-      $sql = "SELECT * FROM SANPHAM";
-      $result = $con->query($sql);
-      while ($row = $result->fetch_assoc()){
-      ?>
-
-      <div class="w3-col l3 s6">
+    
+    <?php       
+          $conn = createDBConnection();
+        $sql =sprintf("SELECT * FROM sanpham WHERE tenSP LIKE '%%%s%%'", $_REQUEST['tukhoa']);
+     
+        $result = $conn->query($sql); 
+        if ($result !== false && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {               
+    ?>
+    
+    <div class="w3-col l3 s6">
         <div class="w3-container">
           <div class="w3-display-container">
             <img src="<?= $row['hinhanhSP'] ?>" style="width:100%">
@@ -519,7 +478,7 @@ if(isset($_POST["username1"]) ){
       </div>
       <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
       <div id="detail5" class="w3-modal  ">
- ?       <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
+        <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
 
           <div class="w3-container w3-padding-16 w3-light-grey">
             <span class=" cart-header " id='ten'></span>
@@ -549,7 +508,7 @@ if(isset($_POST["username1"]) ){
             <div class="cart-total">
               <strong class="cart-total-title">Total Price:</strong>
               <span class="cart-total-price" id='gia1'></span>
-/
+
               <div class="w3-left">
                 <strong class="cart-total-title">Size</strong>
                 <select name="size" id="" style="width: 80px;height: 50px;">
@@ -567,13 +526,16 @@ if(isset($_POST["username1"]) ){
           </div>
 
           <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="<?= LogCard() ?>">Add to cart <i class="fa fa-shopping-cart"></i></button>
+            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
           </div>
 
         </div>
       </div>
-<?php } ?>
-
+    <?php
+            }  
+        }
+      
+    ?>
 
 
 </div>
