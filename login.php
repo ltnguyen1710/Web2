@@ -12,11 +12,11 @@ function createDBConnection(){
 function login($username, $passwork)
 {
     $con = createDBConnection();
-    $sql = "Select * from customer where usernameCU ='" . $username . "'";
+    $sql = "Select * from khachhang where userKH ='" . $username . "'";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
         if ($row = $result->fetch_assoc()) {
-            if ($row['password'] = $passwork) {
+            if ($row['passKH'] = $passwork) {
                 $_SESSION['username'] = $username;
                 return $username;
             }

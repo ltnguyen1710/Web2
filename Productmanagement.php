@@ -11,7 +11,8 @@ if (isset($_REQUEST['Insert'])) {
     $sql = sprintf("INSERT INTO sanpham (thongtinSP,tenSP,giaSP,hinhanhSP) 
                     VALUES ( '%s', '%s', '%s' ,'%s')"
                   , $_REQUEST['bio'],
-                    $_REQUEST['name'], $_REQUEST['gia'],
+                    $_REQUEST['name'],
+                     $_REQUEST['gia'],
                     $_REQUEST['myFile']);
     var_dump($sql);
     if ($conn->query($sql) === TRUE) {

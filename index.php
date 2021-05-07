@@ -10,7 +10,7 @@ if (isset($_POST['username'])) {
 <?php 
 require ('register_submit.php');
 if(isset($_POST["username1"]) ){
-  Register($_POST["username1"],$_POST["psw1"],$_POST["repsw"]);
+  Register($_POST["username1"],$_POST["psw1"],$_POST["repsw"],$_POST["phone"],$_POST["fullname"]);
   
 }
 ?>
@@ -22,6 +22,7 @@ if(isset($_POST["username1"]) ){
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="index.js"></script>
 <style>
   .w3-sidebar a,
   form {
@@ -506,20 +507,25 @@ if(isset($_POST["username1"]) ){
 
     <!-- Product grid -->
     <div class="w3-row w3-whitescale">
-
+    <?php
+      $con = createDBConnection();
+      $sql = "SELECT * FROM SANPHAM";
+      $result = $con->query($sql);
+      while ($row = $result->fetch_assoc()){
+      ?>
 
       <div class="w3-col l3 s6">
         <div class="w3-container">
           <div class="w3-display-container">
-            <img src="Images/T-SHIRT/5.1.jpg" style="width:100%">
+            <img src="<?= $row['hinhanhSP'] ?>" style="width:100%">
             <span class="w3-tag w3-display-topleft">Sale</span>
             <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="w3_open(), document.getElementById('detail5').style.display='block'">
-                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
+              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP']?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>')">
+                <button class="w3-button w3-black" > Detail <i class=" fa fa-info-circle"></i></button>
               </a>
             </div>
           </div>
-          <p>BXD - ALEX OVERPRINT TEES/BLACK <br><b>$24.99</b></p>
+          <p><?= $row['tenSP'] ?> <br><b>$<?= $row['giaSP'] ?></b></p>
         </div>
       </div>
       <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
@@ -527,7 +533,7 @@ if(isset($_POST["username1"]) ){
         <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
 
           <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header ">BXD - ALEX OVERPRINT TEES/BLACK</span>
+            <span class=" cart-header " id='ten'></span>
             <span onclick="document.getElementById('detail5').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
           </div>
 
@@ -541,19 +547,19 @@ if(isset($_POST["username1"]) ){
             <div class="cart-row">
 
               <div class="cart-item cart-column">
-                <img class="cart-item-image1" src="Images/T-SHIRT/5.2.jpg" width="400" height="400">
+                <img class="cart-item-image1" id='hinh' width="400" height="400">
               </div>
               <div class="cart-quantity cart-column">
-                <p>“Angel” được xem là sứ giả mang đến những cái đẹp. Và đây chính là biểu tượng mà mà BOBUI muốn xây dựng xuyên suốt để mang đến chất riêng của BO BUI cùng những điều tốt nhất đến Khách hàng.</p>
+                <p id='mota'></p>
 
               </div>
 
             </div>
-
+            
 
             <div class="cart-total">
               <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">$24.99</span>
+              <span class="cart-total-price" id='gia1'></span>
 
               <div class="w3-left">
                 <strong class="cart-total-title">Size</strong>
@@ -577,502 +583,11 @@ if(isset($_POST["username1"]) ){
 
         </div>
       </div>
+<?php } ?>
 
 
-      <!---->
 
-      <div class="w3-col l3 s6">
-        <div class="w3-container">
-          <div class="w3-display-container">
-            <img src="Images/T-SHIRT/6.1.jpg" style="width:100%">
-            <span class="w3-tag w3-display-topleft">New</span>
-            <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="w3_open(), document.getElementById('detail6').style.display='block'">
-                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
-              </a>
-            </div>
-          </div>
-          <p>BXD - ALEX OVERPRINT TEES/BLACK <br><b>$24.99</b></p>
-        </div>
-      </div>
-      <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-      <div id="detail6" class="w3-modal  ">
-        <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
-
-          <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header ">BXD - ALEX OVERPRINT TEES/BLACK</span>
-            <span onclick="document.getElementById('detail6').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-          </div>
-
-          <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
-          </div>
-
-          <div class="cart-items w3-container">
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image1" src="Images/T-SHIRT/6.2.jpg" width="400" height="400">
-              </div>
-              <div class="cart-quantity cart-column">
-                <p>“Angel” được xem là sứ giả mang đến những cái đẹp. Và đây chính là biểu tượng mà mà BOBUI muốn xây dựng xuyên suốt để mang đến chất riêng của BO BUI cùng những điều tốt nhất đến Khách hàng.</p>
-
-              </div>
-
-            </div>
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">$24.99</span>
-
-              <div class="w3-left ">
-                <strong class="cart-total-title">Size</strong>
-                <select name="size" id="" style="width: 80px;height: 50px;">
-                  <option value="">S</option>
-                  <option value="">M</option>
-                  <option value="">L</option>
-                  <option value="">XL</option>
-                  <option value="">XXL</option>
-                </select>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
-          </div>
-
-        </div>
-      </div>
-
-
-      <!---->
-
-      <div class="w3-col l3 s6">
-        <div class="w3-container">
-          <div class="w3-display-container">
-            <img src="Images/T-SHIRT/7.1.jpg" style="width:100%">
-            <span class="w3-tag w3-display-topleft">New</span>
-            <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="w3_open(), document.getElementById('detail7').style.display='block'">
-                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
-              </a>
-            </div>
-          </div>
-          <p>BXD - ALEX OVERPRINT TEES/BLACK <br><b>$24.99</b></p>
-        </div>
-      </div>
-      <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-      <div id="detail7" class="w3-modal  ">
-        <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
-
-          <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header ">BXD - ALEX OVERPRINT TEES/BLACK</span>
-            <span onclick="document.getElementById('detail7').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-          </div>
-
-          <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
-          </div>
-
-          <div class="cart-items w3-container">
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image1" src="Images/T-SHIRT/7.2.jpg" width="400" height="400">
-              </div>
-              <div class="cart-quantity cart-column">
-                <p>“Angel” được xem là sứ giả mang đến những cái đẹp. Và đây chính là biểu tượng mà mà BOBUI muốn xây dựng xuyên suốt để mang đến chất riêng của BO BUI cùng những điều tốt nhất đến Khách hàng.</p>
-
-              </div>
-
-            </div>
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">$21.99</span>
-
-              <div class="w3-left">
-                <strong class="cart-total-title">Size</strong>
-                <select name="size" id="" style="width: 80px;height: 50px;">
-                  <option value="">S</option>
-                  <option value="">M</option>
-                  <option value="">L</option>
-                  <option value="">XL</option>
-                  <option value="">XXL</option>
-                </select>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
-          </div>
-
-        </div>
-      </div>
-
-
-      <!---->
-
-      <div class="w3-col l3 s6">
-        <div class="w3-container">
-          <div class="w3-display-container">
-            <img src="Images/T-SHIRT/8.1.jpg" style="width:100%">
-            <span class="w3-tag w3-display-topleft">New</span>
-            <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="w3_open(), document.getElementById('detail8').style.display='block'">
-                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
-              </a>
-            </div>
-          </div>
-          <p>BXD - ALEX OVERPRINT TEES/BLACK <br><b>$24.99</b></p>
-        </div>
-      </div>
-      <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-      <div id="detail8" class="w3-modal  ">
-        <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
-
-          <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header ">BXD - ALEX OVERPRINT TEES/BLACK</span>
-            <span onclick="document.getElementById('detail8').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-          </div>
-
-          <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
-          </div>
-
-          <div class="cart-items w3-container">
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image1" src="Images/T-SHIRT/8.2.jpg" width="400" height="400">
-              </div>
-              <div class="cart-quantity cart-column">
-                <p>“Angel” được xem là sứ giả mang đến những cái đẹp. Và đây chính là biểu tượng mà mà BOBUI muốn xây dựng xuyên suốt để mang đến chất riêng của BO BUI cùng những điều tốt nhất đến Khách hàng.</p>
-
-              </div>
-
-            </div>
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">$21.99</span>
-
-              <div class="w3-left">
-                <strong class="cart-total-title">Size</strong>
-                <select name="size" id="" style="width: 80px;height: 50px;">
-                  <option value="">S</option>
-                  <option value="">M</option>
-                  <option value="">L</option>
-                  <option value="">XL</option>
-                  <option value="">XXL</option>
-                </select>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="w3-col l3 s6">
-        <div class="w3-container">
-          <div class="w3-display-container">
-            <img src="Images/T-SHIRT/1.1.jpg" style="width:100%">
-            <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="w3_open(), document.getElementById('detail1').style.display='block'">
-                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
-              </a>
-            </div>
-          </div>
-          <p>BXD - ALEX OVERPRINT TEES/BLACK <br><b>$24.99</b></p>
-        </div>
-      </div>
-      <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-      <div id="detail1" class="w3-modal  ">
-        <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
-
-          <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header ">BXD - ALEX OVERPRINT TEES/BLACK</span>
-            <span onclick="document.getElementById('detail1').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-          </div>
-
-          <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
-          </div>
-
-          <div class="cart-items w3-container">
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image1" src="Images/T-SHIRT/1.2.jpg" width="400" height="400">
-              </div>
-              <div class="cart-quantity cart-column">
-                <p>“Angel” được xem là sứ giả mang đến những cái đẹp. Và đây chính là biểu tượng mà mà BOBUI muốn xây dựng xuyên suốt để mang đến chất riêng của BO BUI cùng những điều tốt nhất đến Khách hàng.</p>
-
-              </div>
-
-            </div>
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">$24.99</span>
-
-              <div class="w3-left ">
-                <strong class="cart-total-title">Size</strong>
-                <select name="size" id="" style="width: 80px;height: 50px;">
-                  <option value="">S</option>
-                  <option value="">M</option>
-                  <option value="">L</option>
-                  <option value="">XL</option>
-                  <option value="">XXL</option>
-                </select>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
-          </div>
-
-        </div>
-      </div>
-
-
-      <!---->
-
-      <div class="w3-col l3 s6">
-        <div class="w3-container">
-          <div class="w3-display-container">
-            <img src="Images/T-SHIRT/2.1.jpg" style="width:100%">
-            <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="w3_open(), document.getElementById('detail2').style.display='block'">
-                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
-              </a>
-            </div>
-          </div>
-          <p>BXD - ALEX OVERPRINT TEES/BLACK <br><b>$24.99</b></p>
-        </div>
-      </div>
-      <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-      <div id="detail2" class="w3-modal  ">
-        <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
-
-          <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header ">BXD - ALEX OVERPRINT TEES/BLACK</span>
-            <span onclick="document.getElementById('detail2').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-          </div>
-
-          <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
-          </div>
-
-          <div class="cart-items w3-container">
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image1" src="Images/T-SHIRT/2.2.jpg" width="400" height="400">
-              </div>
-              <div class="cart-quantity cart-column">
-                <p>“Angel” được xem là sứ giả mang đến những cái đẹp. Và đây chính là biểu tượng mà mà BOBUI muốn xây dựng xuyên suốt để mang đến chất riêng của BO BUI cùng những điều tốt nhất đến Khách hàng.</p>
-
-              </div>
-
-            </div>
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">$24.99</span>
-
-              <div class="w3-left">
-                <strong class="cart-total-title">Size</strong>
-                <select name="size" id="" style="width: 80px;height: 50px;">
-                  <option value="">S</option>
-                  <option value="">M</option>
-                  <option value="">L</option>
-                  <option value="">XL</option>
-                  <option value="">XXL</option>
-                </select>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
-          </div>
-
-        </div>
-      </div>
-
-
-      <!---->
-
-      <div class="w3-col l3 s6">
-        <div class="w3-container">
-          <div class="w3-display-container">
-            <img src="Images/T-SHIRT/3.1.jpg" style="width:100%">
-            <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="w3_open(), document.getElementById('detail3').style.display='block'">
-                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
-              </a>
-            </div>
-          </div>
-          <p>BXD - ALEX OVERPRINT TEES/BLACK <br><b>$24.99</b></p>
-        </div>
-      </div>
-      <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-      <div id="detail3" class="w3-modal  ">
-        <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
-
-          <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header ">BXD - ALEX OVERPRINT TEES/BLACK</span>
-            <span onclick="document.getElementById('detail3').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-          </div>
-
-          <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
-          </div>
-
-          <div class="cart-items w3-container">
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image1" src="Images/T-SHIRT/3.2.jpg" width="400" height="400">
-              </div>
-              <div class="cart-quantity cart-column">
-                <p>“Angel” được xem là sứ giả mang đến những cái đẹp. Và đây chính là biểu tượng mà mà BOBUI muốn xây dựng xuyên suốt để mang đến chất riêng của BO BUI cùng những điều tốt nhất đến Khách hàng.</p>
-
-              </div>
-
-            </div>
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">$24.99</span>
-
-              <div class="w3-left">
-                <strong class="cart-total-title">Size</strong>
-                <select name="size" id="" style="width: 80px;height: 50px;">
-                  <option value="">S</option>
-                  <option value="">M</option>
-                  <option value="">L</option>
-                  <option value="">XL</option>
-                  <option value="">XXL</option>
-                </select>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
-          </div>
-
-        </div>
-      </div>
-
-
-      <!---->
-
-      <div class="w3-col l3 s6">
-        <div class="w3-container">
-          <div class="w3-display-container">
-            <img src="Images/T-SHIRT/4.1.jpg" style="width:100%">
-            <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="w3_open(), document.getElementById('detail4').style.display='block'">
-                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
-              </a>
-            </div>
-          </div>
-          <p>BXD - ALEX OVERPRINT TEES/BLACK <br><b>$24.99</b></p>
-        </div>
-      </div>
-      <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-      <div id="detail4" class="w3-modal  ">
-        <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
-
-          <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header ">BXD - ALEX OVERPRINT TEES/BLACK</span>
-            <span onclick="document.getElementById('detail4').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-          </div>
-
-          <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
-          </div>
-
-          <div class="cart-items w3-container">
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image1" src="Images/T-SHIRT/4.2.jpg" width="400" height="400">
-              </div>
-              <div class="cart-quantity cart-column">
-                <p>“Angel” được xem là sứ giả mang đến những cái đẹp. Và đây chính là biểu tượng mà mà BOBUI muốn xây dựng xuyên suốt để mang đến chất riêng của BO BUI cùng những điều tốt nhất đến Khách hàng.</p>
-
-              </div>
-
-            </div>
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">$24.99</span>
-
-              <div class="w3-left">
-                <strong class="cart-total-title">Size</strong>
-                <select name="size" id="" style="width: 80px;height: 50px;">
-                  <option value="">S</option>
-                  <option value="">M</option>
-                  <option value="">L</option>
-                  <option value="">XL</option>
-                  <option value="">XXL</option>
-                </select>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
-          </div>
-
-        </div>
-      </div>
-
-
-      <!---->
-      <!---->
-
-    </div>
+</div>
     <!-- Subscribe section -->
     <div class="w3-container w3-black w3-padding-32">
       <h1>Subscribe</h1>
