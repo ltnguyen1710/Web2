@@ -60,5 +60,7 @@ function logout(){
     unset($_SESSION['username']);
     header('Location: index.php');
 }
-
+function LogCard(){
+return isLogined() ?  "document.getElementById('checkout').style.display='block'" : "document.getElementById('id01').style.display='block'";
+}
 ?>

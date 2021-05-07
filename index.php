@@ -256,7 +256,7 @@ if(isset($_POST["username1"]) ){
             <span class="cart-total-price" id="price"></span>
           </div>
           <div class="w3-container w3-border-top w3-padding-24 ">
-            <button onclick="document.getElementById('checkout').style.display='block'" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
+            <button onclick="<?= LogCard()  ?>" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
           </div>
 
         </div>
