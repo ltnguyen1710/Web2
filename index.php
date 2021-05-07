@@ -248,39 +248,13 @@ if(isset($_POST["username1"]) ){
 
           <div class="cart-items w3-container">
 
-            <div class="cart-row">
-              <div class="cart-item cart-column">
-                <img class="cart-item-image" src="Images/T-SHIRT/2.1.jpg" width="100" height="100">
-                <span class="cart-item-title">BXD - CHECKERBOARD GREEN SHIRT</span>
-              </div>
-              <span class="cart-price cart-column">34.99$</span>
-              <div class="cart-quantity cart-column">
-                <input class="cart-quantity-input" type="number" min='0' value="1">
-                <button class="btn btn-danger" type="button" onclick="alert('Deleted')">Delete</button>
-              </div>
-            </div>
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image" src="Images/T-SHIRT/3.1.jpg" width="100" height="100">
-                <span class="cart-item-title">BXD - LOGO TEES/BLACK</span>
-              </div>
-              <span class="cart-price cart-column">21.99$</span>
-              <div class="cart-quantity cart-column">
-                <input class="cart-quantity-input" type="number" min='0' value="2">
-                <button class="btn btn-danger" type="button" onclick="alert('Deleted')">Delete</button>
-              </div>
-
-            </div>
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price">78.79$</span>
-            </div>
+           
 
           </div>
-
+          <div class="cart-total">
+            <strong class="cart-total-title">Total Price:</strong>
+            <span class="cart-total-price" id="price"></span>
+          </div>
           <div class="w3-container w3-border-top w3-padding-24 ">
             <button onclick="document.getElementById('checkout').style.display='block'" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
           </div>
@@ -578,7 +552,7 @@ if(isset($_POST["username1"]) ){
           </div>
 
           <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="alert('Added')">Add to cart <i class="fa fa-shopping-cart"></i></button>
+            <button class="w3-button w3-red w3-transparent w3-right" onclick="addItemToCart(document.getElementById('ten').innerHTML,document.getElementById('gia1').innerHTML,document.getElementById('hinh').src)">Add to cart <i class="fa fa-shopping-cart"></i></button>
           </div>
 
         </div>
