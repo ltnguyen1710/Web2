@@ -101,3 +101,8 @@ function addItemToCart(title, price, img) {
   })
   updatecart()
 }
+function thanhtoan(gia){
+  document.getElementById('checkout').style.display='block';
+  document.getElementById('price1').innerHTML=gia;
+
+}

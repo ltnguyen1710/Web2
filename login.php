@@ -61,6 +61,6 @@ function logout(){
     header('Location: index.php');
 }
 function LogCard(){
-return isLogined() ?  "document.getElementById('checkout').style.display='block'" : "document.getElementById('id01').style.display='block'";
+return isLogined() ?  "addItemToCart(document.getElementById('ten').innerHTML,document.getElementById('gia1').innerHTML,document.getElementById('hinh').src)" : "document.getElementById('id01').style.display='block',document.getElementById('detail5').style.display='none'";
 }
 ?>
