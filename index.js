@@ -25,7 +25,7 @@ function updatecart() {
     var quantity = quantity_item.value // lấy giá trị trong thẻ input
     total = total + (price * quantity)
   }
-  document.getElementsByClassName("cart-total-price")[0].innerText = '$' + total;
+  document.getElementsByClassName("cart-total-price")[0].innerText = total;
   // Thay đổi text = total trong .cart-total-price. Chỉ có một .cart-total-price nên mình sử dụng [0]
 }
 /*var quantity_input = document.getElementsByClassName("cart-quantity-input");
@@ -101,8 +101,15 @@ function addItemToCart(title, price, img) {
   })
   updatecart()
 }
-function thanhtoan(gia){
-  document.getElementById('checkout').style.display='block';
-  document.getElementById('price1').innerHTML=gia;
+function thanhtoan(gia) {
+  if(gia==""){
+    alert('Please choose your items to buy');
+    return;
+  }
+  document.getElementById('checkout').style.display = 'block';
+  document.getElementById('price1').innerHTML = gia;
 
+}
+function search(){
+    document.getElementById('timkiem').href="Search.php?tukhoa="+document.getElementById('find').value
 }

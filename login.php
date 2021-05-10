@@ -9,14 +9,18 @@ function createDBConnection(){
     
     return $con;
 }
-function login($username, $passwork)
+function login($username, $password)
 {
     $con = createDBConnection();
+    if ($con->connect_error) {
+        die("Connection failed " . $con->connect_error);
+        return;
+    }
     $sql = "Select * from khachhang where userKH ='" . $username . "'";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
         if ($row = $result->fetch_assoc()) {
-            if ($row['passKH'] = $passwork) {
+            if ($row['passKH'] == $password) {
                 $_SESSION['username'] = $username;
                 return $username;
             }
@@ -25,19 +29,16 @@ function login($username, $passwork)
     $con->close();
 }
 function adminlogin($admin, $pass){
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "dct119c2";
-    $con = new mysqli($servername, $username, $password, $dbname);
+    $con = createDBConnection();
     if ($con->connect_error) {
         die("Connection failed " . $con->connect_error);
+        return;
     }
     $sql = "Select * from admin where userAD='" . $admin . "'";
     $result = $con->query($sql);
     if ($result->num_rows > 0) {
         if ($row = $result->fetch_assoc()) {
-            if ($row['passAD'] = $pass) {
+            if ($row['passAD'] == $pass) {
                 $_SESSION['admin'] = $admin;
                 return $admin;
             }

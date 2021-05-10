@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th4 23, 2021 lúc 09:53 AM
--- Phiên bản máy phục vụ: 10.4.18-MariaDB
--- Phiên bản PHP: 8.0.3
+-- Thời gian đã tạo: Th5 10, 2021 lúc 10:54 AM
+-- Phiên bản máy phục vụ: 10.4.14-MariaDB
+-- Phiên bản PHP: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -46,10 +46,12 @@ INSERT INTO `admin` (`userAD`, `passAD`) VALUES
 --
 
 CREATE TABLE `chitiethoadon` (
-  `maSP` int(30) NOT NULL,
   `maDon` int(30) NOT NULL,
-  `maCTHD` int(30) NOT NULL,
-  `tongBill` int(50) NOT NULL
+  `maSP` int(30) NOT NULL,
+  `userKH` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `hinhanh` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `soluong` int(11) NOT NULL,
+  `diachinhan` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 -- --------------------------------------------------------
@@ -61,7 +63,10 @@ CREATE TABLE `chitiethoadon` (
 CREATE TABLE `donhang` (
   `maDon` int(30) NOT NULL,
   `giaDon` int(30) NOT NULL,
-  `soluongMua` int(30) NOT NULL
+  `soluongMua` int(30) NOT NULL,
+  `tinhtrang` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `ngaydat` date NOT NULL,
+  `userKH` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 -- --------------------------------------------------------
@@ -73,9 +78,16 @@ CREATE TABLE `donhang` (
 CREATE TABLE `khachhang` (
   `userKH` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `passKH` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `sdt` int(15) NOT NULL,
+  `sdt` varchar(15) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `hoTen` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `khachhang`
+--
+
+INSERT INTO `khachhang` (`userKH`, `passKH`, `sdt`, `hoTen`) VALUES
+('ha', '123', '0939635455', 'le nguyen');
 
 -- --------------------------------------------------------
 
@@ -85,9 +97,15 @@ CREATE TABLE `khachhang` (
 
 CREATE TABLE `loaisanpham` (
   `maloaiSP` int(30) NOT NULL,
-  `loaiSP` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `soluongTonkho` int(11) NOT NULL
+  `loaiSP` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `loaisanpham`
+--
+
+INSERT INTO `loaisanpham` (`maloaiSP`, `loaiSP`) VALUES
+(1, 'tee');
 
 -- --------------------------------------------------------
 
@@ -97,11 +115,20 @@ CREATE TABLE `loaisanpham` (
 
 CREATE TABLE `sanpham` (
   `maSP` int(30) NOT NULL,
+  `maloaiSP` int(11) NOT NULL,
   `thongtinSP` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `tenSP` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `giaSP` int(11) NOT NULL,
-  `hinhanhSP` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL
+  `hinhanhSP` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `soluongtonkho` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `sanpham`
+--
+
+INSERT INTO `sanpham` (`maSP`, `maloaiSP`, `thongtinSP`, `tenSP`, `giaSP`, `hinhanhSP`, `soluongtonkho`) VALUES
+(13, 1, 'alo', 'lê trung nguyên', 1000, 'https://rodavigo.net/datos/logos-marcas-png/ima.png', 1);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -117,7 +144,7 @@ ALTER TABLE `admin`
 -- Chỉ mục cho bảng `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  ADD PRIMARY KEY (`maSP`,`maDon`,`maCTHD`);
+  ADD PRIMARY KEY (`maDon`,`maSP`);
 
 --
 -- Chỉ mục cho bảng `donhang`
@@ -141,7 +168,28 @@ ALTER TABLE `loaisanpham`
 -- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  ADD PRIMARY KEY (`maSP`);
+  ADD PRIMARY KEY (`maSP`),
+  ADD KEY `FK_loaisp` (`maloaiSP`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `sanpham`
+--
+ALTER TABLE `sanpham`
+  MODIFY `maSP` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `sanpham`
+--
+ALTER TABLE `sanpham`
+  ADD CONSTRAINT `FK_loaisp` FOREIGN KEY (`maloaiSP`) REFERENCES `loaisanpham` (`maloaiSP`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

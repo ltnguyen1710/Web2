@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <?php
-require ('login.php');
+require('login.php');
 
 $loginResult = '';
 if (isset($_POST['username'])) {
   $loginResult = "Hi, " . login($_POST['username'], $_POST['psw']);
 }
 ?>
-<?php 
-require ('register_submit.php');
-if(isset($_POST["username1"]) ){
-  Register($_POST["username1"],$_POST["psw1"],$_POST["repsw"],$_POST["phone"],$_POST["fullname"]);
-  
+<?php
+require('register_submit.php');
+if (isset($_POST["username1"])) {
+  Register($_POST["username1"], $_POST["psw1"], $_POST["repsw"], $_POST["phone"], $_POST["fullname"]);
 }
 ?>
 
@@ -143,7 +142,7 @@ if(isset($_POST["username1"]) ){
 
   .cart-total-price {
     color: #333;
-    font-size: 1.1em;
+    font-size: 1.5em;
   }
 </style>
 
@@ -200,10 +199,10 @@ if(isset($_POST["username1"]) ){
     <div class="w3-hide-large" style="margin-top:83px"></div>
 
     <!-- Top header -->
-    
+
     <header class="w3-container w3-xlarge">
       <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?>
-    
+
 
       <p class="w3-right">
 
@@ -221,25 +220,25 @@ if(isset($_POST["username1"]) ){
         <?php
         }
         ?>
-        
+
         <!-- Shopping icon -->
         <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
           <i onclick="document.getElementById('shoppingcart').style.display='block'" class="fa fa-shopping-cart "></i>
         </a>
+
         <!-- Find icon -->
         <form name = "fromTim" method = "GET" action = "Search.php">
-
-           <input type="submit" class="w3-bar-item w3-button  w3-right fa fa_search" name="timkiem" value=""> </input> 
-
-        
-        
         <!-- Bottom Bar Start -->
-      <div class="w3-bar-item  bottom-bar">
-        <div  class="w3-modal-find w3-padding-32 w3-right">
-          <div class="search" class="w3-container  ">
-              <input type="text" name="tukhoa"  placeholder="Search for names.." title="Type in a name">          
-      </div>
-      </form>
+        <div class="w3-bar-item  bottom-bar">
+          <div class="w3-modal-find w3-padding-32 w3-right">
+            <div class="search" class="w3-container  ">
+              <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" >
+            </div>
+          </div>
+        </div>
+        </form>
+
       <!-- Bottom Bar End -->
       <!-- Shopping -->
       <div id="shoppingcart" class="w3-modal">
@@ -258,15 +257,15 @@ if(isset($_POST["username1"]) ){
 
           <div class="cart-items w3-container">
 
-           
+
 
           </div>
           <div class="cart-total">
-            <strong class="cart-total-title">Total Price:</strong>
+            <strong class="cart-total-title">Total Price: $</strong>
             <span class="cart-total-price" id="price"></span>
           </div>
           <div class="w3-container w3-border-top w3-padding-24 ">
-            <button onclick="thanhtoan(document.getElementById('price').innerHTML)" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
+            <button onclick="<?= isLogined() ? "thanhtoan(document.getElementById('price').innerHTML)" : "document.getElementById('id01').style.display='block'" ?>" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
           </div>
 
         </div>
@@ -341,12 +340,12 @@ if(isset($_POST["username1"]) ){
               <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Confirm Password" name="repsw" required>
 
             </div>
-          
 
-          <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-            <button onclick="document.getElementById('id02').style.display='none',document.getElementById('price1').innerHTML=document.getElementById('price').innerHTML " type="button" class="w3-button w3-grey">Cancel</button>
-            <input  class="w3-button  w3-black w3-right" name ="submit" value="Submit" href="#" type="Submit" onclick="alert('Sign up successful !')">
-          </div>
+
+            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+              <button onclick="document.getElementById('id02').style.display='none',document.getElementById('price1').innerHTML=document.getElementById('price').innerHTML " type="button" class="w3-button w3-grey">Cancel</button>
+              <input class="w3-button  w3-black w3-right" name="submit" value="Submit" href="#" type="Submit" onclick="alert('Sign up successful !')">
+            </div>
 
         </div>
         </form>
@@ -363,15 +362,15 @@ if(isset($_POST["username1"]) ){
           <?php
           $con = createDBConnection();
           $sql = "SELECT * FROM khachhang WHERE userKH='" . $_SESSION['username'] . "'";
-         $result = $con->query($sql);
-        $row = $result->fetch_assoc()
-         ?>
+          $result = $con->query($sql);
+          $row = $result->fetch_assoc()
+          ?>
           <form class="w3-container">
             <div class="w3-section">
               <label><b>Full name</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?=$row['hoTen']?>" name="adress" required>
+              <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required>
               <label><b>Phone number</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?=$row['sdt']?>" name="tel" required>
+              <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required>
               <label><b>Adress</b></label>
               <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter Adress">
               <label><b>Nation</b></label>
@@ -491,92 +490,91 @@ if(isset($_POST["username1"]) ){
     </script>
 
     <div class="w3-container w3-text-grey" id="jeans">
-   
+
     </div>
 
     <!-- Product grid -->
-    <div class="w3-row w3-whitescale" id ="myTable">
-    <?php
+    <div class="w3-row w3-whitescale" id="myTable">
+      <?php
       $con = createDBConnection();
       $sql = "SELECT * FROM SANPHAM";
       $result = $con->query($sql);
-      while ($row = $result->fetch_assoc()){
+      while ($row = $result->fetch_assoc()) {
       ?>
 
-      <div class="w3-col l3 s6">
-        <div class="w3-container">
-          <div class="w3-display-container">
-            <img src="<?= $row['hinhanhSP'] ?>" style="width:100%">
-            <span class="w3-tag w3-display-topleft">Sale</span>
-            <div class="w3-display-middle w3-display-hover">
-              <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP']?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>')">
-                <button class="w3-button w3-black" > Detail <i class=" fa fa-info-circle"></i></button>
-              </a>
+        <div class="w3-col l3 s6">
+          <div class="w3-container">
+            <div class="w3-display-container">
+              <img src="<?= $row['hinhanhSP'] ?>" style="width:100%">
+              <span class="w3-tag w3-display-topleft">Sale</span>
+              <div class="w3-display-middle w3-display-hover">
+                <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>')">
+                  <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
+                </a>
+              </div>
             </div>
+            <p><?= $row['tenSP'] ?> <br><b>$<?= $row['giaSP'] ?></b></p>
           </div>
-          <p><?= $row['tenSP'] ?> <br><b>$<?= $row['giaSP'] ?></b></p>
         </div>
-      </div>
-      <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-      <div id="detail5" class="w3-modal  ">
- ?       <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
+        <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
+        <div id="detail5" class="w3-modal  ">
+          <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
 
-          <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header " id='ten'></span>
-            <span onclick="document.getElementById('detail5').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-          </div>
-
-          <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
-          </div>
-
-          <div class="cart-items w3-container">
-
-            <div class="cart-row">
-
-              <div class="cart-item cart-column">
-                <img class="cart-item-image1" id='hinh' width="400" height="400">
-              </div>
-              <div class="cart-quantity cart-column">
-                <p id='mota'></p>
-
-              </div>
-
-            </div>
-            
-
-            <div class="cart-total">
-              <strong class="cart-total-title">Total Price:</strong>
-              <span class="cart-total-price" id='gia1'></span>
-/
-              <div class="w3-left">
-                <strong class="cart-total-title">Size</strong>
-                <select name="size" id="" style="width: 80px;height: 50px;">
-                  <option value="">S</option>
-                  <option value="">M</option>
-                  <option value="">L</option>
-                  <option value="">XL</option>
-                  <option value="">XXL</option>
-                </select>
-              </div>
-
+            <div class="w3-container w3-padding-16 w3-light-grey">
+              <span class=" cart-header " id='ten'></span>
+              <span onclick="document.getElementById('detail5').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
             </div>
 
+            <div class="cart-row w3-container">
+              <span class="cart-item cart-header cart-column">Items</span>
+              <span class="cart-quantity cart-header cart-column">Infor</span>
+            </div>
+
+            <div class="cart-items w3-container">
+
+              <div class="cart-row">
+
+                <div class="cart-item cart-column">
+                  <img class="cart-item-image1" id='hinh' width="400" height="400">
+                </div>
+                <div class="cart-quantity cart-column">
+                  <p id='mota'></p>
+
+                </div>
+
+              </div>
+
+
+              <div class="cart-total">
+                <strong class="cart-total-title">Price: $</strong>
+                <strong class="cart-total-price" id='gia1'></strong>
+                <div class="w3-left">
+                  <strong class="cart-total-title">Size</strong>
+                  <select name="size" id="" style="width: 80px;height: 50px;">
+                    <option value="">S</option>
+                    <option value="">M</option>
+                    <option value="">L</option>
+                    <option value="">XL</option>
+                    <option value="">XXL</option>
+                  </select>
+                </div>
+
+              </div>
+
+
+            </div>
+
+            <div class="w3-container w3-border-top w3-padding-24 ">
+              <button class="w3-button w3-red w3-transparent w3-right" onclick="<?= LogCard() ?>">Add to cart <i class="fa fa-shopping-cart"></i></button>
+            </div>
 
           </div>
-
-          <div class="w3-container w3-border-top w3-padding-24 ">
-            <button class="w3-button w3-red w3-transparent w3-right" onclick="<?= LogCard() ?>">Add to cart <i class="fa fa-shopping-cart"></i></button>
-          </div>
-
         </div>
-      </div>
-<?php } ?>
+      <?php } ?>
 
 
 
-</div>
+    </div>
     <!-- Subscribe section -->
     <div class="w3-container w3-black w3-padding-32">
       <h1>Subscribe</h1>

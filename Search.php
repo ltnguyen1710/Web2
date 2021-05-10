@@ -225,17 +225,15 @@ if(isset($_POST["username1"]) ){
         </a>
          <!-- Find icon -->
          <form name = "fromTim" method = "GET" action = "Search.php">
-
-                <input type="submit" class="w3-bar-item w3-button  w3-right fa fa_search" name="timkiem" value=""> </input> 
-
-
-
         <!-- Bottom Bar Start -->
-                <div class="w3-bar-item  bottom-bar">
-                <div  class="w3-modal-find w3-padding-32 w3-right">
-                <div class="search" class="w3-container  ">
-                     <input type="text" name="tukhoa"  placeholder="Search for names..." title="Type in a name">          
-                </div>
+        <div class="w3-bar-item  bottom-bar">
+          <div class="w3-modal-find w3-padding-32 w3-right">
+            <div class="search" class="w3-container  ">
+              <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" >
+            </div>
+          </div>
+        </div>
         </form>
       <!-- Bottom Bar End -->
       <!-- Shopping -->
@@ -453,7 +451,8 @@ if(isset($_POST["username1"]) ){
     <!-- Product grid -->
     <div class="w3-row w3-whitescale" id ="myTable">
     
-    <?php       
+    <?php    
+    if($_REQUEST['tukhoa'] != ""){   
           $conn = createDBConnection();
         $sql =sprintf("SELECT * FROM sanpham WHERE tenSP LIKE '%%%s%%'", $_REQUEST['tukhoa']);
      
@@ -534,6 +533,16 @@ if(isset($_POST["username1"]) ){
     <?php
             }  
         }
+        else {
+          echo "
+          <p>Product was not found</p>";          
+        }
+      }
+      else {
+        echo "
+        <p>Product was not found</p>
+        ";
+      }
       
     ?>
 
