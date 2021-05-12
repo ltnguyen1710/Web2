@@ -282,7 +282,7 @@ if (isset($_POST["username1"])) {
             <h1>Log in</h1>
           </div>
 
-          <form action='index.php' method="post" class="w3-container">
+          <form action='T-shirt.php' method="post" class="w3-container">
             <div class="w3-section">
               <label><b>User name</b></label>
               <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username" required value="checker">
@@ -311,7 +311,7 @@ if (isset($_POST["username1"])) {
             <h1>Create account</h1>
           </div>
 
-          <form class="w3-container" action="index.php" method="POST">
+          <form class="w3-container" action="T-shirt.php" method="POST">
             <div class="w3-section">
 
               <label><b>Full name</b></label>
@@ -496,10 +496,11 @@ if (isset($_POST["username1"])) {
     <!-- Product grid -->
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
-      $con = createDBConnection();
-      $sql = "SELECT * FROM SANPHAM";
-      $result = $con->query($sql);
+      $conn = createDBConnection();
+      $sql = "SELECT * FROM SANPHAM where maloaisp = 2"; // phân loại sản phẩm
+      $result = $conn->query($sql);
       while ($row = $result->fetch_assoc()) {
+        
       ?>
 
         <div class="w3-col l3 s6">
