@@ -152,7 +152,7 @@ if (isset($_POST["username1"])) {
   <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
       <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-      <a href="demo.html"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
+      <a href="index.php"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
     </div>
     <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
 
@@ -163,7 +163,7 @@ if (isset($_POST["username1"])) {
         <a href="T-shirt.php" class="w3-bar-item w3-button">T-Shirt</a>
         <a href="Hoodie.html" class="w3-bar-item w3-button">Hoodie</a>
         <a href="Sweater.html" class="w3-bar-item w3-button">Sweater</a>
-        <a href="Jackets.html" class="w3-bar-item w3-button">Jackets</a>
+        <a href="Jacket.php" class="w3-bar-item w3-button">Jackets</a>
       </div>
 
       <a onclick="myAccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align">
@@ -185,7 +185,7 @@ if (isset($_POST["username1"])) {
 
   <!-- Top menu on small screens -->
   <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-wide"><a href="demo.html" class="w3-button">CHECKERVIET</div>
+    <div class="w3-bar-item w3-wide"><a href="index.php" class="w3-button">CHECKERVIET</div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-10 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </header>
 
@@ -493,14 +493,44 @@ if (isset($_POST["username1"])) {
 
     </div>
 
-    <!-- Product grid -->
+    
+     <!-------------- Phan trang--------------->
+     <?php
+            $conn = createDbConnection();
+                // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+            $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 2');
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row['total'];
+                // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $limit = 4;
+                // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+                // tổng số trang
+            $total_page = ceil($total_records / $limit);
+                // Giới hạn current_page trong khoảng 1 đến total_page
+            if ($current_page > $total_page){
+                 $current_page = $total_page;
+            }
+            else if ($current_page < 1){
+                   $current_page = 1;
+            }
+ 
+                // Tìm Start
+            $start = ($current_page - 1) * $limit;
+
+                // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+                // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+            $result = mysqli_query($conn, "SELECT * FROM sanpham  LIMIT $start, $limit");
+?>
+        
+       <!-- Product grid -->
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $conn = createDBConnection();
-      $sql = "SELECT * FROM SANPHAM where maloaisp = 2"; // phân loại sản phẩm
-      $result = $conn->query($sql);
+     
+      $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 2 LIMIT $start, $limit");
       while ($row = $result->fetch_assoc()) {
-        
+       
       ?>
 
         <div class="w3-col l3 s6">
@@ -576,6 +606,39 @@ if (isset($_POST["username1"])) {
 
 
     </div>
+        <div class="w3-bar w3-center ">
+           <?php 
+            // PHẦN HIỂN THỊ PHÂN TRANG
+            // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+ 
+            // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+            if ($current_page > 1 && $total_page > 1){
+                echo '<a href="T-shirt.php?page='.($current_page-1).'">Prev</a> | ';
+            }
+ 
+            // Lặp khoảng giữa
+            for ($i = 1; $i <= $total_page; $i++){
+                // Nếu là trang hiện tại thì hiển thị thẻ span
+                // ngược lại hiển thị thẻ a
+                if ($i == $current_page){
+                    echo '<span>'.$i.'</span> | ';
+                }
+                else{
+                    echo '<a href="T-shirt.php?page='.$i.'">'.$i.'</a> | ';
+                }
+            }
+ 
+            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+            if ($current_page < $total_page && $total_page > 1){
+                echo '<a href="T-shirt.php?page='.($current_page+1).'">Next</a> | ';
+            }
+           ?>
+        </div>
+ 
+    <div class="w3-container">
+
+
+           
     <!-- Subscribe section -->
     <div class="w3-container w3-black w3-padding-32">
       <h1>Subscribe</h1>

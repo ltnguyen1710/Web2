@@ -78,6 +78,7 @@ if (isset($_REQUEST['Delete'])) {
     $conn->close();
 }
 ?>
+
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -206,7 +207,7 @@ if (isLoginedAdmin()) {
             </div>
             <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
                 <a href="admin.php" class="w3-button w3-block w3-white w3-left-align">Customer management</a>
-                <a href="T-shirt.html" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Product management</a>
+                <a href="T-shirt.php" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Product management</a>
             </div>
 
         </nav>
@@ -247,15 +248,16 @@ if (isLoginedAdmin()) {
             <br>
 
             <!-- Product grid -->
+<<<<<<< HEAD
             <div class="w3-row w3-whitescale">
                 <?php
                 $conn = createDBConnection();
                 $sql = "SELECT * FROM sanpham";
                 $result = $conn->query($sql);
                 while ($row = $result->fetch_assoc()) {
-                    $sql1="SELECT loaiSP FROM loaisanpham WHERE maloaiSP='". $row['maloaiSP'] ."'";
-                    $result1=$conn->query($sql1);
-                    $row1=$result1->fetch_assoc();
+                    $sql1 = "SELECT loaiSP FROM loaisanpham WHERE maloaiSP='" . $row['maloaiSP'] . "'";
+                    $result1 = $conn->query($sql1);
+                    $row1 = $result1->fetch_assoc();
                 ?>
 
 
@@ -279,6 +281,9 @@ if (isLoginedAdmin()) {
                 }
                 ?>
             </div>
+=======
+            
+>>>>>>> 066ebc5032c60bbc17b5331e9e55389bb94167fa
             <!--insert product-->
             <div id="themsp" class="w3-modal">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
@@ -367,7 +372,7 @@ if (isLoginedAdmin()) {
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
                                 <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" maxlength="100" name="soluongSP" id="soluongSP">
-                            </li>                            
+                            </li>
                             <li>
                                 <input type="submit" value="Update" name="Update" onclick="capnhat()">
                                 <input type="submit" name="Delete" onclick="return xoasp()" value="Delete">
@@ -377,23 +382,99 @@ if (isLoginedAdmin()) {
                 </div>
             </div>
             <!-------------- Phan trang--------------->
-            <div class="container">
+            <?php
+            $conn = createDbConnection();
+                // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+            $result = mysqli_query($conn, 'select count(*) as total from sanpham');
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row['total'];
+                // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $limit = 8;
+                // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+                // tổng số trang
+            $total_page = ceil($total_records / $limit);
+                // Giới hạn current_page trong khoảng 1 đến total_page
+            if ($current_page > $total_page){
+                 $current_page = $total_page;
+            }
+            else if ($current_page < 1){
+                   $current_page = 1;
+            }
+ 
+                // Tìm Start
+            $start = ($current_page - 1) * $limit;
 
-                <ul class="pagination justify-content-center">
-                    <ul class="pagination"></ul>
-                    <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-                </ul>
+                // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+                // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+            $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
+?>
+        
+        <div class="w3-row w3-whitescale">
+                <?php
+                $conn = createDBConnection();
+                $sql = "SELECT * FROM sanpham";
+                $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $sql1="SELECT loaiSP FROM loaisanpham WHERE maloaiSP='". $row['maloaiSP'] ."'";
+                    $result1=$conn->query($sql1);
+                    $row1=$result1->fetch_assoc();
+                ?>
 
+
+                    <div class="w3-col l3 s6">
+                        <div class="w3-container">
+                            <div class="w3-display-container">
+                                <img src="<?= $row['hinhanhSP'] ?>" style="width:200px">
+                                <span class="w3-tag w3-display-topleft">New</span>
+                            </div>
+                            <p><?= $row['tenSP'] ?><br><b>$ <?= $row['giaSP'] ?></b></p>
+                            <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
+                                <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
+                                    </button>
+                                </p>
+                            </a>
+
+                        </div>
+                    </div>
+
+                <?php
+                }
+                ?>
             </div>
+        <div class="w3-bar w3-center ">
+           <?php 
+            // PHẦN HIỂN THỊ PHÂN TRANG
+            // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+ 
+            // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+            if ($current_page > 1 && $total_page > 1){
+                echo '<a href="Productmanagement.php?page='.($current_page-1).'">Prev</a> | ';
+            }
+ 
+            // Lặp khoảng giữa
+            for ($i = 1; $i <= $total_page; $i++){
+                // Nếu là trang hiện tại thì hiển thị thẻ span
+                // ngược lại hiển thị thẻ a
+                if ($i == $current_page){
+                    echo '<span>'.$i.'</span> | ';
+                }
+                else{
+                    echo '<a href="Productmanagement.php?page='.$i.'">'.$i.'</a> | ';
+                }
+            }
+ 
+            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+            if ($current_page < $total_page && $total_page > 1){
+                echo '<a href="Productmanagement.php?page='.($current_page+1).'">Next</a> | ';
+            }
+           ?>
+        </div>
+    <!-------------- Phan trang--------------->
+    <div class="w3-container">
 
-            <!-----------Phan trang------------------>
+
+           
             <!-- Subscribe section -->
             <div class="w3-container w3-black w3-padding-32">
                 <h1>Subscribe</h1>
