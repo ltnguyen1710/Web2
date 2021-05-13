@@ -36,15 +36,20 @@ if (isset($_REQUEST['Insert'])) {
 
 if (isset($_REQUEST['Update'])) {
     $conn = createDbConnection();
-
+    $sql1 = "select maloaiSP from loaisanpham where loaiSP='" . $_REQUEST['loaiSP'] . "'";
+    $result = $conn->query($sql1);
+    $row = $result->fetch_assoc();
+    $maloaiSP = $row['maloaiSP'];
     $sql = sprintf(
         "UPDATE sanpham 
-            SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' 
+            SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
             WHERE tenSP = '%s'",
         $_REQUEST['ten'],
         $_REQUEST['gia1'],
         $_REQUEST['hinh'],
         $_REQUEST['mota'],
+        $maloaiSP,
+        $_REQUEST['soluongSP'],
         $_REQUEST['oldname']
     );
     var_dump($sql);

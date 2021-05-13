@@ -13,15 +13,6 @@ if (isset($_POST["username1"])) {
   Register($_POST["username1"], $_POST["psw1"], $_POST["repsw"], $_POST["phone"], $_POST["fullname"]);
 }
 ?>
-
-
-
-
-
-
-
-
-
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -152,7 +143,7 @@ if (isset($_POST["username1"])) {
   <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
       <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-      <a href="demo.html"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
+      <a href="index.php"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
     </div>
     <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
 
@@ -185,7 +176,7 @@ if (isset($_POST["username1"])) {
 
   <!-- Top menu on small screens -->
   <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-wide"><a href="demo.html" class="w3-button">CHECKERVIET</div>
+    <div class="w3-bar-item w3-wide"><a href="index.php" class="w3-button">CHECKERVIET</div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-10 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </header>
 
@@ -201,7 +192,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?>
+      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?></p>
 
 
       <p class="w3-right">
@@ -227,17 +218,17 @@ if (isset($_POST["username1"])) {
         </a>
 
         <!-- Find icon -->
-        <form name = "fromTim" method = "GET" action = "Search.php">
+      <form name="fromTim" method="GET" action="Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
           <div class="w3-modal-find w3-padding-32 w3-right">
             <div class="search" class="w3-container  ">
               <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
-              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" >
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
             </div>
           </div>
         </div>
-        </form>
+      </form>
 
       <!-- Bottom Bar End -->
       <!-- Shopping -->
@@ -262,7 +253,7 @@ if (isset($_POST["username1"])) {
           </div>
           <div class="cart-total">
             <strong class="cart-total-title">Total Price: $</strong>
-            <span class="cart-total-price" id="price"></span>
+            <strong class="cart-total-price" id="price"></strong>
           </div>
           <div class="w3-container w3-border-top w3-padding-24 ">
             <button onclick="<?= isLogined() ? "thanhtoan(document.getElementById('price').innerHTML)" : "document.getElementById('id01').style.display='block'" ?>" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
@@ -372,7 +363,7 @@ if (isset($_POST["username1"])) {
               <label><b>Phone number</b></label>
               <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required>
               <label><b>Adress</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter Adress">
+              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress">
               <label><b>Nation</b></label>
               <select name="nation">
                 <option value="">Vietnam</option>
@@ -389,13 +380,14 @@ if (isset($_POST["username1"])) {
             </div>
           </form>
           <div class="cart-total">
-            <strong class="cart-total-title">Total Price:</strong>
-            <span class="cart-total-price" id="price1"></span>
+            <strong class="cart-total-title">Total Price: $</strong>
+            <strong class="cart-total-price" id="price1"></strong>
           </div>
 
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
             <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-            <button class="w3-button w3-red w3-right" onclick="alert('Buy successfully !'),document.getElementById('checkout').style.display='none',document.getElementById('shoppingcart').style.display='none'">Confirm</button>
+            <button class="w3-button w3-red w3-right" name="Confirm" onclick="alert('Buy successfully !'),document.getElementById('checkout').style.display='none',document.getElementById('shoppingcart').style.display='none'
+            ,xulythanhtoan('<?= $_SESSION['username'] ?>')"  >Confirm</button>
           </div>
 
         </div>
@@ -558,9 +550,9 @@ if (isset($_POST["username1"])) {
                     <option value="">XXL</option>
                   </select>
                   <strong class="cart-total-title">Quantity of product:</strong>
-                  <strong class="cart-total-title w3-text-red" ><?= $row['soluongtonkho'] ?></strong>
-                  
-                  
+                  <strong class="cart-total-title w3-text-red"><?= $row['soluongtonkho'] ?></strong>
+
+
                 </div>
 
               </div>
