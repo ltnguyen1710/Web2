@@ -247,43 +247,8 @@ if (isLoginedAdmin()) {
 
             <br>
 
-            <!-- Product grid -->
-<<<<<<< HEAD
-            <div class="w3-row w3-whitescale">
-                <?php
-                $conn = createDBConnection();
-                $sql = "SELECT * FROM sanpham";
-                $result = $conn->query($sql);
-                while ($row = $result->fetch_assoc()) {
-                    $sql1 = "SELECT loaiSP FROM loaisanpham WHERE maloaiSP='" . $row['maloaiSP'] . "'";
-                    $result1 = $conn->query($sql1);
-                    $row1 = $result1->fetch_assoc();
-                ?>
-
-
-                    <div class="w3-col l3 s6">
-                        <div class="w3-container">
-                            <div class="w3-display-container">
-                                <img src="<?= $row['hinhanhSP'] ?>" style="width:200px">
-                                <span class="w3-tag w3-display-topleft">New</span>
-                            </div>
-                            <p><?= $row['tenSP'] ?><br><b>$ <?= $row['giaSP'] ?></b></p>
-                            <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                                <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
-                                    </button>
-                                </p>
-                            </a>
-
-                        </div>
-                    </div>
-
-                <?php
-                }
-                ?>
-            </div>
-=======
+        
             
->>>>>>> 066ebc5032c60bbc17b5331e9e55389bb94167fa
             <!--insert product-->
             <div id="themsp" class="w3-modal">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">

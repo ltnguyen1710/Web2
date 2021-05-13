@@ -151,7 +151,7 @@ if (isset($_POST["username1"])) {
         Shirt <i class="fa fa-caret-down"></i>
       </a>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-        <a href="T-shirt.html" class="w3-bar-item w3-button">T-Shirt</a>
+        <a href="T-shirt.php" class="w3-bar-item w3-button">T-Shirt</a>
         <a href="Hoodie.html" class="w3-bar-item w3-button">Hoodie</a>
         <a href="Sweater.html" class="w3-bar-item w3-button">Sweater</a>
         <a href="Jacket.php" class="w3-bar-item w3-button">Jackets</a>
@@ -192,11 +192,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-<<<<<<< HEAD
-      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?></p>
-=======
-      <p class="w3- top left"><?= isLogined() ? $loginResult : 'Welcome' ?>
->>>>>>> fa1035c1eb07d2534cf917c9df1f635baca7b989
+      <p class="w3-top-left"><?= isLogined() ? $loginResult : 'Welcome' ?></p>
 
 
       <p class="w3-right">
@@ -240,12 +236,9 @@ if (isset($_POST["username1"])) {
         </select>
         <button class="w3-bar-item w3-button  w3-right fa fa-filter" type="submit" name="timkiemnangcao" onclick="reload1()"></button>
 
-<<<<<<< HEAD
         <!-- Find icon -->
-=======
       </div>
       <!-- Find icon -->
->>>>>>> fa1035c1eb07d2534cf917c9df1f635baca7b989
       <form name="fromTim" method="GET" action="Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
@@ -256,14 +249,10 @@ if (isset($_POST["username1"])) {
               <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
             </div>
           </div>
-<<<<<<< HEAD
         </div>
       </form>
-=======
->>>>>>> fa1035c1eb07d2534cf917c9df1f635baca7b989
 
-        </div>
-      </form>
+    
       <script>
         function reload1() {
           var pri = document.getElementById("price");
@@ -564,7 +553,6 @@ if (isset($_POST["username1"])) {
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $con = createDBConnection();
-<<<<<<< HEAD
       if (isset($_REQUEST['from'])) {
         if ($_REQUEST['from'] == '' && $_REQUEST['loaisp'] == '')
           $sql = "SELECT * FROM SANPHAM";
@@ -581,10 +569,8 @@ if (isset($_POST["username1"])) {
       } else
         $sql = "SELECT * FROM SANPHAM";
       $result = $con->query($sql);
-=======
       
       $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
->>>>>>> 066ebc5032c60bbc17b5331e9e55389bb94167fa
       while ($row = $result->fetch_assoc()) {
       ?>
 
@@ -642,15 +628,12 @@ if (isset($_POST["username1"])) {
                     <option value="">L</option>
                     <option value="">XL</option>
                     <option value="">XXL</option>
-<<<<<<< HEAD
                   </select>
                   <strong class="cart-total-title">Quantity of product:</strong>
                   <strong class="cart-total-title w3-text-red"><?= $row['soluongtonkho'] ?></strong>
 
 
-=======
                   </select>zz
->>>>>>> fa1035c1eb07d2534cf917c9df1f635baca7b989
                 </div>
 
               </div>
