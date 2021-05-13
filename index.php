@@ -570,7 +570,7 @@ if (isset($_POST["username1"])) {
         $sql = "SELECT * FROM SANPHAM";
       $result = $con->query($sql);
       
-      $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
+      
       while ($row = $result->fetch_assoc()) {
       ?>
 
