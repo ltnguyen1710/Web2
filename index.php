@@ -559,7 +559,6 @@ if (isset($_POST["username1"])) {
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $con = createDBConnection();
-<<<<<<< HEAD
       if (isset($_REQUEST['from'])) {
         if ($_REQUEST['from'] == '' && $_REQUEST['loaisp'] == '')
           $sql = "SELECT * FROM SANPHAM";
@@ -576,10 +575,6 @@ if (isset($_POST["username1"])) {
       } else
         $sql = "SELECT * FROM SANPHAM";
       $result = $con->query($sql);
-=======
-      
-      $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
->>>>>>> 066ebc5032c60bbc17b5331e9e55389bb94167fa
       while ($row = $result->fetch_assoc()) {
       ?>
 
