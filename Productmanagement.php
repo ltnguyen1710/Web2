@@ -202,7 +202,7 @@ if (isLoginedAdmin()) {
             </div>
             <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
                 <a href="admin.php" class="w3-button w3-block w3-white w3-left-align">Customer management</a>
-                <a href="T-shirt.html" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Product management</a>
+                <a href="T-shirt.php" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Product management</a>
             </div>
 
         </nav>

@@ -152,7 +152,7 @@ if (isset($_POST["username1"])) {
   <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
     <div class="w3-container w3-display-container w3-padding-16">
       <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-      <a href="demo.html"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
+      <a href="index.php"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
     </div>
     <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
 
@@ -163,7 +163,7 @@ if (isset($_POST["username1"])) {
         <a href="T-shirt.php" class="w3-bar-item w3-button">T-Shirt</a>
         <a href="Hoodie.html" class="w3-bar-item w3-button">Hoodie</a>
         <a href="Sweater.html" class="w3-bar-item w3-button">Sweater</a>
-        <a href="Jackets.html" class="w3-bar-item w3-button">Jackets</a>
+        <a href="Jacket.php" class="w3-bar-item w3-button">Jackets</a>
       </div>
 
       <a onclick="myAccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align">
