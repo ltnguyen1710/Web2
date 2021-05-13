@@ -248,9 +248,9 @@ if (isLoginedAdmin()) {
                 $sql = "SELECT * FROM sanpham";
                 $result = $conn->query($sql);
                 while ($row = $result->fetch_assoc()) {
-                    $sql1="SELECT loaiSP FROM loaisanpham WHERE maloaiSP='". $row['maloaiSP'] ."'";
-                    $result1=$conn->query($sql1);
-                    $row1=$result1->fetch_assoc();
+                    $sql1 = "SELECT loaiSP FROM loaisanpham WHERE maloaiSP='" . $row['maloaiSP'] . "'";
+                    $result1 = $conn->query($sql1);
+                    $row1 = $result1->fetch_assoc();
                 ?>
 
 
@@ -362,7 +362,7 @@ if (isLoginedAdmin()) {
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
                                 <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" maxlength="100" name="soluongSP" id="soluongSP">
-                            </li>                            
+                            </li>
                             <li>
                                 <input type="submit" value="Update" name="Update" onclick="capnhat()">
                                 <input type="submit" name="Delete" onclick="return xoasp()" value="Delete">

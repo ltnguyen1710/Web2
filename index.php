@@ -160,7 +160,7 @@ if (isset($_POST["username1"])) {
         Shirt <i class="fa fa-caret-down"></i>
       </a>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-        <a href="T-shirt.php" class="w3-bar-item w3-button">T-Shirt</a>
+        <a href="T-shirt.html" class="w3-bar-item w3-button">T-Shirt</a>
         <a href="Hoodie.html" class="w3-bar-item w3-button">Hoodie</a>
         <a href="Sweater.html" class="w3-bar-item w3-button">Sweater</a>
         <a href="Jackets.html" class="w3-bar-item w3-button">Jackets</a>
@@ -201,7 +201,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?>
+      <p class="w3- top left"><?= isLogined() ? $loginResult : 'Welcome' ?>
 
 
       <p class="w3-right">
@@ -225,20 +225,53 @@ if (isset($_POST["username1"])) {
         <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
           <i onclick="document.getElementById('shoppingcart').style.display='block'" class="fa fa-shopping-cart "></i>
         </a>
+      <div class="w3-modal-find w3-padding-32 w3-left">
+        Price
+        <select name="price" id="price" style="width: 125px;height: 40px;">
+          <option value=""></option>
+          <option value="000-099">0-99 </option>
+          <option value="100-199">100-199</option>
+          <option value="200-299">200-299</option>
+          <option value="300">>300 </option>
+        </select>
+        Type
+        <select name="loaisp" id="loaisp" style="width: 125px;height: 40px;">
+          <option value=""></option>
+          <option value="1">T-shirt</option>
+          <option value="2">Jacket</option>
+          <option value="3">Hoodie</option>
+          <option value="4">Sweater</option>
 
-        <!-- Find icon -->
-        <form name = "fromTim" method = "GET" action = "Search.php">
+        </select>
+        <button class="w3-bar-item w3-button  w3-right fa fa-filter" type="submit" name="timkiemnangcao" onclick="reload1()"></button>
+
+      </div>
+      <!-- Find icon -->
+      <form name="fromTim" method="GET" action="Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
           <div class="w3-modal-find w3-padding-32 w3-right">
             <div class="search" class="w3-container  ">
+
               <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
-              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" >
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
             </div>
           </div>
-        </div>
-        </form>
 
+        </div>
+      </form>
+      <script>
+        function reload1() {
+          var pri = document.getElementById("price");
+          var loai = document.getElementById("loaisp");
+          var valueloai = loai.value;
+          var valueprice = pri.value;
+          var from = valueprice.substr(0, 3)
+          var to1 = valueprice.substr(4, 3)
+
+          window.location.href = "index.php?from=" + from + "&to=" + to1 + "&loaisp=" + valueloai
+        }
+      </script>
       <!-- Bottom Bar End -->
       <!-- Shopping -->
       <div id="shoppingcart" class="w3-modal">
@@ -497,7 +530,21 @@ if (isset($_POST["username1"])) {
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $con = createDBConnection();
-      $sql = "SELECT * FROM SANPHAM";
+      if (isset($_REQUEST['from'])) {
+        if ($_REQUEST['from'] == '' && $_REQUEST['loaisp'] == '')
+          $sql = "SELECT * FROM SANPHAM";
+        else if ($_REQUEST['from'] == '' && $_REQUEST['loaisp'] != '')
+          $sql = "SELECT * FROM SANPHAM WHERE MALOAISP=" . $_REQUEST['loaisp'];
+        else if ($_REQUEST['from'] == 300 && $_REQUEST['loaisp'] == '')
+          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'];
+        else if ($_REQUEST['from'] == 300 && $_REQUEST['loaisp'] != '')
+          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND MALOAISP= " . $_REQUEST['loaisp'];
+        else if ($_REQUEST['from'] != 300 && $_REQUEST['loaisp'] == '')
+        $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND GIASP<= " . $_REQUEST['to'];
+        else
+          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND GIASP<= " . $_REQUEST['to'] . " AND MALOAISP= " . $_REQUEST['loaisp'];
+      } else
+        $sql = "SELECT * FROM SANPHAM";
       $result = $con->query($sql);
       while ($row = $result->fetch_assoc()) {
       ?>
@@ -556,11 +603,7 @@ if (isset($_POST["username1"])) {
                     <option value="">L</option>
                     <option value="">XL</option>
                     <option value="">XXL</option>
-                  </select>
-                  <strong class="cart-total-title">Quantity of product:</strong>
-                  <strong class="cart-total-title w3-text-red" ><?= $row['soluongtonkho'] ?></strong>
-                  
-                  
+                  </select>zz
                 </div>
 
               </div>

@@ -251,17 +251,17 @@ if (isset($_POST["username1"])) {
         </a>
 
         <!-- Find icon -->
-        <form name = "fromTim" method = "GET" action = "Search.php">
+      <form name="fromTim" method="GET" action="Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
           <div class="w3-modal-find w3-padding-32 w3-right">
             <div class="search" class="w3-container  ">
               <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
-              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" >
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
             </div>
           </div>
         </div>
-        </form>
+      </form>
 
       <!-- Bottom Bar End -->
       <!-- Shopping -->
@@ -426,7 +426,7 @@ if (isset($_POST["username1"])) {
       </div>
     </header>
 
-    
+
 
     <script>
       var slideIndex = 0;
@@ -521,7 +521,7 @@ if (isset($_POST["username1"])) {
                     <option value="">XXL</option>
                   </select>
                   <strong class="cart-total-title">Quantity of product:</strong>
-                  <strong class="cart-total-title w3-text-red" ><?= $row['soluongtonkho'] ?></strong>
+                  <strong class="cart-total-title w3-text-red"><?= $row['soluongtonkho'] ?></strong>
 
                 </div>
 
@@ -541,23 +541,23 @@ if (isset($_POST["username1"])) {
 
 
     </div>
-        <!-------------- Phan trang--------------->
-        <div class="w3-container">
+    <!-------------- Phan trang--------------->
+    <div class="w3-container">
 
-        <div class="w3-bar w3-center">
-  <a href="#" class="w3-button">&laquo;</a>
-  <a href="#" class="w3-button">1</a>
-  <a href="#" class="w3-button">2</a>
-  <a href="#" class="w3-button">3</a>
-  <a href="#" class="w3-button">4</a>
-  <a href="#" class="w3-button">5</a>
-  <a href="#" class="w3-button">&raquo;</a>
-</div>
-</ul>
+      <div class="w3-bar w3-center">
+        <a href="#" class="w3-button">&laquo;</a>
+        <a href="#" class="w3-button">1</a>
+        <a href="#" class="w3-button">2</a>
+        <a href="#" class="w3-button">3</a>
+        <a href="#" class="w3-button">4</a>
+        <a href="#" class="w3-button">5</a>
+        <a href="#" class="w3-button">&raquo;</a>
+      </div>
+      </ul>
 
-</div>
+    </div>
 
-<!-----------Phan trang------------------>
+    <!-----------Phan trang------------------>
 
 
     <!-- Subscribe section -->
@@ -620,7 +620,7 @@ if (isset($_POST["username1"])) {
     <!-- End page content -->
   </div>
 
-  
+
 
   <script>
     // Accordion 

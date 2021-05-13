@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 10, 2021 lúc 10:54 AM
--- Phiên bản máy phục vụ: 10.4.14-MariaDB
--- Phiên bản PHP: 7.4.10
+-- Thời gian đã tạo: Th5 13, 2021 lúc 10:20 AM
+-- Phiên bản máy phục vụ: 10.4.18-MariaDB
+-- Phiên bản PHP: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -105,7 +105,8 @@ CREATE TABLE `loaisanpham` (
 --
 
 INSERT INTO `loaisanpham` (`maloaiSP`, `loaiSP`) VALUES
-(1, 'tee');
+(1, 'tee'),
+(2, 'jacket');
 
 -- --------------------------------------------------------
 
@@ -128,7 +129,11 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`maSP`, `maloaiSP`, `thongtinSP`, `tenSP`, `giaSP`, `hinhanhSP`, `soluongtonkho`) VALUES
-(13, 1, 'alo', 'lê trung nguyên', 1000, 'https://rodavigo.net/datos/logos-marcas-png/ima.png', 1);
+(13, 1, 'alo', 'lê trung nguyên', 1000, 'https://rodavigo.net/datos/logos-marcas-png/ima.png', 1),
+(18, 2, 'khoan!!!', 'vjp prooo', 999, 'https://static.tuoitre.vn/tto/i/s626/2010/02/03/1Q60qmko.jpg', 50),
+(19, 2, 'cop map', 'vjp prooo', 200, 'https://i.pinimg.com/564x/fb/83/e0/fb83e0938348a25ab8894da420c91a63.jpg', 20),
+(20, 2, 'than dieu', 'vjp prooo', 300, 'https://i.pinimg.com/564x/57/80/ea/5780ea3c102507a9ee434e58ba414c1c.jpg', 1),
+(21, 1, 'hổ ốm', 'haha', 210, 'https://i.pinimg.com/564x/13/ad/a2/13ada2b38fa367428676979bbd5e7f76.jpg', 20);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -179,7 +184,7 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `maSP` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `maSP` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
