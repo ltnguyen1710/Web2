@@ -550,12 +550,9 @@ if (isset($_POST["username1"])) {
                     <option value="">XL</option>
                     <option value="">XXL</option>
                   </select>
-<<<<<<< HEAD
                   <strong class="cart-total-title">Quantity of product:</strong>
                   <strong class="cart-total-title w3-text-red"><?= $row['soluongtonkho'] ?></strong>
 
-=======
->>>>>>> 066ebc5032c60bbc17b5331e9e55389bb94167fa
                 </div>
 
               </div>
