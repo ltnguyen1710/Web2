@@ -497,7 +497,7 @@ if (isset($_POST["username1"])) {
     $total_records = $row['total'];
     // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-    $limit = 8;
+    $limit = 2;
     // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
     // tổng số trang
     $total_page = ceil($total_records / $limit);
@@ -520,10 +520,10 @@ if (isset($_POST["username1"])) {
       <?php
       $con = createDBConnection();
 
-      $sql = "SELECT * FROM SANPHAM";
-      $result = $con->query($sql);
+      
+    
 
-
+      $result = mysqli_query($conn, "SELECT * FROM sanpham  LIMIT $start, $limit");
       while ($row = $result->fetch_assoc()) {
       ?>
 
