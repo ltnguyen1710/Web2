@@ -5,14 +5,17 @@ function showdetail(ten, gia, hinh, mota) {
   document.getElementById("hinh").src = hinh;
   document.getElementById("mota").innerHTML = mota;
 }
-var remove_cart = document.getElementsByClassName("btn-danger");
-for (var i = 0; i < remove_cart.length; i++) {
-  var button = remove_cart[i]
-  button.addEventListener("click", function () {
-    var button_remove = event.target
-    button_remove.parentElement.parentElement.remove()
-  })
+function xoacart() {
+  var remove_cart = document.getElementsByClassName("btn-danger");
+  for (var i = 0; i < remove_cart.length; i++) {
+    var button = remove_cart[i]
+    button.addEventListener("click", function () {
+      var button_remove = event.target
+      button_remove.parentElement.parentElement.remove()
+    })
+  }
 }
+
 function updatecart() {
   var cart_item = document.getElementsByClassName("cart-items")[0];
   var cart_rows = cart_item.getElementsByClassName("cart-row");
@@ -65,15 +68,11 @@ function addItemToCart(title, price, img) {
   var cart_title = cartItems.getElementsByClassName('cart-item-title')
   for (var i = 0; i < cart_title.length; i++) {
     if (cart_title[i].innerText == title) {
-      alert('Sản Phẩm Đã Có Trong Giỏ Hàng')
+      alert('This product has already in cart')
       return
-    } else {
-      alert('Added')
     }
   }
-  if (cart_title.length == 0) {
-    alert('Added')
-  }
+  alert('Add successfully')
 
   var cartRowContents = `
 <div class="cart-item cart-column">
@@ -83,7 +82,7 @@ function addItemToCart(title, price, img) {
 <span class="cart-price cart-column">${price}</span>
 <div class="cart-quantity cart-column">
   <input class="cart-quantity-input" type="number" value="1">
-  <button class="btn btn-danger" type="button">Delete</button>
+  <button class="btn btn-danger" type="button" onclick="xoacart()">Delete</button>
 </div>`
   cartRow.innerHTML = cartRowContents
   cartItems.append(cartRow)
@@ -102,7 +101,7 @@ function addItemToCart(title, price, img) {
   updatecart()
 }
 function thanhtoan(gia) {
-  if(gia==""){
+  if (gia == 0 || gia == "") {
     alert('Please choose your items to buy');
     return;
   }
@@ -110,6 +109,37 @@ function thanhtoan(gia) {
   document.getElementById('price1').innerHTML = gia;
 
 }
-function search(){
-    document.getElementById('timkiem').href="Search.php?tukhoa="+document.getElementById('find').value
+function search() {
+  document.getElementById('timkiem').href = "Search.php?tukhoa=" + document.getElementById('find').value
+}
+function xulythanhtoan(user) {
+  var cartItems = document.getElementsByClassName('cart-items')[0]
+  var gia = document.getElementById('price1').innerHTML
+  var soluongSP = cartItems.getElementsByClassName('cart-item-title').length
+  var diachi=document.getElementById('useraddress').value;
+  var xmlhttp;
+  if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp = new XMLHttpRequest();
+  }
+  else {// code for IE6, IE5
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      
+    }
+  }
+  var cartItems = document.getElementsByClassName('cart-items')[0]
+  var cart_title = cartItems.getElementsByClassName('cart-item-title')
+  var sanpham="";
+  for (var i = 0; i < cart_title.length; i++) {
+    sanpham=sanpham+"&ten"+i+"="+cart_title[i].innerHTML;
+    sanpham=sanpham+"&hinhanh"+i+"="+cartItems.getElementsByClassName('cart-item-image')[i].src;
+    sanpham=sanpham+"&soluong"+i+"="+cartItems.getElementsByClassName('cart-quantity-input')[i].value;
+    sanpham=sanpham+"&gia"+i+"="+cartItems.getElementsByClassName('cart-price')[i].innerText;
+  }
+
+  alert(sanpham)
+  xmlhttp.open("GET", "thanhtoan.php?totalprice=" + gia + "&soluongSP=" + soluongSP + "&userKH=" + user+"&diachi="+diachi+sanpham, true);
+  xmlhttp.send();
 }

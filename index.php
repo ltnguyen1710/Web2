@@ -13,15 +13,6 @@ if (isset($_POST["username1"])) {
   Register($_POST["username1"], $_POST["psw1"], $_POST["repsw"], $_POST["phone"], $_POST["fullname"]);
 }
 ?>
-
-
-
-
-
-
-
-
-
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -185,7 +176,7 @@ if (isset($_POST["username1"])) {
 
   <!-- Top menu on small screens -->
   <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-wide"><a href="demo.html" class="w3-button">CHECKERVIET</div>
+    <div class="w3-bar-item w3-wide"><a href="index.php" class="w3-button">CHECKERVIET</div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-10 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </header>
 
@@ -201,7 +192,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-      <p class="w3- top left"><?= isLogined() ? $loginResult : 'Welcome' ?>
+      <p class="w3-top-left"><?= isLogined() ? $loginResult : 'Welcome' ?></p>
 
 
       <p class="w3-right">
@@ -245,6 +236,7 @@ if (isset($_POST["username1"])) {
         </select>
         <button class="w3-bar-item w3-button  w3-right fa fa-filter" type="submit" name="timkiemnangcao" onclick="reload1()"></button>
 
+        <!-- Find icon -->
       </div>
       <!-- Find icon -->
       <form name="fromTim" method="GET" action="Search.php">
@@ -257,9 +249,10 @@ if (isset($_POST["username1"])) {
               <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
             </div>
           </div>
-
         </div>
       </form>
+
+    
       <script>
         function reload1() {
           var pri = document.getElementById("price");
@@ -295,7 +288,7 @@ if (isset($_POST["username1"])) {
           </div>
           <div class="cart-total">
             <strong class="cart-total-title">Total Price: $</strong>
-            <span class="cart-total-price" id="price"></span>
+            <strong class="cart-total-price" id="price"></strong>
           </div>
           <div class="w3-container w3-border-top w3-padding-24 ">
             <button onclick="<?= isLogined() ? "thanhtoan(document.getElementById('price').innerHTML)" : "document.getElementById('id01').style.display='block'" ?>" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
@@ -405,7 +398,7 @@ if (isset($_POST["username1"])) {
               <label><b>Phone number</b></label>
               <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required>
               <label><b>Adress</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter Adress">
+              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress">
               <label><b>Nation</b></label>
               <select name="nation">
                 <option value="">Vietnam</option>
@@ -422,13 +415,14 @@ if (isset($_POST["username1"])) {
             </div>
           </form>
           <div class="cart-total">
-            <strong class="cart-total-title">Total Price:</strong>
-            <span class="cart-total-price" id="price1"></span>
+            <strong class="cart-total-title">Total Price: $</strong>
+            <strong class="cart-total-price" id="price1"></strong>
           </div>
 
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
             <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-            <button class="w3-button w3-red w3-right" onclick="alert('Buy successfully !'),document.getElementById('checkout').style.display='none',document.getElementById('shoppingcart').style.display='none'">Confirm</button>
+            <button class="w3-button w3-red w3-right" name="Confirm" onclick="alert('Buy successfully !'),document.getElementById('checkout').style.display='none',document.getElementById('shoppingcart').style.display='none'
+            ,xulythanhtoan('<?= $_SESSION['username'] ?>')"  >Confirm</button>
           </div>
 
         </div>
@@ -618,6 +612,11 @@ if (isset($_POST["username1"])) {
                     <option value="">L</option>
                     <option value="">XL</option>
                     <option value="">XXL</option>
+                  </select>
+                  <strong class="cart-total-title">Quantity of product:</strong>
+                  <strong class="cart-total-title w3-text-red"><?= $row['soluongtonkho'] ?></strong>
+
+
                   </select>zz
                 </div>
 
