@@ -160,7 +160,7 @@ if (isset($_POST["username1"])) {
         Shirt <i class="fa fa-caret-down"></i>
       </a>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-        <a href="T-shirt.html" class="w3-bar-item w3-button">T-Shirt</a>
+        <a href="T-shirt.php" class="w3-bar-item w3-button">T-Shirt</a>
         <a href="Hoodie.html" class="w3-bar-item w3-button">Hoodie</a>
         <a href="Sweater.html" class="w3-bar-item w3-button">Sweater</a>
         <a href="Jacket.php" class="w3-bar-item w3-button">Jackets</a>
@@ -559,27 +559,8 @@ if (isset($_POST["username1"])) {
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $con = createDBConnection();
-<<<<<<< HEAD
-      if (isset($_REQUEST['from'])) {
-        if ($_REQUEST['from'] == '' && $_REQUEST['loaisp'] == '')
-          $sql = "SELECT * FROM SANPHAM";
-        else if ($_REQUEST['from'] == '' && $_REQUEST['loaisp'] != '')
-          $sql = "SELECT * FROM SANPHAM WHERE MALOAISP=" . $_REQUEST['loaisp'];
-        else if ($_REQUEST['from'] == 300 && $_REQUEST['loaisp'] == '')
-          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'];
-        else if ($_REQUEST['from'] == 300 && $_REQUEST['loaisp'] != '')
-          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND MALOAISP= " . $_REQUEST['loaisp'];
-        else if ($_REQUEST['from'] != 300 && $_REQUEST['loaisp'] == '')
-        $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND GIASP<= " . $_REQUEST['to'];
-        else
-          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND GIASP<= " . $_REQUEST['to'] . " AND MALOAISP= " . $_REQUEST['loaisp'];
-      } else
-        $sql = "SELECT * FROM SANPHAM";
-      $result = $con->query($sql);
-=======
       
       $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
->>>>>>> 066ebc5032c60bbc17b5331e9e55389bb94167fa
       while ($row = $result->fetch_assoc()) {
       ?>
 

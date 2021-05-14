@@ -402,68 +402,7 @@ if (isset($_POST["username1"])) {
       </div>
     </header>
 
-    <!-- Image header -->
-    <div class="w3-display-container w3-container">
-      <div class="slideshow-container">
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/1.jpg" style="width:100%">
-
-        </div>
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/2.jpg" style="width:100%">
-
-        </div>
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/3.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/4.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/5.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/6.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/7.jpg" style="width:100%">
-
-        </div>
-
-      </div>
-
-      <br>
-
-      <div style="text-align:center">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
-      <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
-        <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
-        <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
-        <h1 class="w3-hide-small">COLLECTION 2016</h1>
-        <p><a href="#jeans" class="w3-button w3-white w3-padding-large w3-large">SHOP NOW</a></p>
-      </div>
-    </div>
+    
 
     <script>
       var slideIndex = 0;
