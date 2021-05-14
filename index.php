@@ -192,7 +192,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-      <p class="w3-top-left"><?= isLogined() ? $loginResult : 'Welcome' ?></p>
+      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?></p>
 
 
       <p class="w3-right">
@@ -216,29 +216,8 @@ if (isset($_POST["username1"])) {
         <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
           <i onclick="document.getElementById('shoppingcart').style.display='block'" class="fa fa-shopping-cart "></i>
         </a>
-      <div class="w3-modal-find w3-padding-32 w3-left">
-        Price
-        <select name="price" id="price" style="width: 125px;height: 40px;">
-          <option value=""></option>
-          <option value="000-099">0-99 </option>
-          <option value="100-199">100-199</option>
-          <option value="200-299">200-299</option>
-          <option value="300">>300 </option>
-        </select>
-        Type
-        <select name="loaisp" id="loaisp" style="width: 125px;height: 40px;">
-          <option value=""></option>
-          <option value="1">T-shirt</option>
-          <option value="2">Jacket</option>
-          <option value="3">Hoodie</option>
-          <option value="4">Sweater</option>
-
-        </select>
-        <button class="w3-bar-item w3-button  w3-right fa fa-filter" type="submit" name="timkiemnangcao" onclick="reload1()"></button>
 
         <!-- Find icon -->
-      </div>
-      <!-- Find icon -->
       <form name="fromTim" method="GET" action="Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
@@ -252,19 +231,7 @@ if (isset($_POST["username1"])) {
         </div>
       </form>
 
-    
-      <script>
-        function reload1() {
-          var pri = document.getElementById("price");
-          var loai = document.getElementById("loaisp");
-          var valueloai = loai.value;
-          var valueprice = pri.value;
-          var from = valueprice.substr(0, 3)
-          var to1 = valueprice.substr(4, 3)
 
-          window.location.href = "index.php?from=" + from + "&to=" + to1 + "&loaisp=" + valueloai
-        }
-      </script>
       <!-- Bottom Bar End -->
       <!-- Shopping -->
       <div id="shoppingcart" class="w3-modal">
@@ -422,7 +389,7 @@ if (isset($_POST["username1"])) {
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
             <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
             <button class="w3-button w3-red w3-right" name="Confirm" onclick="alert('Buy successfully !'),document.getElementById('checkout').style.display='none',document.getElementById('shoppingcart').style.display='none'
-            ,xulythanhtoan('<?= $_SESSION['username'] ?>')"  >Confirm</button>
+            ,xulythanhtoan('<?= $_SESSION['username'] ?>')">Confirm</button>
           </div>
 
         </div>
@@ -520,41 +487,43 @@ if (isset($_POST["username1"])) {
 
     </div>
 
-    
+
     <!-------------- Phan trang--------------->
     <?php
-            $conn = createDbConnection();
-                // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-            $result = mysqli_query($conn, 'select count(*) as total from sanpham');
-            $row = mysqli_fetch_assoc($result);
-            $total_records = $row['total'];
-                // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-            $limit = 8;
-                // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-                // tổng số trang
-            $total_page = ceil($total_records / $limit);
-                // Giới hạn current_page trong khoảng 1 đến total_page
-            if ($current_page > $total_page){
-                 $current_page = $total_page;
-            }
-            else if ($current_page < 1){
-                   $current_page = 1;
-            }
- 
-                // Tìm Start
-            $start = ($current_page - 1) * $limit;
+    $conn = createDbConnection();
+    // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+    $result = mysqli_query($conn, 'select count(*) as total from sanpham');
+    $row = mysqli_fetch_assoc($result);
+    $total_records = $row['total'];
+    // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    $limit = 8;
+    // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+    // tổng số trang
+    $total_page = ceil($total_records / $limit);
+    // Giới hạn current_page trong khoảng 1 đến total_page
+    if ($current_page > $total_page) {
+      $current_page = $total_page;
+    } else if ($current_page < 1) {
+      $current_page = 1;
+    }
 
-                // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-                // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-            $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
-?>
-        <!-- Product grid -->
+    // Tìm Start
+    $start = ($current_page - 1) * $limit;
+
+    // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+    // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+    $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
+    ?>
+    <!-- Product grid -->
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $con = createDBConnection();
-      
-      $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
+
+      $sql = "SELECT * FROM SANPHAM";
+      $result = $con->query($sql);
+
+
       while ($row = $result->fetch_assoc()) {
       ?>
 
@@ -632,39 +601,38 @@ if (isset($_POST["username1"])) {
           </div>
         </div>
       <?php } ?>
-      
+
 
 
 
     </div>
-        <div class="w3-bar w3-center ">
-           <?php 
-            // PHẦN HIỂN THỊ PHÂN TRANG
-            // BƯỚC 7: HIỂN THỊ PHÂN TRANG
- 
-            // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-            if ($current_page > 1 && $total_page > 1){
-                echo '<a href="Index.php?page='.($current_page-1).'">Prev</a> | ';
-            }
- 
-            // Lặp khoảng giữa
-            for ($i = 1; $i <= $total_page; $i++){
-                // Nếu là trang hiện tại thì hiển thị thẻ span
-                // ngược lại hiển thị thẻ a
-                if ($i == $current_page){
-                    echo '<span>'.$i.'</span> | ';
-                }
-                else{
-                    echo '<a href="Index.php?page='.$i.'">'.$i.'</a> | ';
-                }
-            }
- 
-            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
-            if ($current_page < $total_page && $total_page > 1){
-                echo '<a href="Index.php?page='.($current_page+1).'">Next</a> | ';
-            }
-           ?>
-        </div>
+    <div class="w3-bar w3-center ">
+      <?php
+      // PHẦN HIỂN THỊ PHÂN TRANG
+      // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+
+      // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+      if ($current_page > 1 && $total_page > 1) {
+        echo '<a href="Index.php?page=' . ($current_page - 1) . '">Prev</a> | ';
+      }
+
+      // Lặp khoảng giữa
+      for ($i = 1; $i <= $total_page; $i++) {
+        // Nếu là trang hiện tại thì hiển thị thẻ span
+        // ngược lại hiển thị thẻ a
+        if ($i == $current_page) {
+          echo '<span>' . $i . '</span> | ';
+        } else {
+          echo '<a href="Index.php?page=' . $i . '">' . $i . '</a> | ';
+        }
+      }
+
+      // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+      if ($current_page < $total_page && $total_page > 1) {
+        echo '<a href="Index.php?page=' . ($current_page + 1) . '">Next</a> | ';
+      }
+      ?>
+    </div>
     <!-- Subscribe section -->
     <div class="w3-container w3-black w3-padding-32">
       <h1>Subscribe</h1>
