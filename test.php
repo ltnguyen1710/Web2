@@ -13,6 +13,15 @@ if (isset($_POST["username1"])) {
   Register($_POST["username1"], $_POST["psw1"], $_POST["repsw"], $_POST["phone"], $_POST["fullname"]);
 }
 ?>
+
+
+
+
+
+
+
+
+
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -192,7 +201,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?></p>
+      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?>
 
 
       <p class="w3-right">
@@ -218,18 +227,17 @@ if (isset($_POST["username1"])) {
         </a>
 
         <!-- Find icon -->
-      <form name="fromTim" method="GET" action="Search.php">
+        <form name = "fromTim" method = "GET" action = "Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
           <div class="w3-modal-find w3-padding-32 w3-right">
             <div class="search" class="w3-container  ">
               <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
-              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" >
             </div>
           </div>
         </div>
-      </form>
-
+        </form>
 
       <!-- Bottom Bar End -->
       <!-- Shopping -->
@@ -254,7 +262,7 @@ if (isset($_POST["username1"])) {
           </div>
           <div class="cart-total">
             <strong class="cart-total-title">Total Price: $</strong>
-            <strong class="cart-total-price" id="price"></strong>
+            <span class="cart-total-price" id="price"></span>
           </div>
           <div class="w3-container w3-border-top w3-padding-24 ">
             <button onclick="<?= isLogined() ? "thanhtoan(document.getElementById('price').innerHTML)" : "document.getElementById('id01').style.display='block'" ?>" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
@@ -274,7 +282,7 @@ if (isset($_POST["username1"])) {
             <h1>Log in</h1>
           </div>
 
-          <form action='index.php' method="post" class="w3-container">
+          <form action='T-shirt.php' method="post" class="w3-container">
             <div class="w3-section">
               <label><b>User name</b></label>
               <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username" required value="checker">
@@ -303,7 +311,7 @@ if (isset($_POST["username1"])) {
             <h1>Create account</h1>
           </div>
 
-          <form class="w3-container" action="index.php" method="POST">
+          <form class="w3-container" action="T-shirt.php" method="POST">
             <div class="w3-section">
 
               <label><b>Full name</b></label>
@@ -364,7 +372,7 @@ if (isset($_POST["username1"])) {
               <label><b>Phone number</b></label>
               <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required>
               <label><b>Adress</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress">
+              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter Adress">
               <label><b>Nation</b></label>
               <select name="nation">
                 <option value="">Vietnam</option>
@@ -381,82 +389,20 @@ if (isset($_POST["username1"])) {
             </div>
           </form>
           <div class="cart-total">
-            <strong class="cart-total-title">Total Price: $</strong>
-            <strong class="cart-total-price" id="price1"></strong>
+            <strong class="cart-total-title">Total Price:</strong>
+            <span class="cart-total-price" id="price1"></span>
           </div>
 
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
             <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-            <button class="w3-button w3-red w3-right" name="Confirm" onclick="alert('Buy successfully !'),document.getElementById('checkout').style.display='none',document.getElementById('shoppingcart').style.display='none'
-            ,xulythanhtoan('<?= $_SESSION['username'] ?>')">Confirm</button>
+            <button class="w3-button w3-red w3-right" onclick="alert('Buy successfully !'),document.getElementById('checkout').style.display='none',document.getElementById('shoppingcart').style.display='none'">Confirm</button>
           </div>
 
         </div>
       </div>
     </header>
 
-    <!-- Image header -->
-    <div class="w3-display-container w3-container">
-      <div class="slideshow-container">
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/1.jpg" style="width:100%">
-
-        </div>
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/2.jpg" style="width:100%">
-
-        </div>
-
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/3.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/4.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/5.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/6.jpg" style="width:100%">
-
-        </div>
-        <div class="mySlides fade">
-
-          <img src="Images/ANHNEN/7.jpg" style="width:100%">
-
-        </div>
-
-      </div>
-
-      <br>
-
-      <div style="text-align:center">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
-      <div class="w3-display-topleft w3-text-white" style="padding:24px 48px">
-        <h1 class="w3-jumbo w3-hide-small">New arrivals</h1>
-        <h1 class="w3-hide-large w3-hide-medium">New arrivals</h1>
-        <h1 class="w3-hide-small">COLLECTION 2016</h1>
-        <p><a href="#jeans" class="w3-button w3-white w3-padding-large w3-large">SHOP NOW</a></p>
-      </div>
-    </div>
+    
 
     <script>
       var slideIndex = 0;
@@ -486,44 +432,44 @@ if (isset($_POST["username1"])) {
 
     </div>
 
+    
+     <!-------------- Phan trang--------------->
+     <?php
+            $conn = createDbConnection();
+                // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+            $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 1');
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row['total'];
+                // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $limit = 8;
+                // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+                // tổng số trang
+            $total_page = ceil($total_records / $limit);
+                // Giới hạn current_page trong khoảng 1 đến total_page
+            if ($current_page > $total_page){
+                 $current_page = $total_page;
+            }
+            else if ($current_page < 1){
+                   $current_page = 1;
+            }
+ 
+                // Tìm Start
+            $start = ($current_page - 1) * $limit;
 
-    <!-------------- Phan trang--------------->
-    <?php
-    $conn = createDbConnection();
-    // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-    $result = mysqli_query($conn, 'select count(*) as total from sanpham');
-    $row = mysqli_fetch_assoc($result);
-    $total_records = $row['total'];
-    // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-    $limit = 8;
-    // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-    // tổng số trang
-    $total_page = ceil($total_records / $limit);
-    // Giới hạn current_page trong khoảng 1 đến total_page
-    if ($current_page > $total_page) {
-      $current_page = $total_page;
-    } else if ($current_page < 1) {
-      $current_page = 1;
-    }
-
-    // Tìm Start
-    $start = ($current_page - 1) * $limit;
-
-    // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-    // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-    $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
-    ?>
-    <!-- Product grid -->
+                // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+                // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+            $result = mysqli_query($conn, "SELECT * FROM sanpham  LIMIT $start, $limit");
+?>
+        
+       <!-- Product grid -->
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
-      $con = createDBConnection();
-
-      $sql = "SELECT * FROM SANPHAM";
-      $result = $con->query($sql);
-
-
+      $conn = createDBConnection();
+     
+      $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 1 LIMIT $start, $limit");
       while ($row = $result->fetch_assoc()) {
+       
       ?>
 
         <div class="w3-col l3 s6">
@@ -581,11 +527,6 @@ if (isset($_POST["username1"])) {
                     <option value="">XL</option>
                     <option value="">XXL</option>
                   </select>
-                  <strong class="cart-total-title">Quantity of product:</strong>
-                  <strong class="cart-total-title w3-text-red"><?= $row['soluongtonkho'] ?></strong>
-
-
-                  </select>zz
                 </div>
 
               </div>
@@ -603,35 +544,40 @@ if (isset($_POST["username1"])) {
 
 
 
-
     </div>
-    <div class="w3-bar w3-center ">
-      <?php
-      // PHẦN HIỂN THỊ PHÂN TRANG
-      // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+        <div class="w3-bar w3-center ">
+           <?php 
+            // PHẦN HIỂN THỊ PHÂN TRANG
+            // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+ 
+            // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+            if ($current_page > 1 && $total_page > 1){
+                echo '<a href="T-shirt.php?page='.($current_page-1).'">Prev</a> | ';
+            }
+ 
+            // Lặp khoảng giữa
+            for ($i = 1; $i <= $total_page; $i++){
+                // Nếu là trang hiện tại thì hiển thị thẻ span
+                // ngược lại hiển thị thẻ a
+                if ($i == $current_page){
+                    echo '<span>'.$i.'</span> | ';
+                }
+                else{
+                    echo '<a href="T-shirt.php?page='.$i.'">'.$i.'</a> | ';
+                }
+            }
+ 
+            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+            if ($current_page < $total_page && $total_page > 1){
+                echo '<a href="T-shirt.php?page='.($current_page+1).'">Next</a> | ';
+            }
+           ?>
+        </div>
+ 
+    <div class="w3-container">
 
-      // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-      if ($current_page > 1 && $total_page > 1) {
-        echo '<a href="Index.php?page=' . ($current_page - 1) . '">Prev</a> | ';
-      }
 
-      // Lặp khoảng giữa
-      for ($i = 1; $i <= $total_page; $i++) {
-        // Nếu là trang hiện tại thì hiển thị thẻ span
-        // ngược lại hiển thị thẻ a
-        if ($i == $current_page) {
-          echo '<span>' . $i . '</span> | ';
-        } else {
-          echo '<a href="Index.php?page=' . $i . '">' . $i . '</a> | ';
-        }
-      }
-
-      // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
-      if ($current_page < $total_page && $total_page > 1) {
-        echo '<a href="Index.php?page=' . ($current_page + 1) . '">Next</a> | ';
-      }
-      ?>
-    </div>
+           
     <!-- Subscribe section -->
     <div class="w3-container w3-black w3-padding-32">
       <h1>Subscribe</h1>
