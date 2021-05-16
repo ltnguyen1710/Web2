@@ -459,15 +459,16 @@ if(isset($_POST["username1"]) ){
     
     <?php    
     if($_REQUEST['tukhoa'] != ""){  
-      $_SESSION['tukhoa'] = $_REQUEST['tukhoa']; 
+      $search=$_SESSION['tukhoa'] = $_REQUEST['tukhoa']  ; 
+      
       $conn = createDbConnection();
       // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-      $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP ='".$_SESSION['tukhoa']."' ");
+      $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' ");
       $row = mysqli_fetch_assoc($result);
       $total_records = $row['total'];
       // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
       $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-      $limit = 2;
+      $limit = 4;
       // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
       // tổng số trang
       $total_page = ceil($total_records / $limit);
@@ -483,7 +484,7 @@ if(isset($_POST["username1"]) ){
   
       // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
       // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-      $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP = '".$_SESSION['tukhoa']."' LIMIT $start, $limit");
+      $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' LIMIT $start, $limit");
         
         if ($result !== false && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {               
