@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 13, 2021 lúc 04:47 PM
--- Phiên bản máy phục vụ: 10.4.14-MariaDB
--- Phiên bản PHP: 7.4.10
+-- Host: 127.0.0.1
+-- Generation Time: May 17, 2021 at 07:17 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,22 +18,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `dct119c2`
+-- Database: `dct119c2`
 --
+CREATE DATABASE IF NOT EXISTS `dct119c2` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `dct119c2`;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `admin`
+-- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
+CREATE TABLE IF NOT EXISTS `admin` (
   `userAD` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `passAD` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL
+  `passAD` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`userAD`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`userAD`, `passAD`) VALUES
@@ -42,52 +45,51 @@ INSERT INTO `admin` (`userAD`, `passAD`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chitiethoadon`
+-- Table structure for table `chitiethoadon`
 --
 
-CREATE TABLE `chitiethoadon` (
+CREATE TABLE IF NOT EXISTS `chitiethoadon` (
   `maDon` int(30) NOT NULL,
   `maSP` int(30) NOT NULL,
-  `tenSP` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `userKH` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `hinhanh` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `soluong` int(11) NOT NULL,
   `diachinhan` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `gia` int(11) NOT NULL,
-  `ngaydat` date NOT NULL,
-  `ngaygiao` date NOT NULL
+  PRIMARY KEY (`maDon`,`maSP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `donhang`
+-- Table structure for table `donhang`
 --
 
-CREATE TABLE `donhang` (
+CREATE TABLE IF NOT EXISTS `donhang` (
   `maDon` int(30) NOT NULL,
   `giaDon` int(30) NOT NULL,
   `soluongMua` int(30) NOT NULL,
   `tinhtrang` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `ngaydat` date NOT NULL,
-  `userKH` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL
+  `userKH` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`maDon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `khachhang`
+-- Table structure for table `khachhang`
 --
 
-CREATE TABLE `khachhang` (
+CREATE TABLE IF NOT EXISTS `khachhang` (
   `userKH` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `passKH` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `sdt` varchar(15) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `hoTen` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL
+  `hoTen` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`userKH`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `khachhang`
+-- Dumping data for table `khachhang`
 --
 
 INSERT INTO `khachhang` (`userKH`, `passKH`, `sdt`, `hoTen`) VALUES
@@ -96,16 +98,17 @@ INSERT INTO `khachhang` (`userKH`, `passKH`, `sdt`, `hoTen`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `loaisanpham`
+-- Table structure for table `loaisanpham`
 --
 
-CREATE TABLE `loaisanpham` (
+CREATE TABLE IF NOT EXISTS `loaisanpham` (
   `maloaiSP` int(30) NOT NULL,
-  `loaiSP` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL
+  `loaiSP` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  PRIMARY KEY (`maloaiSP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `loaisanpham`
+-- Dumping data for table `loaisanpham`
 --
 
 INSERT INTO `loaisanpham` (`maloaiSP`, `loaiSP`) VALUES
@@ -115,90 +118,57 @@ INSERT INTO `loaisanpham` (`maloaiSP`, `loaiSP`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sanpham`
+-- Table structure for table `sanpham`
 --
 
-CREATE TABLE `sanpham` (
-  `maSP` int(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `sanpham` (
+  `maSP` int(30) NOT NULL AUTO_INCREMENT,
   `maloaiSP` int(11) NOT NULL,
   `thongtinSP` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `tenSP` varchar(30) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `giaSP` int(11) NOT NULL,
   `hinhanhSP` varchar(100) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `soluongtonkho` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+  `soluongtonkho` int(11) NOT NULL,
+  PRIMARY KEY (`maSP`),
+  KEY `FK_loaisp` (`maloaiSP`)
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `sanpham`
+-- Dumping data for table `sanpham`
 --
 
 INSERT INTO `sanpham` (`maSP`, `maloaiSP`, `thongtinSP`, `tenSP`, `giaSP`, `hinhanhSP`, `soluongtonkho`) VALUES
-(13, 2, 'alo', 'lê trung nguyên', 1000, 'https://rodavigo.net/datos/logos-marcas-png/ima.png', 1),
-(15, 2, 'al', 'alo', 10, 'Images/T-shirt/1.1.jpg', 3);
+(1, 1, '', 'tee1 summer', 39, 'Images/T-SHIRT/1.1.jpg', 20),
+(64, 1, '', 'tee2 winter', 49, 'Images/T-SHIRT/21.1.jpg', 21),
+(65, 1, 'Fresh', 'tee3 autumn', 39, 'Images/T-SHIRT/20.1.jpg', 100),
+(66, 1, '', 'tee4 spring', 29, 'Images/T-SHIRT/17.1.jpg', 21),
+(67, 2, 'Comfortable', 'jacket1 sping', 99, 'Images/JACKET/jk1.jpg', 50),
+(68, 2, '', 'jacket2 autumn', 89, 'Images/JACKET/jk2.jpg', 50),
+(69, 2, '', 'jacket3 winter', 129, 'Images/JACKET/jk3.jpg', 40),
+(70, 2, 'Adorable', 'jacket4 spring', 109, 'Images/JACKET/jk4.jpg', 59),
+(71, 1, 'Beatiful', 'tee5 spring', 35, 'Images/T-SHIRT/4.1.jpg', 50),
+(72, 2, '', 'jacket5 winter', 119, 'Images/JACKET/jk5.jpg', 30),
+(73, 1, '', 'tee6 autumn', 69, 'Images/T-SHIRT/7.1.jpg', 30),
+(74, 1, 'Cute', 'tee7 summer', 49, 'Images/T-SHIRT/22.1.jpg', 40),
+(75, 2, 'Relaxing', 'jacket6 summer', 99, 'Images/JACKET/jk6.jpg', 40),
+(76, 2, '', 'jacket7 autumn', 89, 'Images/JACKET/jk7.jpg', 60),
+(77, 1, 'Catchy', 'tee8 spring', 79, 'Images/T-SHIRT/23.1.jpg', 20),
+(78, 2, '', 'jacket8 winter', 159, 'Images/JACKET/jk8.jpg', 40),
+(79, 1, '', 'tee9 summer', 59, 'Images/T-SHIRT/15.1.jpg', 36),
+(80, 1, 'Beatiful', 'tee10 summer', 39, 'Images/T-SHIRT/12.1.jpg', 45),
+(81, 2, 'Comfortable', 'jacket9 spring', 89, 'Images/JACKET/jk9.jpg', 40),
+(82, 1, '', 'tee11 autumn', 59, 'Images/T-SHIRT/13.1.jpg', 40),
+(83, 2, '', 'jacket10 spring', 109, 'Images/JACKET/jk10.jpg', 20),
+(84, 1, '', 'tee12 spring', 79, 'Images/T-SHIRT/14.1.jpg', 50),
+(85, 1, '', 'tee12 winter', 39, 'Images/JACKET/jk2.jpg', 50),
+(86, 1, 'Nice', 'tee13 spring', 59, 'Images/T-SHIRT/5.1.jpg', 30);
 
 --
--- Chỉ mục cho các bảng đã đổ
---
-
---
--- Chỉ mục cho bảng `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`userAD`);
-
---
--- Chỉ mục cho bảng `chitiethoadon`
---
-ALTER TABLE `chitiethoadon`
-  ADD PRIMARY KEY (`maDon`,`maSP`);
-
---
--- Chỉ mục cho bảng `donhang`
---
-ALTER TABLE `donhang`
-  ADD PRIMARY KEY (`maDon`);
-
---
--- Chỉ mục cho bảng `khachhang`
---
-ALTER TABLE `khachhang`
-  ADD PRIMARY KEY (`userKH`);
-
---
--- Chỉ mục cho bảng `loaisanpham`
---
-ALTER TABLE `loaisanpham`
-  ADD PRIMARY KEY (`maloaiSP`);
-
---
--- Chỉ mục cho bảng `sanpham`
---
-ALTER TABLE `sanpham`
-  ADD PRIMARY KEY (`maSP`),
-  ADD KEY `FK_loaisp` (`maloaiSP`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
+-- Constraints for dumped tables.
 --
 
 --
--- AUTO_INCREMENT cho bảng `donhang`
---
-ALTER TABLE `donhang`
-  MODIFY `maDon` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
---
--- AUTO_INCREMENT cho bảng `sanpham`
---
-ALTER TABLE `sanpham`
-  MODIFY `maSP` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- Các ràng buộc cho các bảng đã đổ
---
-
---
--- Các ràng buộc cho bảng `sanpham`
+-- Constraints for table `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `FK_loaisp` FOREIGN KEY (`maloaiSP`) REFERENCES `loaisanpham` (`maloaiSP`);

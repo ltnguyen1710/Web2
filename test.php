@@ -201,7 +201,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-      <p class="w3-top-left"><?= isLogined() ? $loginResult : 'Welcome' ?>
+      <p class="w3-left"><?= isLogined() ? $loginResult : 'Welcome' ?>
 
 
       <p class="w3-right">
@@ -221,45 +221,23 @@ if (isset($_POST["username1"])) {
         }
         ?>
 
-
         <!-- Shopping icon -->
         <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
           <i onclick="document.getElementById('shoppingcart').style.display='block'" class="fa fa-shopping-cart "></i>
         </a>
-      <div class=" w3-modal-find w3-padding-32 w3-left">
 
-        Price
-        <select name="price" id="price" style="width: 125px;height: 40px;">
-          <option value="***"></option>
-          <option value="000-099">0-99 </option>
-          <option value="100-199">100-199</option>
-          <option value="200-299">200-299</option>
-          <option value="300">>300 </option>
-        </select>
-        <button class="w3-bar-item w3-button  w3-right fa fa-filter" type="submit" name="timkiemnangcao" onclick="reload1()"></button>
-      </div>
-      <script>
-        function reload1() {
-          var pri = document.getElementById("price");
-          var valueprice = pri.value;
-          var from = valueprice.substr(0, 3)
-          var to1 = valueprice.substr(4, 3)
-
-          window.location.href = "T-shirt.php?from=" + from + "&to=" + to1
-        }
-      </script>
-      <!-- Find icon -->
-      <form name="fromTim" method="GET" action="Search.php">
+        <!-- Find icon -->
+        <form name = "fromTim" method = "GET" action = "Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
           <div class="w3-modal-find w3-padding-32 w3-right">
             <div class="search" class="w3-container  ">
               <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
-              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" >
             </div>
           </div>
         </div>
-      </form>
+        </form>
 
       <!-- Bottom Bar End -->
       <!-- Shopping -->
@@ -424,7 +402,7 @@ if (isset($_POST["username1"])) {
       </div>
     </header>
 
-
+    
 
     <script>
       var slideIndex = 0;
@@ -454,122 +432,44 @@ if (isset($_POST["username1"])) {
 
     </div>
 
+    
+     <!-------------- Phan trang--------------->
+     <?php
+            $conn = createDbConnection();
+                // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+            $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 1');
+            $row = mysqli_fetch_assoc($result);
+            $total_records = $row['total'];
+                // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $limit = 8;
+                // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+                // tổng số trang
+            $total_page = ceil($total_records / $limit);
+                // Giới hạn current_page trong khoảng 1 đến total_page
+            if ($current_page > $total_page){
+                 $current_page = $total_page;
+            }
+            else if ($current_page < 1){
+                   $current_page = 1;
+            }
+ 
+                // Tìm Start
+            $start = ($current_page - 1) * $limit;
 
-    <!-------------- Phan trang--------------->
-    <?php
-    $conn = createDbConnection();
-
-    if (isset($_REQUEST['from'])) {
-      $_SESSION['from'] = $_REQUEST['from'];
-      $_SESSION['to'] = $_REQUEST['to'];
-      if ($_SESSION['from'] == "***") {
-        // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-        $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 1');
-        $row = mysqli_fetch_assoc($result);
-        $total_records = $row['total'];
-        // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $limit = 4;
-        // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-        // tổng số trang
-        $total_page = ceil($total_records / $limit);
-        // Giới hạn current_page trong khoảng 1 đến total_page
-        if ($current_page > $total_page) {
-          $current_page = $total_page;
-        } else if ($current_page < 1) {
-          $current_page = 1;
-        }
-
-        // Tìm Start
-        $start = ($current_page - 1) * $limit;
-
-        // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-        // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-        $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 1 LIMIT $start, $limit");
-      } else if ($_SESSION['from'] == 300) {
-        // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-        $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 1 && giasp>=300');
-        $row = mysqli_fetch_assoc($result);
-        $total_records = $row['total'];
-        // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $limit = 4;
-        // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-        // tổng số trang
-        $total_page = ceil($total_records / $limit);
-        // Giới hạn current_page trong khoảng 1 đến total_page
-        if ($current_page > $total_page) {
-          $current_page = $total_page;
-        } else if ($current_page < 1) {
-          $current_page = 1;
-        }
-
-        // Tìm Start
-        $start = ($current_page - 1) * $limit;
-
-        // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-        // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-        $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 1 && GIASP>=" .  $_SESSION['from'] . " LIMIT " . $start . "," . $limit);
-      } else {
-        // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-        $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 1 && giasp>=' .  $_SESSION['from'] . ' && GIASP<= ' . $_SESSION['to']);
-        $row = mysqli_fetch_assoc($result);
-        $total_records = $row['total'];
-        // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $limit = 4;
-        // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-        // tổng số trang
-        $total_page = ceil($total_records / $limit);
-        // Giới hạn current_page trong khoảng 1 đến total_page
-        if ($current_page > $total_page) {
-          $current_page = $total_page;
-        } else if ($current_page < 1) {
-          $current_page = 1;
-        }
-
-        // Tìm Start
-        $start = ($current_page - 1) * $limit;
-
-        // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-        // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-        $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 1 && GIASP>=" .  $_SESSION['from'] . " && GIASP<= " . $_SESSION['to'] . " LIMIT " . $start . "," . $limit);
-      }
-    } else {
-      // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-      $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 1');
-      $row = mysqli_fetch_assoc($result);
-      $total_records = $row['total'];
-      // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-      $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-      $limit = 4;
-      // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-      // tổng số trang
-      $total_page = ceil($total_records / $limit);
-      // Giới hạn current_page trong khoảng 1 đến total_page
-      if ($current_page > $total_page) {
-        $current_page = $total_page;
-      } else if ($current_page < 1) {
-        $current_page = 1;
-      }
-
-      // Tìm Start
-      $start = ($current_page - 1) * $limit;
-
-      // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-      // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-      $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 1 LIMIT $start, $limit");
-    }
-
-
-    ?>
-
-    <!-- Product grid -->
+                // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+                // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+            $result = mysqli_query($conn, "SELECT * FROM sanpham  LIMIT $start, $limit");
+?>
+        
+       <!-- Product grid -->
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $conn = createDBConnection();
+     
+      $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 1 LIMIT $start, $limit");
       while ($row = $result->fetch_assoc()) {
-
+       
       ?>
 
         <div class="w3-col l3 s6">
@@ -645,171 +545,149 @@ if (isset($_POST["username1"])) {
 
 
     </div>
-    <div class="w3-bar w3-center ">
-      <?php
-      // PHẦN HIỂN THỊ PHÂN TRANG
-      // BƯỚC 7: HIỂN THỊ PHÂN TRANG
-      // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-      if (isset($_REQUEST['from'])) {
-        if ($current_page > 1 && $total_page > 1) {
-          echo '<a href="T-shirt.php?page=' . ($current_page - 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to']  . '">Prev</a> | ';
-        }
-
-        // Lặp khoảng giữa
-        for ($i = 1; $i <= $total_page; $i++) {
-          // Nếu là trang hiện tại thì hiển thị thẻ span
-          // ngược lại hiển thị thẻ a
-          if ($i == $current_page) {
-            echo '<span>' . $i . '</span> | ';
-          } else {
-            echo '<a href="T-shirt.php?page=' . $i . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '">' . $i . '</a> | ';
-          }
-        }
-
-        // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
-        if ($current_page < $total_page && $total_page > 1) {
-          echo '<a href="T-shirt.php?page=' . ($current_page + 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '">Next</a> | ';
-
-        }
-      } else {
-        if ($current_page > 1 && $total_page > 1) {
-          echo '<a href="T-shirt.php?page=' . ($current_page - 1) . '">Prev</a> | ';
-        }
-
-        // Lặp khoảng giữa
-        for ($i = 1; $i <= $total_page; $i++) {
-          // Nếu là trang hiện tại thì hiển thị thẻ span
-          // ngược lại hiển thị thẻ a
-          if ($i == $current_page) {
-            echo '<span>' . $i . '</span> | ';
-          } else {
-            echo '<a href="T-shirt.php?page=' . $i . '">' . $i . '</a> | ';
-          }
-        }
-
-        // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
-        if ($current_page < $total_page && $total_page > 1) {
-          echo '<a href="T-shirt.php?page=' . ($current_page + 1) . '">Next</a> | ';
-        }
-      }
-
-      ?>
-    </div>
-
+        <div class="w3-bar w3-center ">
+           <?php 
+            // PHẦN HIỂN THỊ PHÂN TRANG
+            // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+ 
+            // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+            if ($current_page > 1 && $total_page > 1){
+                echo '<a href="T-shirt.php?page='.($current_page-1).'">Prev</a> | ';
+            }
+ 
+            // Lặp khoảng giữa
+            for ($i = 1; $i <= $total_page; $i++){
+                // Nếu là trang hiện tại thì hiển thị thẻ span
+                // ngược lại hiển thị thẻ a
+                if ($i == $current_page){
+                    echo '<span>'.$i.'</span> | ';
+                }
+                else{
+                    echo '<a href="T-shirt.php?page='.$i.'">'.$i.'</a> | ';
+                }
+            }
+ 
+            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+            if ($current_page < $total_page && $total_page > 1){
+                echo '<a href="T-shirt.php?page='.($current_page+1).'">Next</a> | ';
+            }
+           ?>
+        </div>
+ 
     <div class="w3-container">
 
 
-
-      <!-- Subscribe section -->
-      <div class="w3-container w3-black w3-padding-32">
-        <h1>Subscribe</h1>
-        <p>To get special offers and VIP treatment:</p>
-        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
-        <button type="button" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
-      </div>
-
-      <!-- Footer -->
-      <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
-        <div class="w3-row-padding">
-          <div class="w3-col s4">
-            <h4>Contact</h4>
-            <p>Questions? Go ahead.</p>
-            <form action="/action_page.php" target="_blank">
-              <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
-              <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
-              <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required></p>
-              <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required></p>
-              <button type="submit" class="w3-button w3-block w3-black">Send</button>
-            </form>
-          </div>
-
-          <div class="w3-col s4">
-            <h4>About</h4>
-            <p><a href="#">About us</a></p>
-            <p><a href="#">We're hiring</a></p>
-            <p><a href="#">Support</a></p>
-            <p><a href="#">Find store</a></p>
-            <p><a href="#">Shipment</a></p>
-            <p><a href="#">Payment</a></p>
-            <p><a href="#">Gift card</a></p>
-            <p><a href="#">Return</a></p>
-            <p><a href="#">Help</a></p>
-          </div>
-
-          <div class="w3-col s4 w3-justify">
-            <h4>Store</h4>
-            <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
-            <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
-            <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
-            <h4>We accept</h4>
-            <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
-            <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
-            <br>
-            <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
-            <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
-            <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
-            <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
-            <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
-            <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
-          </div>
-        </div>
-      </footer>
-
-      <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
-
-      <!-- End page content -->
+           
+    <!-- Subscribe section -->
+    <div class="w3-container w3-black w3-padding-32">
+      <h1>Subscribe</h1>
+      <p>To get special offers and VIP treatment:</p>
+      <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
+      <button type="button" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
     </div>
 
-    <!-- Newsletter Modal -->
-    <div id="newsletter" class="w3-modal">
-      <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
-        <div class="w3-container w3-white w3-center">
-          <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-          <h2 class="w3-wide">NEWSLETTER</h2>
-          <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
-          <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
-          <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+    <!-- Footer -->
+    <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+      <div class="w3-row-padding">
+        <div class="w3-col s4">
+          <h4>Contact</h4>
+          <p>Questions? Go ahead.</p>
+          <form action="/action_page.php" target="_blank">
+            <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required></p>
+            <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required></p>
+            <button type="submit" class="w3-button w3-block w3-black">Send</button>
+          </form>
+        </div>
+
+        <div class="w3-col s4">
+          <h4>About</h4>
+          <p><a href="#">About us</a></p>
+          <p><a href="#">We're hiring</a></p>
+          <p><a href="#">Support</a></p>
+          <p><a href="#">Find store</a></p>
+          <p><a href="#">Shipment</a></p>
+          <p><a href="#">Payment</a></p>
+          <p><a href="#">Gift card</a></p>
+          <p><a href="#">Return</a></p>
+          <p><a href="#">Help</a></p>
+        </div>
+
+        <div class="w3-col s4 w3-justify">
+          <h4>Store</h4>
+          <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
+          <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
+          <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
+          <h4>We accept</h4>
+          <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
+          <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
+          <br>
+          <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
+          <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
+          <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
+          <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
+          <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
+          <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
         </div>
       </div>
+    </footer>
+
+    <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+
+    <!-- End page content -->
+  </div>
+
+  <!-- Newsletter Modal -->
+  <div id="newsletter" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+      <div class="w3-container w3-white w3-center">
+        <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+        <h2 class="w3-wide">NEWSLETTER</h2>
+        <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+        <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+      </div>
     </div>
+  </div>
 
-    <script>
-      // Accordion 
-      function myAccFunc() {
-        var x = document.getElementById("demoAcc");
-        if (x.className.indexOf("w3-show") == -1) {
-          x.className += " w3-show";
-        } else {
-          x.className = x.className.replace(" w3-show", "");
-        }
+  <script>
+    // Accordion 
+    function myAccFunc() {
+      var x = document.getElementById("demoAcc");
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else {
+        x.className = x.className.replace(" w3-show", "");
       }
+    }
 
-      function myAccFunc1() {
-        var x = document.getElementById("demoAcc1");
-        if (x.className.indexOf("w3-show") == -1) {
-          x.className += " w3-show";
-        } else {
-          x.className = x.className.replace(" w3-show", "");
-        }
+    function myAccFunc1() {
+      var x = document.getElementById("demoAcc1");
+      if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+      } else {
+        x.className = x.className.replace(" w3-show", "");
       }
+    }
 
-      // Click on the "Jeans" link on page load to open the accordion for demo purposes
-      document.getElementById("myBtn").click();
+    // Click on the "Jeans" link on page load to open the accordion for demo purposes
+    document.getElementById("myBtn").click();
 
 
-      // Open and close sidebar
-      function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("myOverlay").style.display = "block";
-      }
+    // Open and close sidebar
+    function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+      document.getElementById("myOverlay").style.display = "block";
+    }
 
-      function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("myOverlay").style.display = "none";
-      }
-    </script>
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+      document.getElementById("myOverlay").style.display = "none";
+    }
+  </script>
 
-    <script src="IMGDEMO/jquery-2.1.4.min.js"></script>
+  <script src="IMGDEMO/jquery-2.1.4.min.js"></script>
 </body>
 
 </html>

@@ -14,6 +14,14 @@ if (isset($_POST["username1"])) {
 }
 ?>
 
+
+
+
+
+
+
+
+
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -22,11 +30,10 @@ if (isset($_POST["username1"])) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
 <script src="index.js"></script>
 <style>
-  .w3-sidebar a {
+  .w3-sidebar a,
+  form {
     font-family: "Roboto", sans-serif
   }
 
@@ -135,38 +142,7 @@ if (isset($_POST["username1"])) {
 
   .cart-total-price {
     color: #333;
-    font-size: 1.1em;
-  }
-
-  /* Paging */
-  .pagination>li>a {
-    background-color: white;
-    color: black
-  }
-
-  .page-item.active .page-link {
-    background-color: black;
-    border-color: black
-  }
-
-  .pagination>li>a:focus,
-  .pagination>li>a:hover,
-  .pagination>li>span:focus,
-  .pagination>li>span:hover {
-    color: red;
-    background-color: #eee;
-    border-color: #ddd;
-  }
-
-  .pagination>.active>a {
-    color: white;
-    background-color: black;
-    border: solid 1px black;
-  }
-
-  .pagination>.active>a:hover {
-    background-color: black;
-    border: solid 1px black;
+    font-size: 1.5em;
   }
 </style>
 
@@ -209,7 +185,7 @@ if (isset($_POST["username1"])) {
 
   <!-- Top menu on small screens -->
   <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-wide"><a href="demo.html" class="w3-button">CHECKERVIET</div>
+    <div class="w3-bar-item w3-wide"><a href="index.php" class="w3-button">CHECKERVIET</div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-10 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </header>
 
@@ -251,17 +227,17 @@ if (isset($_POST["username1"])) {
         </a>
 
         <!-- Find icon -->
-      <form name="fromTim" method="GET" action="Search.php">
+        <form name = "fromTim" method = "GET" action = "Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
           <div class="w3-modal-find w3-padding-32 w3-right">
             <div class="search" class="w3-container  ">
               <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
-              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" >
             </div>
           </div>
         </div>
-      </form>
+        </form>
 
       <!-- Bottom Bar End -->
       <!-- Shopping -->
@@ -306,7 +282,7 @@ if (isset($_POST["username1"])) {
             <h1>Log in</h1>
           </div>
 
-          <form action='index.php' method="post" class="w3-container">
+          <form action='T-shirt.php' method="post" class="w3-container">
             <div class="w3-section">
               <label><b>User name</b></label>
               <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username" required value="checker">
@@ -335,7 +311,7 @@ if (isset($_POST["username1"])) {
             <h1>Create account</h1>
           </div>
 
-          <form class="w3-container" action="index.php" method="POST">
+          <form class="w3-container" action="T-shirt.php" method="POST">
             <div class="w3-section">
 
               <label><b>Full name</b></label>
@@ -426,7 +402,7 @@ if (isset($_POST["username1"])) {
       </div>
     </header>
 
-
+    
 
     <script>
       var slideIndex = 0;
@@ -456,16 +432,17 @@ if (isset($_POST["username1"])) {
 
     </div>
 
-       <!-------------- Phan trang--------------->
+    
+     <!-------------- Phan trang--------------->
      <?php
             $conn = createDbConnection();
                 // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-            $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 3');
+            $result = mysqli_query($conn, 'select count(*) as total from sanpham where maloaisp = 2');
             $row = mysqli_fetch_assoc($result);
             $total_records = $row['total'];
                 // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
             $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-            $limit = 2;
+            $limit = 8;
                 // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
                 // tổng số trang
             $total_page = ceil($total_records / $limit);
@@ -490,7 +467,7 @@ if (isset($_POST["username1"])) {
       <?php
       $conn = createDBConnection();
      
-      $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 3 LIMIT $start, $limit");
+      $result = mysqli_query($conn, "SELECT * FROM sanpham  where maloaisp = 2 LIMIT $start, $limit");
       while ($row = $result->fetch_assoc()) {
        
       ?>
@@ -550,12 +527,6 @@ if (isset($_POST["username1"])) {
                     <option value="">XL</option>
                     <option value="">XXL</option>
                   </select>
-<<<<<<< HEAD
-                  <strong class="cart-total-title">Quantity of product:</strong>
-                  <strong class="cart-total-title w3-text-red"><?= $row['soluongtonkho'] ?></strong>
-
-=======
->>>>>>> 066ebc5032c60bbc17b5331e9e55389bb94167fa
                 </div>
 
               </div>
@@ -574,25 +545,6 @@ if (isset($_POST["username1"])) {
 
 
     </div>
-<<<<<<< HEAD
-    <!-------------- Phan trang--------------->
-    <div class="w3-container">
-
-      <div class="w3-bar w3-center">
-        <a href="#" class="w3-button">&laquo;</a>
-        <a href="#" class="w3-button">1</a>
-        <a href="#" class="w3-button">2</a>
-        <a href="#" class="w3-button">3</a>
-        <a href="#" class="w3-button">4</a>
-        <a href="#" class="w3-button">5</a>
-        <a href="#" class="w3-button">&raquo;</a>
-      </div>
-      </ul>
-
-    </div>
-
-    <!-----------Phan trang------------------>
-=======
         <div class="w3-bar w3-center ">
            <?php 
             // PHẦN HIỂN THỊ PHÂN TRANG
@@ -600,7 +552,7 @@ if (isset($_POST["username1"])) {
  
             // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
             if ($current_page > 1 && $total_page > 1){
-                echo '<a href="jacket.php?page='.($current_page-1).'">Prev</a> | ';
+                echo '<a href="T-shirt.php?page='.($current_page-1).'">Prev</a> | ';
             }
  
             // Lặp khoảng giữa
@@ -611,19 +563,21 @@ if (isset($_POST["username1"])) {
                     echo '<span>'.$i.'</span> | ';
                 }
                 else{
-                    echo '<a href="jacket.php?page='.$i.'">'.$i.'</a> | ';
+                    echo '<a href="T-shirt.php?page='.$i.'">'.$i.'</a> | ';
                 }
             }
  
             // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
             if ($current_page < $total_page && $total_page > 1){
-                echo '<a href="jacket.php?page='.($current_page+1).'">Next</a> | ';
+                echo '<a href="T-shirt.php?page='.($current_page+1).'">Next</a> | ';
             }
            ?>
         </div>
->>>>>>> 066ebc5032c60bbc17b5331e9e55389bb94167fa
+ 
+    <div class="w3-container">
 
 
+           
     <!-- Subscribe section -->
     <div class="w3-container w3-black w3-padding-32">
       <h1>Subscribe</h1>
@@ -684,7 +638,18 @@ if (isset($_POST["username1"])) {
     <!-- End page content -->
   </div>
 
-
+  <!-- Newsletter Modal -->
+  <div id="newsletter" class="w3-modal">
+    <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+      <div class="w3-container w3-white w3-center">
+        <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+        <h2 class="w3-wide">NEWSLETTER</h2>
+        <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+        <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Accordion 

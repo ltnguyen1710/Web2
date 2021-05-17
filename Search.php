@@ -158,10 +158,10 @@ if(isset($_POST["username1"]) ){
         Shirt <i class="fa fa-caret-down"></i>
       </a>
       <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-        <a href="T-shirt.html" class="w3-bar-item w3-button">T-Shirt</a>
+        <a href="T-shirt.php" class="w3-bar-item w3-button">T-Shirt</a>
         <a href="Hoodie.html" class="w3-bar-item w3-button">Hoodie</a>
         <a href="Sweater.html" class="w3-bar-item w3-button">Sweater</a>
-        <a href="Jackets.html" class="w3-bar-item w3-button">Jackets</a>
+        <a href="Jackets.php" class="w3-bar-item w3-button">Jackets</a>
       </div>
 
       <a onclick="myAccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align">
@@ -183,7 +183,7 @@ if(isset($_POST["username1"]) ){
 
   <!-- Top menu on small screens -->
   <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-    <div class="w3-bar-item w3-wide"><a href="demo.html" class="w3-button">CHECKERVIET</div>
+    <div class="w3-bar-item w3-wide"><a href="index.php" class="w3-button">CHECKERVIET</div>
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-10 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
   </header>
 
@@ -448,15 +448,45 @@ if(isset($_POST["username1"]) ){
    
     </div>
 
+    
+
+ <!-------------- Phan trang--------------->
+<?php
+    
+    ?>
     <!-- Product grid -->
     <div class="w3-row w3-whitescale" id ="myTable">
     
     <?php    
-    if($_REQUEST['tukhoa'] != ""){   
-          $conn = createDBConnection();
-        $sql =sprintf("SELECT * FROM sanpham WHERE tenSP LIKE '%%%s%%'", $_REQUEST['tukhoa']);
-     
-        $result = $conn->query($sql); 
+    
+    if($_REQUEST['tukhoa'] != ""){  
+      $search=$_SESSION['tukhoa'] = $_REQUEST['tukhoa']  ; 
+      
+      $conn = createDbConnection();
+      // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+      $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' ");
+      $row = mysqli_fetch_assoc($result);
+      $total_records = $row['total'];
+      // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+      $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+      $limit = 4;
+      // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+      // tổng số trang
+      $total_page = ceil($total_records / $limit);
+      // Giới hạn current_page trong khoảng 1 đến total_page
+      if ($current_page > $total_page) {
+        $current_page = $total_page;
+      } else if ($current_page < 1) {
+        $current_page = 1;
+      }
+  
+      // Tìm Start
+      $start = ($current_page - 1) * $limit;
+  
+      // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+      // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+      $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' LIMIT $start, $limit");
+        
         if ($result !== false && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {               
     ?>
@@ -537,17 +567,51 @@ if(isset($_POST["username1"]) ){
           echo "
           <p>Product was not found</p>";          
         }
-      }
-      else {
-        echo "
-        <p>Product was not found</p>
-        ";
-      }
+
+      
+      
       
     ?>
 
 
 </div>
+    <div class="w3-bar w3-center ">
+    <?php
+      // PHẦN HIỂN THỊ PHÂN TRANG
+      // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+      // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+      
+        if ($current_page > 1 && $total_page > 1) {
+          echo '<a href="Search.php?page=' . ($current_page - 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Prev</a> | ';
+        }
+
+        // Lặp khoảng giữa
+        for ($i = 1; $i <= $total_page; $i++) {
+          // Nếu là trang hiện tại thì hiển thị thẻ span
+          // ngược lại hiển thị thẻ a
+          if ($i == $current_page) {
+            echo '<span>' . $i . '</span> | ';
+          } else {
+            echo '<a href="Search.php?page=' . $i . '&tukhoa=' . $_SESSION['tukhoa'] . '">' . $i . '</a> | ';
+          }
+        }
+
+        // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+        if ($current_page < $total_page && $total_page > 1) {
+          echo '<a href="Search.php?page=' . ($current_page + 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Next</a> | ';
+
+        }
+       
+     
+      }
+        else {
+          echo "
+          <p>Product was not found</p>";          
+        }
+      
+
+      ?>
+    </div>
     <!-- Subscribe section -->
     <div class="w3-container w3-black w3-padding-32">
       <h1>Subscribe</h1>

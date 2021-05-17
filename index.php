@@ -217,35 +217,13 @@ if (isset($_POST["username1"])) {
         <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-right" onclick="w3_open()">
           <i onclick="document.getElementById('shoppingcart').style.display='block'" class="fa fa-shopping-cart " aria-valuenow="3"></i>
         </a>
-      <div class="w3-modal-find w3-padding-32 w3-left">
-        Price
-        <select name="price" id="price2" style="width: 125px;height: 40px;">
-          <option value=""></option>
-          <option value="000-099">0-99 </option>
-          <option value="100-199">100-199</option>
-          <option value="200-299">200-299</option>
-          <option value="300">>300 </option>
-        </select>
-        Type
-        <select name="loaisp" id="loaisp2" style="width: 125px;height: 40px;">
-          <option value=""></option>
-          <option value="1">T-shirt</option>
-          <option value="2">Jacket</option>
-          <option value="3">Hoodie</option>
-          <option value="4">Sweater</option>
-
-        </select>
-        <button class="w3-bar-item w3-button  w3-right fa fa-filter" type="submit" name="timkiemnangcao" onclick="reload1()"></button>
 
         <!-- Find icon -->
-      </div>
-      <!-- Find icon -->
       <form name="fromTim" method="GET" action="Search.php">
         <!-- Bottom Bar Start -->
         <div class="w3-bar-item  bottom-bar">
           <div class="w3-modal-find w3-padding-32 w3-right">
             <div class="search" class="w3-container  ">
-
               <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
               <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
             </div>
@@ -254,18 +232,6 @@ if (isset($_POST["username1"])) {
       </form>
 
 
-      <script>
-        function reload1() {
-          var pri = document.getElementById("price2");
-          var loai = document.getElementById("loaisp2");
-          var valueloai = loai.value;
-          var valueprice = pri.value;
-          var from = valueprice.substr(0, 3)
-          var to1 = valueprice.substr(4, 3)
-
-          window.location.href = "index.php?from=" + from + "&to=" + to1 + "&loaisp=" + valueloai
-        }
-      </script>
       <!-- Bottom Bar End -->
       <!-- Shopping -->
       <div id="shoppingcart" class="w3-modal">
@@ -531,7 +497,7 @@ if (isset($_POST["username1"])) {
     $total_records = $row['total'];
     // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-    $limit = 2;
+    $limit = 8;
     // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
     // tổng số trang
     $total_page = ceil($total_records / $limit);
@@ -553,21 +519,8 @@ if (isset($_POST["username1"])) {
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $con = createDBConnection();
-      if (isset($_REQUEST['from'])) {
-        if ($_REQUEST['from'] == '' && $_REQUEST['loaisp'] == '')
-          $sql = "SELECT * FROM SANPHAM";
-        else if ($_REQUEST['from'] == '' && $_REQUEST['loaisp'] != '')
-          $sql = "SELECT * FROM SANPHAM WHERE MALOAISP=" . $_REQUEST['loaisp'];
-        else if ($_REQUEST['from'] == 300 && $_REQUEST['loaisp'] == '')
-          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'];
-        else if ($_REQUEST['from'] == 300 && $_REQUEST['loaisp'] != '')
-          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND MALOAISP= " . $_REQUEST['loaisp'];
-        else if ($_REQUEST['from'] != 300 && $_REQUEST['loaisp'] == '')
-          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND GIASP<= " . $_REQUEST['to'];
-        else
-          $sql = "SELECT * FROM SANPHAM WHERE GIASP>=" . $_REQUEST['from'] . " AND GIASP<= " . $_REQUEST['to'] . " AND MALOAISP= " . $_REQUEST['loaisp'];
-      } else
-        $sql = "SELECT * FROM sanpham LIMIT $start, $limit";
+
+      $sql = "SELECT * FROM SANPHAM LIMIT $start, $limit";
       $result = $con->query($sql);
 
 
