@@ -62,6 +62,6 @@ function logout(){
     header('Location: index.php');
 }
 function LogCard(){
-return isLogined() ?  "addItemToCart(document.getElementById('ten').innerHTML,document.getElementById('gia1').innerHTML,document.getElementById('hinh').src)" : "document.getElementById('id01').style.display='block',document.getElementById('detail5').style.display='none'";
+return isLogined() ?  "addItemToCart(document.getElementById('ten').innerHTML,document.getElementById('gia1').innerHTML,document.getElementById('hinh').src,document.getElementById('sl').innerHTML)" : "document.getElementById('id01').style.display='block',document.getElementById('detail5').style.display='none'";
 }
 ?>

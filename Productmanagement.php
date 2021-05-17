@@ -5,12 +5,16 @@ require_once('login.php');
 
 <?php
 
-if (isset($_REQUEST['Insert'])) {
+if (isset($_POST['Insert'])) {
     $conn = createDbConnection();
     $sql1 = "select maloaiSP from loaisanpham where loaiSP='" . $_REQUEST['typeSP'] . "'";
     $result = $conn->query($sql1);
     $row = $result->fetch_assoc();
     $maloaiSP = $row['maloaiSP'];
+    $pname=$_FILES["myFile"]["name"];
+    $tname=$_FILES['myFile']['tmp_name'];
+    $uploaddir="Images/T-shirt/".$pname;
+    move_uploaded_file($tname,$uploaddir);
     $sql = sprintf(
         "INSERT INTO sanpham (maloaiSP,thongtinSP,tenSP,giaSP,hinhanhSP,soluongtonkho) 
                     VALUES ( '%s','%s', '%s', '%s' ,'%s','%s')",
@@ -18,7 +22,7 @@ if (isset($_REQUEST['Insert'])) {
         $_REQUEST['bio'],
         $_REQUEST['name'],
         $_REQUEST['gia'],
-        $_REQUEST['myFile'],
+        $pname,
         $_REQUEST['quantitySP']
     );
     var_dump($sql);
@@ -34,19 +38,23 @@ if (isset($_REQUEST['Insert'])) {
 ?>
 <?php
 
-if (isset($_REQUEST['Update'])) {
+if (isset($_POST['Update'])) {
     $conn = createDbConnection();
     $sql1 = "select maloaiSP from loaisanpham where loaiSP='" . $_REQUEST['loaiSP'] . "'";
     $result = $conn->query($sql1);
     $row = $result->fetch_assoc();
     $maloaiSP = $row['maloaiSP'];
+    $pname=$_FILES["hinh"]["name"];
+    $tname=$_FILES['hinh']['tmp_name'];
+    $uploaddir="Images/T-shirt/".$pname;
+    move_uploaded_file($tname,$uploaddir);
     $sql = sprintf(
         "UPDATE sanpham 
             SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
             WHERE tenSP = '%s'",
         $_REQUEST['ten'],
         $_REQUEST['gia1'],
-        $_REQUEST['hinh'],
+        $pname,
         $_REQUEST['mota'],
         $maloaiSP,
         $_REQUEST['soluongSP'],
@@ -258,7 +266,7 @@ if (isLoginedAdmin()) {
 
                     </div>
 
-                    <form class="w3-container" id="f7" action="Productmanagement.php">
+                    <form class="w3-container" id="f7" action="Productmanagement.php" method="post" enctype="multipart/form-data">
                         <ul>
                             <li>
                                 <b><label for="name">Enter name of product</label></b>
@@ -269,9 +277,9 @@ if (isLoginedAdmin()) {
                                 <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" name="gia" maxlength="100">
                             </li>
                             <li>
-                                <b><label for="url">New image</label></b>
-
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" maxlength="100" name="myFile">
+                                <b><label for="url">New image</label></b><br>
+                                <input class="w3-margin-bottom " type="file" name="myFile" id="myFile" onchange="return fileValidation()">
+                                <img src="" alt="" style="width:100px" id="imagehere">
                             </li>
                             <li>
                                 <b><label for="bio">Description</label></b>
@@ -302,7 +310,7 @@ if (isLoginedAdmin()) {
 
                     </div>
 
-                    <form class="w3-container " id="f77" action="Productmanagement.php">
+                    <form class="w3-container " id="f77" action="Productmanagement.php" method="post" enctype="multipart/form-data">
                         <ul>
                             <input type="hidden" id="oldname" name="oldname" />
                             <li>
@@ -318,9 +326,9 @@ if (isLoginedAdmin()) {
 
                             </li>
                             <li>
-                                <b><span>Image:</span></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="hinh" name="hinh" type="text" maxlength="100">
-
+                                <b><span>Image:</span></b> <br>
+                                <input class="w3-margin-bottom " id="hinh" name="hinh" type="file" onchange="return fileValidation1()">
+                                <img src="" alt="" style="width:100px" id="imagehere1">
                             </li>
 
 
@@ -377,25 +385,23 @@ if (isLoginedAdmin()) {
         
         <div class="w3-row w3-whitescale">
                 <?php
-                $conn = createDBConnection();
-                $sql = "SELECT * FROM sanpham";
-                $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
+                $conn = createDBConnection();                
+               if( $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit")){                
                 while ($row = mysqli_fetch_assoc($result)) {
                     $sql1="SELECT loaiSP FROM loaisanpham WHERE maloaiSP='". $row['maloaiSP'] ."'";
                     $result1=$conn->query($sql1);
                     $row1=$result1->fetch_assoc();
                 ?>
 
-
-                    <div class="w3-col l3 s6">
+                   <div class="w3-col l3 s6">
                         <div class="w3-container">
                             <div class="w3-display-container">
-                                <img src="<?= $row['hinhanhSP'] ?>" style="width:200px">
+                                <img src="Images/T-shirt/<?= $row['hinhanhSP'] ?>" style="width:200px">
                                 <span class="w3-tag w3-display-topleft">New</span>
                             </div>
                             <p><?= $row['tenSP'] ?><br><b>$ <?= $row['giaSP'] ?></b></p>
                             <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                                <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
+                                <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
                                     </button>
                                 </p>
                             </a>
@@ -405,6 +411,7 @@ if (isLoginedAdmin()) {
 
                 <?php
                 }
+            }
                 ?>
             </div>
         <div class="w3-bar w3-center ">
