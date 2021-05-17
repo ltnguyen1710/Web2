@@ -164,7 +164,7 @@ INSERT INTO `sanpham` (`maSP`, `maloaiSP`, `thongtinSP`, `tenSP`, `giaSP`, `hinh
 (86, 1, 'Nice', 'tee13 spring', 59, 'Images/T-SHIRT/5.1.jpg', 30);
 
 --
--- Constraints for dumped tables
+-- Constraints for dumped tables.
 --
 
 --
