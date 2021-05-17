@@ -519,7 +519,7 @@ if (isset($_POST["username1"])) {
       <?php
       $con = createDBConnection();
 
-      $sql = "SELECT * FROM SANPHAM";
+      $sql = "SELECT * FROM SANPHAM LIMIT $start, $limit";
       $result = $con->query($sql);
 
 
@@ -585,7 +585,7 @@ if (isset($_POST["username1"])) {
                   <strong class="cart-total-title w3-text-red"><?= $row['soluongtonkho'] ?></strong>
 
 
-                  </select>zz
+                  </select>
                 </div>
 
               </div>
