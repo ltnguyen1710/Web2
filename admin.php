@@ -98,7 +98,7 @@ if (isLoginedAdmin()) {
         <a href="#"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
       </div>
       <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-        <a href="admin.html" class="w3-button w3-block w3-light-grey w3-left-align"><i class="fa fa-caret-right w3-margin-right"></i>Customer management</a>
+        <a href="admin.php" class="w3-button w3-block w3-light-grey w3-left-align"><i class="fa fa-caret-right w3-margin-right"></i>Customer management</a>
         <a href="Productmanagement.php" class="w3-bar-item w3-button w3-white">Product management</a>
       </div>
     </nav>
@@ -131,9 +131,9 @@ if (isLoginedAdmin()) {
         </p>
       </header>
       <!--Admin-->
-      <div class="w3-container  ">
+      <div class="w3-container  " >
         <div class="row">
-          <div class="col-md-10 ">
+          <div class="col-md-10 " >
             <div class="panel panel-default panel-table">
               <div class="panel-heading">
                 <div class="row">
@@ -149,10 +149,12 @@ if (isLoginedAdmin()) {
                     <tr>
                       <th><em class="fa fa-cog"></em>
                       </th>
-                      <th class="hidden-xs">ID</th>
-                      <th>Full name</th>
-                      <th>Password</th>
-                      <th>Email</th>
+                      <th class="hidden-xs" width = 75px >ID Bill</th>
+                      <th  >Price</th>
+                      <th width = 100px >Number of products</th>
+                      <th width = 100px>Status</th>
+                      <th >Date</th>
+                      <th width = 30%>User</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -165,7 +167,9 @@ if (isLoginedAdmin()) {
                       <td class="hidden-xs">1</td>
                       <td>Nguyen Nam Dan</td>
                       <td>**********</td>
-                      <td>nguyennamdan@gmail.com</td>
+                      <td>chua xu ly</td>
+                      <td>15/05/2021</td>
+                      <td>nguyennamdan@gm</td>
                     </tr>
                     <tr>
                       <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a>
@@ -176,7 +180,7 @@ if (isLoginedAdmin()) {
                       <td class="hidden-xs">2</td>
                       <td>Le Trung Nguyen</td>
                       <td>**********</td>
-                      <td>letrungnguyen@gmail.com</td>
+                      <td>da xu ly</td>
                     </tr>
                     <tr>
                       <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a>
@@ -187,7 +191,7 @@ if (isLoginedAdmin()) {
                       <td class="hidden-xs">3</td>
                       <td>Dang Ngoc Khang</td>
                       <td>**********</td>
-                      <td>dangngockhang@gmail.com</td>
+                      <td>chua xu ly</td>
                     </tr>
                     <tr>
                       <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a>
@@ -198,7 +202,7 @@ if (isLoginedAdmin()) {
                       <td class="hidden-xs">4</td>
                       <td>Dan Nguyen Khang</td>
                       <td>**********</td>
-                      <td>DanNguyenKhang@gmail.com</td>
+                      <td>chua xu ly</td>
                     </tr>
                   </tbody>
                 </table>
