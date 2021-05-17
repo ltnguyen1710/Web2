@@ -1,11 +1,14 @@
-function showdetail(ten, gia, hinh, mota) {
+
+//hien thi chi tiet san pham
+function showdetail(ten, gia, hinh, mota, soluong) {
   document.getElementById("detail5").style.display = "block";
   document.getElementById("ten").innerHTML = ten;
   document.getElementById("gia1").innerHTML = gia;
   document.getElementById("hinh").src = hinh;
   document.getElementById("mota").innerHTML = mota;
+  document.getElementById("sl").innerHTML = soluong;
 }
-function xoacart() {
+/*function xoacart() {
   var remove_cart = document.getElementsByClassName("btn-danger");
   for (var i = 0; i < remove_cart.length; i++) {
     var button = remove_cart[i]
@@ -14,8 +17,8 @@ function xoacart() {
       button_remove.parentElement.parentElement.remove()
     })
   }
-}
-
+}*/
+//cap nhat gio hang
 function updatecart() {
   var cart_item = document.getElementsByClassName("cart-items")[0];
   var cart_rows = cart_item.getElementsByClassName("cart-row");
@@ -43,7 +46,7 @@ for (var i = 0; i < quantity_input.length; i++) {
   })
 }*/
 // Thêm vào giỏ
-var add_cart = document.getElementsByClassName("btn-cart");
+/*var add_cart = document.getElementsByClassName("btn-cart");
 for (var i = 0; i < add_cart.length; i++) {
   var add = add_cart[i];
   add.addEventListener("click", function (event) {
@@ -59,9 +62,9 @@ for (var i = 0; i < add_cart.length; i++) {
 
     updatecart()
   })
-}
-
-function addItemToCart(title, price, img) {
+}*/
+// Thêm vào giỏ
+function addItemToCart(title, price, img, soluong) {
   var cartRow = document.createElement('div')
   cartRow.classList.add('cart-row')
   var cartItems = document.getElementsByClassName('cart-items')[0]
@@ -73,7 +76,7 @@ function addItemToCart(title, price, img) {
     }
   }
   alert('Add successfully')
-
+  xulygiohang(title, price, img, cart_title.length + 1, soluong)
   var cartRowContents = `
 <div class="cart-item cart-column">
   <img class="cart-item-image" src="${img}" width="100" height="100">
@@ -81,14 +84,15 @@ function addItemToCart(title, price, img) {
 </div>
 <span class="cart-price cart-column">${price}</span>
 <div class="cart-quantity cart-column">
-  <input class="cart-quantity-input" type="number" value="1">
-  <button class="btn btn-danger" type="button" onclick="xoacart()">Delete</button>
+  <input class="cart-quantity-input" type="number" value="1" max="${soluong}" >
+  <button class="btn btn-danger" type="button" onclick="">Delete</button>
 </div>`
   cartRow.innerHTML = cartRowContents
   cartItems.append(cartRow)
   cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', function () {
     var button_remove = event.target
     button_remove.parentElement.parentElement.remove()
+    xulyxoasanpham(title)
     updatecart()
   })
   cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', function (event) {
@@ -96,10 +100,58 @@ function addItemToCart(title, price, img) {
     if (isNaN(input.value) || input.value <= 0) {
       input.value = 1;
     }
+    var slg = Number(soluong)
+    if (input.value > slg) {
+      input.value = slg
+    }
     updatecart()
   })
   updatecart()
 }
+//tai lai gio hang khi reload trang
+function reload(title, price, img, soluong) {
+  var cartRow = document.createElement('div')
+  cartRow.classList.add('cart-row')
+  var cartItems = document.getElementsByClassName('cart-items')[0]
+  var cart_title = cartItems.getElementsByClassName('cart-item-title')
+  for (var i = 0; i < cart_title.length; i++) {
+    if (cart_title[i].innerText == title) {
+      return
+    }
+  }
+  xulygiohang(title, price, img, cart_title.length + 1, soluong)
+  var cartRowContents = `
+<div class="cart-item cart-column">
+  <img class="cart-item-image" src="${img}" width="100" height="100">
+  <span class="cart-item-title">${title}</span>
+</div>
+<span class="cart-price cart-column">${price}</span>
+<div class="cart-quantity cart-column">
+  <input class="cart-quantity-input" type="number"  value="1" max="${soluong}">
+  <button class="btn btn-danger" type="button" onclick="">Delete</button>
+</div>`
+  cartRow.innerHTML = cartRowContents
+  cartItems.append(cartRow)
+  cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', function () {
+    var button_remove = event.target
+    button_remove.parentElement.parentElement.remove()
+    xulyxoasanpham(title)
+    updatecart()
+  })
+  cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', function (event) {
+    var input = event.target
+    if (isNaN(input.value) || input.value <= 0) {
+      input.value = 1;
+    }
+    var slg = Number(soluong)
+    if (input.value > slg) {
+      input.value = slg
+    }
+    updatecart()
+  })
+  updatecart()
+}
+//hàm xử lý sau khi bấm Buy
 function thanhtoan(gia) {
   if (gia == 0 || gia == "") {
     alert('Please choose your items to buy');
@@ -109,14 +161,12 @@ function thanhtoan(gia) {
   document.getElementById('price1').innerHTML = gia;
 
 }
-function search() {
-  document.getElementById('timkiem').href = "Search.php?tukhoa=" + document.getElementById('find').value
-}
+//hàm xử lý thanh toán, tạo đơn hàng và chi tiết hóa đơn
 function xulythanhtoan(user) {
   var cartItems = document.getElementsByClassName('cart-items')[0]
   var gia = document.getElementById('price1').innerHTML
   var soluongSP = cartItems.getElementsByClassName('cart-item-title').length
-  var diachi=document.getElementById('useraddress').value;
+  var diachi = document.getElementById('useraddress').value;
   var xmlhttp;
   if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
     xmlhttp = new XMLHttpRequest();
@@ -126,20 +176,58 @@ function xulythanhtoan(user) {
   }
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      
+
     }
   }
   var cartItems = document.getElementsByClassName('cart-items')[0]
   var cart_title = cartItems.getElementsByClassName('cart-item-title')
-  var sanpham="";
+  var sanpham = "";
   for (var i = 0; i < cart_title.length; i++) {
-    sanpham=sanpham+"&ten"+i+"="+cart_title[i].innerHTML;
-    sanpham=sanpham+"&hinhanh"+i+"="+cartItems.getElementsByClassName('cart-item-image')[i].src;
-    sanpham=sanpham+"&soluong"+i+"="+cartItems.getElementsByClassName('cart-quantity-input')[i].value;
-    sanpham=sanpham+"&gia"+i+"="+cartItems.getElementsByClassName('cart-price')[i].innerText;
+    sanpham = sanpham + "&ten" + i + "=" + cart_title[i].innerHTML;
+    sanpham = sanpham + "&hinhanh" + i + "=" + cartItems.getElementsByClassName('cart-item-image')[i].src;
+    sanpham = sanpham + "&soluong" + i + "=" + cartItems.getElementsByClassName('cart-quantity-input')[i].value;
+    sanpham = sanpham + "&gia" + i + "=" + cartItems.getElementsByClassName('cart-price')[i].innerText;
   }
 
-  alert(sanpham)
-  xmlhttp.open("GET", "thanhtoan.php?totalprice=" + gia + "&soluongSP=" + soluongSP + "&userKH=" + user+"&diachi="+diachi+sanpham, true);
+
+  xmlhttp.open("GET", "thanhtoan.php?totalprice=" + gia + "&soluongSP=" + soluongSP + "&userKH=" + user + "&diachi=" + diachi + sanpham, true);
   xmlhttp.send();
 }
+//hàm lưu các thông số của sản phẩm thêm vào giỏ hàng
+function xulygiohang(title, price, img, soluong, soluongtonkho) {
+
+  var xmlhttp;
+  if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp = new XMLHttpRequest();
+  }
+  else {// code for IE6, IE5
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+    }
+  }
+  xmlhttp.open("GET", "giohang.php?ten=" + title + "&gia=" + price + "&hinhanh=" + img + "&soluongSP=" + soluong + "&soluongtonkho=" + soluongtonkho, true);
+  xmlhttp.send();
+}
+//hàm xử lý xóa sản phẩm
+function xulyxoasanpham(ten) {
+  var xmlhttp;
+  if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp = new XMLHttpRequest();
+  }
+  else {// code for IE6, IE5
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+    }
+  }
+  xmlhttp.open("GET", "giohang.php?tenxoa=" + ten, true);
+  xmlhttp.send();
+}
+
+
+

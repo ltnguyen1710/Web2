@@ -26,14 +26,15 @@ for ($i = 0; $i < $soluongSP; $i++) {
     $hinhanh = "hinhanh".$i;
     $soluong = "soluong".$i;
     $gia = "gia".$i;
-    $data['ten'[$i]] = $_REQUEST[$ten];
-    $data['hinhanh'[$i]] = $_REQUEST[$hinhanh];
-    $data['soluong'[$i]] = $_REQUEST[$soluong];
-    $data['gia'[$i]] = $_REQUEST[$gia];
+    $data['ten'][$i]= $_REQUEST[$ten];
+    $data['hinhanh'][$i]= $_REQUEST[$hinhanh];
+    $data['soluong'][$i]= $_REQUEST[$soluong];
+    $data['gia'][$i]= $_REQUEST[$gia];
 }
+var_dump($data);
 //them vao database
 for ($i = 0; $i < $soluongSP; $i++) {
-    $sql = sprintf("SELECT maSP FROM sanpham WHERE tenSP='%s'", $data['ten'[$i]]);
+    $sql = sprintf("SELECT maSP FROM sanpham WHERE tenSP='%s'", $data['ten'][$i]);
     $result = $con->query($sql);
     $row = $result->fetch_assoc();
     $masp = $row['maSP'];
@@ -47,15 +48,17 @@ for ($i = 0; $i < $soluongSP; $i++) {
         "INSERT INTO chitiethoadon(maDon,maSP,tenSP,userKH,hinhanh,soluong,diachinhan,gia,ngaydat) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
         $madon,
         $masp,
-        $data['ten'[$i]],
+        $data['ten'][$i],
         $_REQUEST['userKH'],
-        $data['hinhanh'[$i]],
-        $data['soluong'[$i]],
+        $data['hinhanh'][$i],
+        $data['soluong'][$i],
         $_REQUEST['diachi'],
-        $data['gia'[$i]],
+        $data['gia'][$i],
         date('Y-m-d')
     );
     $con->query($sql);
+    $sql = sprintf("UPDATE sanpham set soluongtonkho=soluongtonkho-'%s' WHERE tenSP='%s'",$data['soluong'][$i], $data['ten'][$i]);
+    $con->query($sql);        
 }
 $con->close();
 ?>
