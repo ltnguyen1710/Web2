@@ -458,6 +458,7 @@ if(isset($_POST["username1"]) ){
     <div class="w3-row w3-whitescale" id ="myTable">
     
     <?php    
+    
     if($_REQUEST['tukhoa'] != ""){  
       $search=$_SESSION['tukhoa'] = $_REQUEST['tukhoa']  ; 
       
@@ -566,12 +567,9 @@ if(isset($_POST["username1"]) ){
           echo "
           <p>Product was not found</p>";          
         }
-      }
-      else {
-        echo "
-        <p>Product was not found</p>
-        ";
-      }
+
+      
+      
       
     ?>
 
@@ -582,7 +580,7 @@ if(isset($_POST["username1"]) ){
       // PHẦN HIỂN THỊ PHÂN TRANG
       // BƯỚC 7: HIỂN THỊ PHÂN TRANG
       // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-      if (isset($_REQUEST['tukhoa'])) {
+      
         if ($current_page > 1 && $total_page > 1) {
           echo '<a href="Search.php?page=' . ($current_page - 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Prev</a> | ';
         }
@@ -603,13 +601,14 @@ if(isset($_POST["username1"]) ){
           echo '<a href="Search.php?page=' . ($current_page + 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Next</a> | ';
 
         }
-      } else {
-        if ($current_page > 1 && $total_page > 1) {
-          echo '<a href="Search.php?page=' . ($current_page - 1) . '">Prev</a> | ';
-        }
-
-        
+       
+     
       }
+        else {
+          echo "
+          <p>Product was not found</p>";          
+        }
+      
 
       ?>
     </div>
