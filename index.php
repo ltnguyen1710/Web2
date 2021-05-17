@@ -193,7 +193,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-      <p class="w3-top-left"><?= isLogined() ? 'Hi, '.$_SESSION['username'] : 'Welcome' ?></p>
+      <p class="w3-left"><?= isLogined() ? 'Hi, '.$_SESSION['username'] : 'Welcome' ?></p>
 
 
       <p class="w3-right">
@@ -513,14 +513,14 @@ if (isset($_POST["username1"])) {
 
     // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
     // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-    $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
+   
     ?>
     <!-- Product grid -->
     <div class="w3-row w3-whitescale" id="myTable">
       <?php
       $con = createDBConnection();
 
-      $sql = "SELECT * FROM SANPHAM";
+      $sql = "SELECT * FROM SANPHAM LIMIT $start, $limit";
       $result = $con->query($sql);
 
 

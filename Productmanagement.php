@@ -46,6 +46,7 @@ if (isset($_POST['Update'])) {
     $maloaiSP = $row['maloaiSP'];
     $pname=$_FILES["hinh"]["name"];
     $tname=$_FILES['hinh']['tmp_name'];
+    $_REQUEST['imagehere1']= $pname;
     $uploaddir="Images/T-shirt/".$pname;
     move_uploaded_file($tname,$uploaddir);
     $sql = sprintf(
@@ -54,7 +55,7 @@ if (isset($_POST['Update'])) {
             WHERE tenSP = '%s'",
         $_REQUEST['ten'],
         $_REQUEST['gia1'],
-        $pname,
+        $_REQUEST['imagehere1'],
         $_REQUEST['mota'],
         $maloaiSP,
         $_REQUEST['soluongSP'],

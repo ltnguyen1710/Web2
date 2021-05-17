@@ -201,7 +201,7 @@ if (isset($_POST["username1"])) {
     <!-- Top header -->
 
     <header class="w3-container w3-xlarge">
-      <p class="w3-top-left"><?= isLogined() ? $loginResult : 'Welcome' ?>
+      <p class="w3-top-left"><?= isLogined() ? 'Hi, '.$_SESSION['username'] : 'Welcome' ?>
 
 
       <p class="w3-right">
@@ -575,10 +575,10 @@ if (isset($_POST["username1"])) {
         <div class="w3-col l3 s6">
           <div class="w3-container">
             <div class="w3-display-container">
-              <img src="<?= $row['hinhanhSP'] ?>" style="width:100%">
+              <img src="images/T-SHIRT/<?= $row['hinhanhSP'] ?>" style="width:100%">
               <span class="w3-tag w3-display-topleft">Sale</span>
               <div class="w3-display-middle w3-display-hover">
-                <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>')">
+                <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','images/T-SHIRT/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>')">
                   <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
                 </a>
               </div>

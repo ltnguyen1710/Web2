@@ -13,6 +13,7 @@ function suasp(ten,gia,hinh,mota,loai,soluong)
     document.getElementById("ten").value=ten;
     document.getElementById("gia1").value=gia;
     document.getElementById("imagehere1").src=hinh;
+    document.getElementById("hinh").vale=hinh;
     document.getElementById("mota").value=mota;
     document.getElementById("loaiSP").value=loai;
     document.getElementById("soluongSP").value=soluong;
