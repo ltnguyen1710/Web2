@@ -130,6 +130,7 @@ if (isLoginedAdmin()) {
 
         </p>
       </header>
+
       <!--Admin-->
       <div class="w3-container  " >
         <div class="row">
@@ -144,66 +145,54 @@ if (isLoginedAdmin()) {
                 </div>
               </div>
               <div class="panel-body">
-                <table class="table table-striped table-bordered table-list">
+              <?php
+              $conn = createDbConnection();
+              $sql = "SELECT * FROM donhang";
+              if($result = mysqli_query($conn, $sql)){
+              
+                  if(mysqli_num_rows($result) > 0){
+                    ?>
+                        <table class="table table-striped table-bordered table-list">
                   <thead>
                     <tr>
                       <th><em class="fa fa-cog"></em>
                       </th>
                       <th class="hidden-xs" width = 75px >ID Bill</th>
                       <th  >Price</th>
-                      <th width = 100px >Number of products</th>
+                      <th width = 80px >Number of products</th>
                       <th width = 100px>Status</th>
-                      <th >Date</th>
+                      <th width = 20%>Date</th>
                       <th width = 30%>User</th>
+                      <th width = 30%>Address</th>
                     </tr>
+             
                   </thead>
                   <tbody>
+                  <?php
+                    while($row =mysqli_fetch_array($result)){
+                  ?>
                     <tr>
                       <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a>
                         <a class="btn btn-danger">
-                          <em onclick="myFunction(this)" class="fa fa-lock"></em>
-                        </a>
-                      </td>
-                      <td class="hidden-xs">1</td>
-                      <td>Nguyen Nam Dan</td>
-                      <td>**********</td>
-                      <td>chua xu ly</td>
-                      <td>15/05/2021</td>
-                      <td>nguyennamdan@gm</td>
+                          <em onclick="myFunction(this)" class="fa fa-lock"></em></a></td>
+                      
+                      <td class="hidden-xs"><?php echo $row['maDon'] ?></td>
+                      <td><?php echo $row['giaDon'] ?></td>
+                      <td><?php echo $row['soluongMua'] ?></td>
+                      <td><?php echo $row['tinhtrang'] ?></td>
+                      <td><?php echo $row['ngaydat'] ?></td>
+                      <td><?php echo $row['userKH'] ?></td>
+                      <td><?php echo $row['diachinhan'] ?></td>
                     </tr>
-                    <tr>
-                      <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        <a class="btn btn-danger">
-                          <em onclick="myFunction(this)" class="fa fa-lock"></em>
-                        </a>
-                      </td>
-                      <td class="hidden-xs">2</td>
-                      <td>Le Trung Nguyen</td>
-                      <td>**********</td>
-                      <td>da xu ly</td>
-                    </tr>
-                    <tr>
-                      <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        <a class="btn btn-danger">
-                          <em onclick="myFunction(this)" class="fa fa-lock"></em>
-                        </a>
-                      </td>
-                      <td class="hidden-xs">3</td>
-                      <td>Dang Ngoc Khang</td>
-                      <td>**********</td>
-                      <td>chua xu ly</td>
-                    </tr>
-                    <tr>
-                      <td align="center"><a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        <a class="btn btn-danger">
-                          <em onclick="myFunction(this)" class="fa fa-lock"></em>
-                        </a>
-                      </td>
-                      <td class="hidden-xs">4</td>
-                      <td>Dan Nguyen Khang</td>
-                      <td>**********</td>
-                      <td>chua xu ly</td>
-                    </tr>
+                    
+                    
+                    <?php
+                      
+                        }
+                     }
+                  }
+                  ?>
+
                   </tbody>
                 </table>
               </div>

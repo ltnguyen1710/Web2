@@ -741,11 +741,7 @@ h6,
                     echo "
           <p>Product was not found</p>";
                 }
-            } else {
-                echo "
-        <p>Product was not found</p>
-        ";
-            }
+            
 
             ?>
 
@@ -800,7 +796,11 @@ h6,
                     echo '<a href="Search.php?page=' . ($current_page + 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Next</a> | ';
                 }
             }
-
+          } else {
+            echo "
+    <p>Product was not found</p>
+    ";
+        }
 
             ?>
         </div>
