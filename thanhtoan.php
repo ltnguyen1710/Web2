@@ -5,11 +5,12 @@ $password = "";
 $dbname = "dct119c2";
 $con = new mysqli($servername, $username, $password, $dbname);
 $sql = sprintf(
-    "INSERT INTO donhang(giaDon,soluongMua,tinhtrang,ngaydat,userKH) VALUES ('%s','%s','Chua xu ly','%s','%s')",
+    "INSERT INTO donhang(giaDon,soluongMua,tinhtrang,ngaydat,userKH,diachinhan) VALUES ('%s','%s','Chua xu ly','%s','%s','%s')",
     $_REQUEST['totalprice'],
     $_REQUEST['soluongSP'],
     date('Y-m-d'),
-    $_REQUEST['userKH']
+    $_REQUEST['userKH'],
+    $_REQUEST['diachi']
 );
 $soluongSP = $_REQUEST['soluongSP'];
 $con->query($sql);
@@ -45,16 +46,13 @@ for ($i = 0; $i < $soluongSP; $i++) {
     $row = $result->fetch_assoc();
     $madon=$row['maDon'];
     $sql = sprintf(
-        "INSERT INTO chitiethoadon(maDon,maSP,tenSP,userKH,hinhanh,soluong,diachinhan,gia,ngaydat) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s')",
+        "INSERT INTO chitiethoadon(maDon,maSP,tenSP,userKH,soluong,gia) VALUES ('%s','%s','%s','%s','%s','%s')",
         $madon,
         $masp,
         $data['ten'][$i],
         $_REQUEST['userKH'],
-        $data['hinhanh'][$i],
         $data['soluong'][$i],
-        $_REQUEST['diachi'],
-        $data['gia'][$i],
-        date('Y-m-d')
+        $data['gia'][$i]
     );
     $con->query($sql);
     $sql = sprintf("UPDATE sanpham set soluongtonkho=soluongtonkho-'%s' WHERE tenSP='%s'",$data['soluong'][$i], $data['ten'][$i]);

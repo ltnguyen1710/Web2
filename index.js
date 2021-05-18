@@ -167,6 +167,10 @@ function xulythanhtoan(user) {
   var gia = document.getElementById('price1').innerHTML
   var soluongSP = cartItems.getElementsByClassName('cart-item-title').length
   var diachi = document.getElementById('useraddress').value;
+  if(diachi == ""){
+    alert("Please type your address");
+    return;
+  }
   var xmlhttp;
   if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
     xmlhttp = new XMLHttpRequest();
@@ -192,6 +196,10 @@ function xulythanhtoan(user) {
 
   xmlhttp.open("GET", "thanhtoan.php?totalprice=" + gia + "&soluongSP=" + soluongSP + "&userKH=" + user + "&diachi=" + diachi + sanpham, true);
   xmlhttp.send();
+  alert('Buy successfully !');
+  document.getElementById('checkout').style.display='none';
+  document.getElementById('shoppingcart').style.display='none';
+  window.location.href="index.php";
 }
 //hàm lưu các thông số của sản phẩm thêm vào giỏ hàng
 function xulygiohang(title, price, img, soluong, soluongtonkho) {
@@ -228,6 +236,7 @@ function xulyxoasanpham(ten) {
   xmlhttp.open("GET", "giohang.php?tenxoa=" + ten, true);
   xmlhttp.send();
 }
+
 
 
 

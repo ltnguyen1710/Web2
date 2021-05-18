@@ -225,7 +225,7 @@ if (isset($_POST["username1"])) {
           <div class="w3-modal-find w3-padding-32 w3-right">
             <div class="search" class="w3-container  ">
               <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
-              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find">
+              <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" required>
             </div>
           </div>
         </div>
@@ -361,11 +361,11 @@ if (isset($_POST["username1"])) {
           <form class="w3-container">
             <div class="w3-section">
               <label><b>Full name</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required>
+              <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required disabled>
               <label><b>Phone number</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required>
+              <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required disabled>
               <label><b>Adress</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress">
+              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress" required>
               <label><b>Nation</b></label>
               <select name="nation">
                 <option value="">Vietnam</option>
@@ -388,8 +388,7 @@ if (isset($_POST["username1"])) {
 
           <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
             <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-            <button class="w3-button w3-red w3-right" name="Confirm" onclick="alert('Buy successfully !'),document.getElementById('checkout').style.display='none',document.getElementById('shoppingcart').style.display='none'
-            ,xulythanhtoan('<?= $_SESSION['username'] ?>')"><a href="index.php">Confirm</a></button>
+            <button class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>')">Confirm</button>
           </div>
 
         </div>
@@ -586,7 +585,7 @@ if (isset($_POST["username1"])) {
                   <strong class="cart-total-title w3-text-red" id="sl"></strong>
 
 
-                  </select>zz
+                  </select>
                 </div>
 
               </div>
