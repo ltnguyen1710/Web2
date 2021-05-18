@@ -44,32 +44,57 @@ if (isset($_POST['Update'])) {
     $result = $conn->query($sql1);
     $row = $result->fetch_assoc();
     $maloaiSP = $row['maloaiSP'];
+    if($_FILES["hinh"]["name"] != ""){
     $pname=$_FILES["hinh"]["name"];
     $tname=$_FILES['hinh']['tmp_name'];
     $_REQUEST['imagehere1']= $pname;
     $uploaddir="Images/T-shirt/".$pname;
     move_uploaded_file($tname,$uploaddir);
-    $sql = sprintf(
-        "UPDATE sanpham 
-            SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
-            WHERE tenSP = '%s'",
-        $_REQUEST['ten'],
-        $_REQUEST['gia1'],
-        $_REQUEST['imagehere1'],
-        $_REQUEST['mota'],
-        $maloaiSP,
-        $_REQUEST['soluongSP'],
-        $_REQUEST['oldname']
-    );
-    var_dump($sql);
-    if ($conn->query($sql) === TRUE) {
-        echo "The record updated successfully";
-        header("Location:Productmanagement.php");
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $sql = sprintf(
+            "UPDATE sanpham 
+                SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
+                WHERE tenSP = '%s'",
+            $_REQUEST['ten'],
+            $_REQUEST['gia1'],
+            $_REQUEST['imagehere1'],
+            $_REQUEST['mota'],
+            $maloaiSP,
+            $_REQUEST['soluongSP'],
+            $_REQUEST['oldname']
+        );
+        var_dump($sql);
+        if ($conn->query($sql) === TRUE) {
+            echo "The record updated successfully";
+            header("Location:Productmanagement.php");
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    
+        $conn->close();
     }
-
-    $conn->close();
+    else{
+        $sql = sprintf(
+            "UPDATE sanpham 
+                SET tenSP = '%s', giaSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
+                WHERE tenSP = '%s'",
+            $_REQUEST['ten'],
+            $_REQUEST['gia1'],
+            $_REQUEST['mota'],
+            $maloaiSP,
+            $_REQUEST['soluongSP'],
+            $_REQUEST['oldname']
+        );
+        var_dump($sql);
+        if ($conn->query($sql) === TRUE) {
+            echo "The record updated successfully";
+            header("Location:Productmanagement.php");
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
+    
+        $conn->close();
+    }
+    
 }
 ?>
 <?php
