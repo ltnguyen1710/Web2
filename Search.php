@@ -746,16 +746,20 @@ if (isset($_POST["username1"])) {
                             if ($current_page < $total_page && $total_page > 1) {
                                 echo '<a href="Search.php?page=' . ($current_page + 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Next</a> | ';
                             }
-                        }}
+                        }
                         ?>
                     </div>
-            <?php }else {
+                 <?php }  else {
                     echo "
           <p>Product was not found</p>";
                 }
-            
+            } else {
+                echo "
+        <p>Product was not found</p>
+        ";
+            }
 
-             ?>
+            ?>
 
 
         </div>
