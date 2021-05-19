@@ -382,6 +382,9 @@ if (isLoginedAdmin()) {
     </script>
     <script>
       function myFunction(madon) {
+        if(!confirm("Are you sure ?")){
+          return;
+        }
         var xmlhttp;
         if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
           xmlhttp = new XMLHttpRequest();

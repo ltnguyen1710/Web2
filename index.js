@@ -238,5 +238,16 @@ function xulyxoasanpham(ten) {
 }
 
 
+function kiemTraDuLieu() {
 
 
+  if (document.signup.psw1.value.length < 6) {
+      alert('Weak password');
+      return false;
+  }
+  if (document.signup.psw1.value != document.signup.repsw.value) {
+      alert('Password and Confirm Password has to duplicate');
+      return false;
+
+  }
+}

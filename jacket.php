@@ -335,54 +335,54 @@ if (isset($_POST["username1"])) {
         </div>
       </div>
 
-      <!--Sign up-->
-      <div id="id02" class="w3-modal w3-padding-24">
-        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+       <!--Sign up-->
+       <div id="id02" class="w3-modal w3-padding-24">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
-          <div class="w3-center"><br>
-            <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-            <h1>Create account</h1>
-          </div>
+                    <div class="w3-center"><br>
+                        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+                        <h1>Create account</h1>
+                    </div>
 
-          <form class="w3-container" action="jacket.php" method="POST">
-            <div class="w3-section">
+                    <form class="w3-container" action="index.php" method="POST" name="signup" onsubmit="return kiemTraDuLieu()">
+                        <div class="w3-section">
 
-              <label><b>Full name</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Full name" name="fullname" required>
-              <label><b>Phone number</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Phone number" name="phone" required>
+                            <label><b>Full name</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Full name" name="fullname" required>
+                            <label><b>Phone number</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Phone number" name="phone" required>
 
-              <label><b>Sex: </b></label>
-              Male <input class="" type="radio" name="radsex" required>
-              Female <input class="" type="radio" name="radsex" required>
+                            <label><b>Sex: </b></label>
+                            Male <input class="" type="radio" name="radsex" required>
+                            Female <input class="" type="radio" name="radsex" required>
 
-              <br>
+                            <br>
 
-              <label><b>Birthday:</b></label>
-              <input type="date" name="bday">
+                            <label><b>Birthday:</b></label>
+                            <input type="date" name="bday">
 
-              <br>
-              <label><b>Email:</b></label>
-              <br>
-              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email">
-              <label><b>User name</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" required>
-              <label><b>Password</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="psw1" required>
-              <label><b>Confirm password</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Confirm Password" name="repsw" required>
+                            <br>
+                            <label><b>Email:</b></label>
+                            <br>
+                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email">
+                            <label><b>User name</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" required>
+                            <label><b>Password</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="psw1" id="psw1" required>
+                            <label><b>Confirm password</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Confirm Password" name="repsw" id="repsw" required>
 
+                        </div>
+
+
+                        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                            <button onclick="document.getElementById('id02').style.display='none',document.getElementById('price1').innerHTML=document.getElementById('price').innerHTML " type="button" class="w3-button w3-grey">Cancel</button>
+                            <input class="w3-button  w3-black w3-right" name="submit" value="Submit" href="#" type="Submit" onclick="">
+                        </div>
+
+                </div>
+                </form>
             </div>
-
-
-            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-              <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-              <input class="w3-button  w3-black w3-right" name="submit" value="Submit" href="#" type="Submit" onclick="alert('Sign up successful !')">
-            </div>
-
-        </div>
-        </form>
-      </div>
 
             <!--check out-->
             <div id="checkout" class="w3-modal">
