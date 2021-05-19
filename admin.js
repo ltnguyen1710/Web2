@@ -97,3 +97,6 @@ function fileValidation1() {
         }
     }
 }
+function billdetail(madon,userkh){
+    window.open("billdetail.php?madon="+madon+"&userKH="+userkh)
+}  
