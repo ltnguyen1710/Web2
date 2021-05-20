@@ -196,7 +196,7 @@ if (isLoginedAdmin()) {
         <a href="#"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
       </div>
       <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-        <a href="admin.php" class="w3-button w3-block w3-light-grey w3-left-align"><i class="fa fa-caret-right w3-margin-right"></i>Customer management</a>
+        <a href="admin.php" class="w3-button w3-block w3-light-grey w3-left-align">Bill management</a>
         <a href="Productmanagement.php" class="w3-bar-item w3-button w3-white">Product management</a>
       </div>
     </nav>

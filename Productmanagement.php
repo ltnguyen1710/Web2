@@ -11,10 +11,10 @@ if (isset($_POST['Insert'])) {
     $result = $conn->query($sql1);
     $row = $result->fetch_assoc();
     $maloaiSP = $row['maloaiSP'];
-    $pname=$_FILES["myFile"]["name"];
-    $tname=$_FILES['myFile']['tmp_name'];
-    $uploaddir="Images/T-shirt/".$pname;
-    move_uploaded_file($tname,$uploaddir);
+    $pname = $_FILES["myFile"]["name"];
+    $tname = $_FILES['myFile']['tmp_name'];
+    $uploaddir = "Images/T-shirt/" . $pname;
+    move_uploaded_file($tname, $uploaddir);
     $sql = sprintf(
         "INSERT INTO sanpham (maloaiSP,thongtinSP,tenSP,giaSP,hinhanhSP,soluongtonkho) 
                     VALUES ( '%s','%s', '%s', '%s' ,'%s','%s')",
@@ -44,12 +44,12 @@ if (isset($_POST['Update'])) {
     $result = $conn->query($sql1);
     $row = $result->fetch_assoc();
     $maloaiSP = $row['maloaiSP'];
-    if($_FILES["hinh"]["name"] != ""){
-    $pname=$_FILES["hinh"]["name"];
-    $tname=$_FILES['hinh']['tmp_name'];
-    $_REQUEST['imagehere1']= $pname;
-    $uploaddir="Images/T-shirt/".$pname;
-    move_uploaded_file($tname,$uploaddir);
+    if ($_FILES["hinh"]["name"] != "") {
+        $pname = $_FILES["hinh"]["name"];
+        $tname = $_FILES['hinh']['tmp_name'];
+        $_REQUEST['imagehere1'] = $pname;
+        $uploaddir = "Images/T-shirt/" . $pname;
+        move_uploaded_file($tname, $uploaddir);
         $sql = sprintf(
             "UPDATE sanpham 
                 SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
@@ -69,10 +69,9 @@ if (isset($_POST['Update'])) {
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-    
+
         $conn->close();
-    }
-    else{
+    } else {
         $sql = sprintf(
             "UPDATE sanpham 
                 SET tenSP = '%s', giaSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
@@ -91,10 +90,9 @@ if (isset($_POST['Update'])) {
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-    
+
         $conn->close();
     }
-    
 }
 ?>
 <?php
@@ -240,8 +238,8 @@ if (isLoginedAdmin()) {
                 <a href="#"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
             </div>
             <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-                <a href="admin.php" class="w3-button w3-block w3-white w3-left-align">Customer management</a>
-                <a href="T-shirt.php" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Product management</a>
+                <a href="admin.php" class="w3-button w3-block w3-white w3-left-align">Bill management</a>
+                <a href="T-shirt.php" class="w3-bar-item w3-button w3-light-grey">Product management</a>
             </div>
 
         </nav>
@@ -281,8 +279,8 @@ if (isLoginedAdmin()) {
 
             <br>
 
-        
-            
+
+
             <!--insert product-->
             <div id="themsp" class="w3-modal">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
@@ -313,7 +311,12 @@ if (isLoginedAdmin()) {
                             </li>
                             <li>
                                 <b><label for="bio">Type of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" maxlength="100" name="typeSP">
+                                <select name="typeSP" style="width: 120px;height: 30px;">
+                                    <option value="tee">T-shirt</option>
+                                    <option value="hoodie">Hoodie</option>
+                                    <option value="sweater">Sweater</option>
+                                    <option value="jacket">Jacket </option>
+                                </select>
                             </li>
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
@@ -366,7 +369,12 @@ if (isLoginedAdmin()) {
                             </li>
                             <li>
                                 <b><label for="bio">Type of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" maxlength="100" name="loaiSP" id="loaiSP">
+                                <select name="typeSP" id="loaiSP" style="width: 120px;height: 30px;">
+                                    <option value="tee">T-shirt</option>
+                                    <option value="hoodie">Hoodie</option>
+                                    <option value="sweater">Sweater</option>
+                                    <option value="jacket">Jacket </option>
+                                </select>
                             </li>
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
@@ -383,208 +391,206 @@ if (isLoginedAdmin()) {
             <!-------------- Phan trang--------------->
             <?php
             $conn = createDbConnection();
-                // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+            // BƯỚC 2: TÌM TỔNG SỐ RECORDS
             $result = mysqli_query($conn, 'select count(*) as total from sanpham');
             $row = mysqli_fetch_assoc($result);
             $total_records = $row['total'];
-                // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+            // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
             $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
             $limit = 8;
-                // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-                // tổng số trang
+            // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+            // tổng số trang
             $total_page = ceil($total_records / $limit);
-                // Giới hạn current_page trong khoảng 1 đến total_page
-            if ($current_page > $total_page){
-                 $current_page = $total_page;
+            // Giới hạn current_page trong khoảng 1 đến total_page
+            if ($current_page > $total_page) {
+                $current_page = $total_page;
+            } else if ($current_page < 1) {
+                $current_page = 1;
             }
-            else if ($current_page < 1){
-                   $current_page = 1;
-            }
- 
-                // Tìm Start
+
+            // Tìm Start
             $start = ($current_page - 1) * $limit;
 
-                // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-                // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+            // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+            // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
             $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit");
-?>
-        
-        <div class="w3-row w3-whitescale">
+            ?>
+
+            <div class="w3-row w3-whitescale">
                 <?php
-                $conn = createDBConnection();                
-               if( $result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit")){                
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $sql1="SELECT loaiSP FROM loaisanpham WHERE maloaiSP='". $row['maloaiSP'] ."'";
-                    $result1=$conn->query($sql1);
-                    $row1=$result1->fetch_assoc();
+                $conn = createDBConnection();
+                if ($result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit")) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $sql1 = "SELECT loaiSP FROM loaisanpham WHERE maloaiSP='" . $row['maloaiSP'] . "'";
+                        $result1 = $conn->query($sql1);
+                        $row1 = $result1->fetch_assoc();
                 ?>
 
-                   <div class="w3-col l3 s6">
-                        <div class="w3-container">
-                            <div class="w3-display-container">
-                                <img src="Images/T-shirt/<?= $row['hinhanhSP'] ?>" style="width:200px">
-                                <span class="w3-tag w3-display-topleft">New</span>
-                            </div>
-                            <p><?= $row['tenSP'] ?><br><b>$ <?= $row['giaSP'] ?></b></p>
-                            <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                                <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
-                                    </button>
-                                </p>
-                            </a>
+                        <div class="w3-col l3 s6">
+                            <div class="w3-container">
+                                <div class="w3-display-container">
+                                    <img src="Images/T-shirt/<?= $row['hinhanhSP'] ?>" style="width:200px">
+                                    <span class="w3-tag w3-display-topleft">New</span>
+                                </div>
+                                <p><?= $row['tenSP'] ?><br><b>$ <?= $row['giaSP'] ?></b></p>
+                                <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
+                                    <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
+                                        </button>
+                                    </p>
+                                </a>
 
+                            </div>
+                        </div>
+
+                <?php
+                    }
+                }
+                ?>
+            </div>
+            <div class="w3-bar w3-center ">
+                <?php
+                // PHẦN HIỂN THỊ PHÂN TRANG
+                // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+
+                // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                if ($current_page > 1 && $total_page > 1) {
+                    echo '<a href="Productmanagement.php?page=' . ($current_page - 1) . '">Prev</a> | ';
+                }
+
+                // Lặp khoảng giữa
+                for ($i = 1; $i <= $total_page; $i++) {
+                    // Nếu là trang hiện tại thì hiển thị thẻ span
+                    // ngược lại hiển thị thẻ a
+                    if ($i == $current_page) {
+                        echo '<span>' . $i . '</span> | ';
+                    } else {
+                        echo '<a href="Productmanagement.php?page=' . $i . '">' . $i . '</a> | ';
+                    }
+                }
+
+                // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                if ($current_page < $total_page && $total_page > 1) {
+                    echo '<a href="Productmanagement.php?page=' . ($current_page + 1) . '">Next</a> | ';
+                }
+                ?>
+            </div>
+            <!-------------- Phan trang--------------->
+            <div class="w3-container">
+
+
+
+                <!-- Subscribe section -->
+                <div class="w3-container w3-black w3-padding-32">
+                    <h1>Subscribe</h1>
+                    <p>To get special offers and VIP treatment:</p>
+                    <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
+                    <button type="button" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
+                </div>
+
+                <!-- Footer -->
+                <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+                    <div class="w3-row-padding">
+                        <div class="w3-col s4">
+                            <h4>Contact</h4>
+                            <p>Questions? Go ahead.</p>
+                            <form action="/action_page.php" target="_blank">
+                                <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required>
+                                </p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required>
+                                </p>
+                                <button type="submit" class="w3-button w3-block w3-black">Send</button>
+                            </form>
+                        </div>
+
+                        <div class="w3-col s4">
+                            <h4>About</h4>
+                            <p><a href="#">About us</a></p>
+                            <p><a href="#">We're hiring</a></p>
+                            <p><a href="#">Support</a></p>
+                            <p><a href="#">Find store</a></p>
+                            <p><a href="#">Shipment</a></p>
+                            <p><a href="#">Payment</a></p>
+                            <p><a href="#">Gift card</a></p>
+                            <p><a href="#">Return</a></p>
+                            <p><a href="#">Help</a></p>
+                        </div>
+
+                        <div class="w3-col s4 w3-justify">
+                            <h4>Store</h4>
+                            <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
+                            <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
+                            <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
+                            <h4>We accept</h4>
+                            <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
+                            <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
+                            <br>
+                            <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
+                            <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
+                            <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
+                            <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
+                            <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
+                            <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
                         </div>
                     </div>
+                </footer>
 
-                <?php
-                }
-            }
-                ?>
-            </div>
-        <div class="w3-bar w3-center ">
-           <?php 
-            // PHẦN HIỂN THỊ PHÂN TRANG
-            // BƯỚC 7: HIỂN THỊ PHÂN TRANG
- 
-            // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-            if ($current_page > 1 && $total_page > 1){
-                echo '<a href="Productmanagement.php?page='.($current_page-1).'">Prev</a> | ';
-            }
- 
-            // Lặp khoảng giữa
-            for ($i = 1; $i <= $total_page; $i++){
-                // Nếu là trang hiện tại thì hiển thị thẻ span
-                // ngược lại hiển thị thẻ a
-                if ($i == $current_page){
-                    echo '<span>'.$i.'</span> | ';
-                }
-                else{
-                    echo '<a href="Productmanagement.php?page='.$i.'">'.$i.'</a> | ';
-                }
-            }
- 
-            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
-            if ($current_page < $total_page && $total_page > 1){
-                echo '<a href="Productmanagement.php?page='.($current_page+1).'">Next</a> | ';
-            }
-           ?>
-        </div>
-    <!-------------- Phan trang--------------->
-    <div class="w3-container">
+                <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
 
-
-           
-            <!-- Subscribe section -->
-            <div class="w3-container w3-black w3-padding-32">
-                <h1>Subscribe</h1>
-                <p>To get special offers and VIP treatment:</p>
-                <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
-                <button type="button" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
+                <!-- End page content -->
             </div>
 
-            <!-- Footer -->
-            <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
-                <div class="w3-row-padding">
-                    <div class="w3-col s4">
-                        <h4>Contact</h4>
-                        <p>Questions? Go ahead.</p>
-                        <form action="/action_page.php" target="_blank">
-                            <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
-                            <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
-                            <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required>
-                            </p>
-                            <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required>
-                            </p>
-                            <button type="submit" class="w3-button w3-block w3-black">Send</button>
-                        </form>
-                    </div>
-
-                    <div class="w3-col s4">
-                        <h4>About</h4>
-                        <p><a href="#">About us</a></p>
-                        <p><a href="#">We're hiring</a></p>
-                        <p><a href="#">Support</a></p>
-                        <p><a href="#">Find store</a></p>
-                        <p><a href="#">Shipment</a></p>
-                        <p><a href="#">Payment</a></p>
-                        <p><a href="#">Gift card</a></p>
-                        <p><a href="#">Return</a></p>
-                        <p><a href="#">Help</a></p>
-                    </div>
-
-                    <div class="w3-col s4 w3-justify">
-                        <h4>Store</h4>
-                        <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
-                        <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
-                        <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
-                        <h4>We accept</h4>
-                        <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
-                        <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
-                        <br>
-                        <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
-                        <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
-                        <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
-                        <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
-                        <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
-                        <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
+            <!-- Newsletter Modal -->
+            <div id="newsletter" class="w3-modal">
+                <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
+                    <div class="w3-container w3-white w3-center">
+                        <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+                        <h2 class="w3-wide">NEWSLETTER</h2>
+                        <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
+                        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+                        <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
                     </div>
                 </div>
-            </footer>
-
-            <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
-
-            <!-- End page content -->
-        </div>
-
-        <!-- Newsletter Modal -->
-        <div id="newsletter" class="w3-modal">
-            <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
-                <div class="w3-container w3-white w3-center">
-                    <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-                    <h2 class="w3-wide">NEWSLETTER</h2>
-                    <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
-                    <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
-                    <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
-                </div>
             </div>
-        </div>
 
-        <script>
-            // Accordion 
-            function myAccFunc() {
-                var x = document.getElementById("demoAcc");
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className += " w3-show";
-                } else {
-                    x.className = x.className.replace(" w3-show", "");
+            <script>
+                // Accordion 
+                function myAccFunc() {
+                    var x = document.getElementById("demoAcc");
+                    if (x.className.indexOf("w3-show") == -1) {
+                        x.className += " w3-show";
+                    } else {
+                        x.className = x.className.replace(" w3-show", "");
+                    }
                 }
-            }
 
-            function myAccFunc1() {
-                var x = document.getElementById("demoAcc1");
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className += " w3-show";
-                } else {
-                    x.className = x.className.replace(" w3-show", "");
+                function myAccFunc1() {
+                    var x = document.getElementById("demoAcc1");
+                    if (x.className.indexOf("w3-show") == -1) {
+                        x.className += " w3-show";
+                    } else {
+                        x.className = x.className.replace(" w3-show", "");
+                    }
                 }
-            }
 
-            // Click on the "Jeans" link on page load to open the accordion for demo purposes
-            document.getElementById("myBtn").click();
+                // Click on the "Jeans" link on page load to open the accordion for demo purposes
+                document.getElementById("myBtn").click();
 
 
-            // Open and close sidebar
-            function w3_open() {
-                document.getElementById("mySidebar").style.display = "block";
-                document.getElementById("myOverlay").style.display = "block";
-            }
+                // Open and close sidebar
+                function w3_open() {
+                    document.getElementById("mySidebar").style.display = "block";
+                    document.getElementById("myOverlay").style.display = "block";
+                }
 
-            function w3_close() {
-                document.getElementById("mySidebar").style.display = "none";
-                document.getElementById("myOverlay").style.display = "none";
-            }
-        </script>
+                function w3_close() {
+                    document.getElementById("mySidebar").style.display = "none";
+                    document.getElementById("myOverlay").style.display = "none";
+                }
+            </script>
 
-        <script src="IMGDEMO/jquery-2.1.4.min.js"></script>
+            <script src="IMGDEMO/jquery-2.1.4.min.js"></script>
     </body>
 <?php } ?>
 
