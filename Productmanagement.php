@@ -7,32 +7,45 @@ require_once('login.php');
 
 if (isset($_POST['Insert'])) {
     $conn = createDbConnection();
-    $sql1 = "select maloaiSP from loaisanpham where loaiSP='" . $_REQUEST['typeSP'] . "'";
-    $result = $conn->query($sql1);
-    $row = $result->fetch_assoc();
-    $maloaiSP = $row['maloaiSP'];
-    $pname = $_FILES["myFile"]["name"];
-    $tname = $_FILES['myFile']['tmp_name'];
-    $uploaddir = "Images/T-shirt/" . $pname;
-    move_uploaded_file($tname, $uploaddir);
-    $sql = sprintf(
-        "INSERT INTO sanpham (maloaiSP,thongtinSP,tenSP,giaSP,hinhanhSP,soluongtonkho) 
-                    VALUES ( '%s','%s', '%s', '%s' ,'%s','%s')",
-        $maloaiSP,
-        $_REQUEST['bio'],
-        $_REQUEST['name'],
-        $_REQUEST['gia'],
-        $pname,
-        $_REQUEST['quantitySP']
-    );
-    var_dump($sql);
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-        header("Location:Productmanagement.php");
+    $sql = "select * from sanpham where tenSP='" . $_REQUEST['name'] . "'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        echo '<script>alert("This name has existed, add product failed")</script>';
+        $result->free_result();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $sql = "select * from sanpham where hinhanhSP='" . $_FILES["myFile"]["name"] . "'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo '<script>alert("This image has existed, add product failed")</script>';
+            $result->free_result();
+        } else {
+            $sql1 = "select maloaiSP from loaisanpham where loaiSP='" . $_REQUEST['typeSP'] . "'";
+            $result = $conn->query($sql1);
+            $row = $result->fetch_assoc();
+            $maloaiSP = $row['maloaiSP'];
+            $pname = $_FILES["myFile"]["name"];
+            $tname = $_FILES['myFile']['tmp_name'];
+            $uploaddir = "Images/T-shirt/" . $pname;
+            move_uploaded_file($tname, $uploaddir);
+            $sql = sprintf(
+                "INSERT INTO sanpham (maloaiSP,thongtinSP,tenSP,giaSP,hinhanhSP,soluongtonkho) 
+                        VALUES ( '%s','%s', '%s', '%s' ,'%s','%s')",
+                $maloaiSP,
+                $_REQUEST['bio'],
+                $_REQUEST['name'],
+                $_REQUEST['gia'],
+                $pname,
+                $_REQUEST['quantitySP']
+            );
+            if ($conn->query($sql) === TRUE) {
+                echo '<script>alert("Insert successfully!")</script>';
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+           
+        }
     }
-
+    
     $conn->close();
 }
 ?>
@@ -40,12 +53,27 @@ if (isset($_POST['Insert'])) {
 
 if (isset($_POST['Update'])) {
     $conn = createDbConnection();
+    $sql = "select * from sanpham where tenSP='" . $_REQUEST['ten'] . "'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0 && $_REQUEST['ten']!=$_REQUEST['oldname']) {
+        echo '<script>alert("This name has existed, update failed")</script>';
+        $result->free_result();
+    }
+    else {
+        
     $sql1 = "select maloaiSP from loaisanpham where loaiSP='" . $_REQUEST['loaiSP'] . "'";
     $result = $conn->query($sql1);
     $row = $result->fetch_assoc();
     $maloaiSP = $row['maloaiSP'];
     if ($_FILES["hinh"]["name"] != "") {
-        $pname = $_FILES["hinh"]["name"];
+        $sql = "select * from sanpham where hinhanhSP='" . $_FILES["hinh"]["name"] . "'";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            echo '<script>alert("This image has existed, update failed")</script>';
+            $result->free_result();
+        } 
+        else{
+            $pname = $_FILES["hinh"]["name"];
         $tname = $_FILES['hinh']['tmp_name'];
         $_REQUEST['imagehere1'] = $pname;
         $uploaddir = "Images/T-shirt/" . $pname;
@@ -62,15 +90,15 @@ if (isset($_POST['Update'])) {
             $_REQUEST['soluongSP'],
             $_REQUEST['oldname']
         );
-        var_dump($sql);
         if ($conn->query($sql) === TRUE) {
-            echo "The record updated successfully";
-            header("Location:Productmanagement.php");
+            echo '<script>alert("Update successfully!")</script>';
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
 
         $conn->close();
+        }
+        
     } else {
         $sql = sprintf(
             "UPDATE sanpham 
@@ -93,6 +121,7 @@ if (isset($_POST['Update'])) {
 
         $conn->close();
     }
+}
 }
 ?>
 <?php
@@ -290,28 +319,28 @@ if (isLoginedAdmin()) {
 
                     </div>
 
-                    <form class="w3-container" id="f7" action="Productmanagement.php" method="post" enctype="multipart/form-data">
+                    <form class="w3-container" id="f7" action="Productmanagement.php" method="post" onsubmit="" enctype="multipart/form-data">
                         <ul>
                             <li>
                                 <b><label for="name">Enter name of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" name="name" maxlength="100">
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" id="tenSP" name="name" maxlength="100" required>
                             </li>
                             <li>
                                 <b><label for="email">Enter price of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" name="gia" maxlength="100">
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" id="giaSP" name="gia" maxlength="100" required>
                             </li>
                             <li>
                                 <b><label for="url">New image</label></b><br>
-                                <input class="w3-margin-bottom " type="file" name="myFile" id="myFile" onchange="return fileValidation()">
+                                <input class="w3-margin-bottom " type="file" name="myFile" id="myFile" onchange="return fileValidation()" required>
                                 <img src="" alt="" style="width:100px" id="imagehere">
                             </li>
                             <li>
                                 <b><label for="bio">Description</label></b>
-                                <textarea class="w3-input w3-input w3-border w3-margin-bottom " name="bio" onkeyup="adjust_textarea(this)"></textarea>
+                                <textarea class="w3-input w3-input w3-border w3-margin-bottom " id="bioo" name="bio" onkeyup="adjust_textarea(this)" ></textarea>
                             </li>
                             <li>
                                 <b><label for="bio">Type of product</label></b>
-                                <select name="typeSP" style="width: 120px;height: 30px;">
+                                <select name="typeSP" style="width: 120px;height: 30px;" required>
                                     <option value="tee">T-shirt</option>
                                     <option value="hoodie">Hoodie</option>
                                     <option value="sweater">Sweater</option>
@@ -320,7 +349,7 @@ if (isLoginedAdmin()) {
                             </li>
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" maxlength="100" name="quantitySP">
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" name="quantitySP" required>
                             </li>
                             <li>
                                 <input type="submit" value="Insert" name="Insert" onclick="them()">
@@ -341,17 +370,17 @@ if (isLoginedAdmin()) {
 
                     <form class="w3-container " id="f77" action="Productmanagement.php" method="post" enctype="multipart/form-data">
                         <ul>
-                            <input type="hidden" id="oldname" name="oldname" />
+                            <input type="hidden" id="oldname" name="oldname" required>
                             <li>
 
                                 <b><label>Name:</label></b>
 
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="ten" name="ten" type="text" maxlength="100">
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="ten" name="ten" type="text" maxlength="100" required>
                             </li>
                             <li>
                                 <b><label>Price:</label></b>
 
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="gia1" name="gia1" type="text" maxlength="100">
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="gia1" name="gia1" type="number" maxlength="100" required>
 
                             </li>
                             <li>
@@ -364,12 +393,12 @@ if (isLoginedAdmin()) {
                             <li>
                                 <b><label>Description</label></b>
 
-                                <textarea class="w3-input w3-input w3-border w3-margin-bottom " id="mota" name="mota" onkeyup="adjust_textarea(this)"></textarea>
+                                <textarea class="w3-input w3-input w3-border w3-margin-bottom " id="mota" name="mota" onkeyup="adjust_textarea(this)" ></textarea>
 
                             </li>
                             <li>
                                 <b><label for="bio">Type of product</label></b>
-                                <select name="typeSP" id="loaiSP" style="width: 120px;height: 30px;">
+                                <select name="loaiSP" id="loaiSP" style="width: 120px;height: 30px;" required>
                                     <option value="tee">T-shirt</option>
                                     <option value="hoodie">Hoodie</option>
                                     <option value="sweater">Sweater</option>
@@ -378,7 +407,7 @@ if (isLoginedAdmin()) {
                             </li>
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="text" maxlength="100" name="soluongSP" id="soluongSP">
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" name="soluongSP" id="soluongSP" required>
                             </li>
                             <li>
                                 <input type="submit" value="Update" name="Update" onclick="capnhat()">

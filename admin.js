@@ -1,11 +1,4 @@
-function themsp()
-{
-    document.getElementById("suasp").style.display='none';
-    document.getElementById("themsp").style.display='block';
-    document.getElementById("f7").style.display="block";
-    document.getElementById("nutthemsp").style.display='none';
 
-}
 function suasp(ten,gia,hinh,mota,loai,soluong)
 {
     document.getElementById("f77").style.display="block";
@@ -24,14 +17,12 @@ function xoasp()
 }
 function capnhat()
 {
-    alert("Update successfully !");
     document.getElementById("suasp").style.display='none';
     document.getElementById("themsp").style.display='none';
 
 }
 function them()
 {
-    alert("Insert successfully!");
     document.getElementById("thongtinsp").style.display='block';
     document.getElementById("nutthemsp").style.display='block';
     document.getElementById("suasp").style.display='none';
@@ -100,3 +91,9 @@ function fileValidation1() {
 function billdetail(madon,userkh){
     window.open("billdetail.php?madon="+madon+"&userKH="+userkh)
 }  
+function kiemtradulieu(){
+    if(document.getElementById("tenSP").value==""){
+        alert('Please type name of product');
+        return false;
+    }
+}
