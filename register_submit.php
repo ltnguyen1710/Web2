@@ -8,7 +8,9 @@ function Register($username,$password,$repassword,$sdt,$hoten){
        if(!$con->query($sql)){
           echo '<script type="text/javascript">alert("Username has existed")</script>' ;
        }
-      echo '<script type="text/javascript">alert("Sign up successfully")</script>' ;
+      else{
+         echo '<script type="text/javascript">alert("Sign up successfully")</script>' ;
+      }
      }
 
 

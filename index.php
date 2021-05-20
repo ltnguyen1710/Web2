@@ -313,7 +313,7 @@ if (isset($_POST["username1"])) {
                             <label><b>Full name</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Full name" name="fullname" required>
                             <label><b>Phone number</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Phone number" name="phone" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="0123456789" pattern="[0][2,7,9]{1}[0-9]{4}[0-9]{4}" name="phone" required>
 
                             <label><b>Sex: </b></label>
                             Male <input class="" type="radio" name="radsex" required>
@@ -327,7 +327,7 @@ if (isset($_POST["username1"])) {
                             <br>
                             <label><b>Email:</b></label>
                             <br>
-                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email">
+                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email" required>
                             <label><b>User name</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" required>
                             <label><b>Password</b></label>
@@ -339,7 +339,7 @@ if (isset($_POST["username1"])) {
 
 
                         <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                            <button onclick="document.getElementById('id02').style.display='none',document.getElementById('price1').innerHTML=document.getElementById('price').innerHTML " type="button" class="w3-button w3-grey">Cancel</button>
+                            <button  type="button" class="w3-button w3-grey">Cancel</button>
                             <input class="w3-button  w3-black w3-right" name="submit" value="Submit" href="#" type="Submit" onclick="">
                         </div>
 

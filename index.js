@@ -8,7 +8,7 @@ function showdetail(ten, gia, hinh, mota, soluong) {
   document.getElementById("mota").innerHTML = mota;
   document.getElementById("sl").innerHTML = soluong;
   x=Number(soluong);
-  if(x==0){
+  if(x<=0){
     document.getElementById("addtoc").disabled=true;
   }
   else{
@@ -110,6 +110,7 @@ function addItemToCart(title, price, img, soluong) {
     var slg = Number(soluong)
     if (input.value > slg) {
       input.value = slg
+      alert("Max quanity of this product is: "+soluong)
     }
     updatecart()
   })
@@ -153,6 +154,7 @@ function reload(title, price, img, soluong) {
     var slg = Number(soluong)
     if (input.value > slg) {
       input.value = slg
+      alert("Max quanity of this product is: "+soluong)
     }
     updatecart()
   })
@@ -249,7 +251,7 @@ function kiemTraDuLieu() {
 
 
   if (document.signup.psw1.value.length < 6) {
-      alert('Weak password');
+      alert('Weak password(At least 6 character)');
       return false;
   }
   if (document.signup.psw1.value != document.signup.repsw.value) {

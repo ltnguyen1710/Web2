@@ -327,7 +327,7 @@ if (isLoginedAdmin()) {
                             </li>
                             <li>
                                 <b><label for="email">Enter price of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" id="giaSP" name="gia" maxlength="100" required>
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" id="giaSP" min="1" name="gia" maxlength="100" required>
                             </li>
                             <li>
                                 <b><label for="url">New image</label></b><br>
@@ -349,7 +349,7 @@ if (isLoginedAdmin()) {
                             </li>
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" name="quantitySP" required>
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" min="1" name="quantitySP" required>
                             </li>
                             <li>
                                 <input type="submit" value="Insert" name="Insert" onclick="them()">
@@ -380,7 +380,7 @@ if (isLoginedAdmin()) {
                             <li>
                                 <b><label>Price:</label></b>
 
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="gia1" name="gia1" type="number" maxlength="100" required>
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="gia1" name="gia1" min="1" type="number" maxlength="100" required>
 
                             </li>
                             <li>
@@ -407,10 +407,10 @@ if (isLoginedAdmin()) {
                             </li>
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" name="soluongSP" id="soluongSP" required>
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" min="1" name="soluongSP" id="soluongSP" required>
                             </li>
                             <li>
-                                <input type="submit" value="Update" name="Update" onclick="capnhat()">
+                                <input type="submit" value="Update" name="Update">
                                 <input type="submit" name="Delete" onclick="return xoasp()" value="Delete">
                             </li>
                     </form>
