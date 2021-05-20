@@ -2,7 +2,12 @@
 <?php
 require_once('login.php');
 if (isset($_POST['admin'])) {
-  adminlogin($_POST['admin'], $_POST['psw']);
+  if (adminlogin($_POST['admin'], $_POST['psw']) == "") {
+    echo '<script>alert("Wrong password")</script>';
+  }
+  else {
+    echo '<script>alert("Login successfully")</script>';
+  }
 }
 ?>
 <html>
@@ -229,11 +234,18 @@ if (isLoginedAdmin()) {
         </p>
       </header>
       <form action="/action_page.php" style="padding-left: 15px;" onchange="reloadadmin()">
-        <input type="radio" id="all" name="gender" value="1" <?php if(isset($_REQUEST['select'])){echo ($_REQUEST['select'] == 1) ? 'checked="checked"' : '';} echo 'checked="checked"'  ?>>
+        <input type="radio" id="all" name="gender" value="1" <?php if (isset($_REQUEST['select'])) {
+                                                                echo ($_REQUEST['select'] == 1) ? 'checked="checked"' : '';
+                                                              }
+                                                              echo 'checked="checked"'  ?>>
         <label for="All">All</label>
-        <input type="radio" id="pro" name="gender" value="2" <?php if(isset($_REQUEST['select'])){echo ($_REQUEST['select'] == 2) ? 'checked="checked"' : '';} ?>>
+        <input type="radio" id="pro" name="gender" value="2" <?php if (isset($_REQUEST['select'])) {
+                                                                echo ($_REQUEST['select'] == 2) ? 'checked="checked"' : '';
+                                                              } ?>>
         <label for="Processed">Processed</label>
-        <input type="radio" id="nonepro" name="gender" value="3" <?php if(isset($_REQUEST['select'])){echo ($_REQUEST['select'] == 3) ? 'checked="checked"' : '';} ?>>
+        <input type="radio" id="nonepro" name="gender" value="3" <?php if (isset($_REQUEST['select'])) {
+                                                                    echo ($_REQUEST['select'] == 3) ? 'checked="checked"' : '';
+                                                                  } ?>>
         <label for="nonepro">None process</label>
       </form>
       <script>
@@ -382,23 +394,24 @@ if (isLoginedAdmin()) {
     </script>
     <script>
       function myFunction(madon) {
-        if(!confirm("Are you sure ?")){
-          return;
-        }
-        var xmlhttp;
-        if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
-          xmlhttp = new XMLHttpRequest();
-        } else { // code for IE6, IE5
-          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-          if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var cof = confirm("Are you sure ?");
+        if (cof) {
 
+          var xmlhttp;
+          if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+          } else { // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
           }
+          xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+            }
+          }
+          xmlhttp.open("GET", "xulydonhang.php?madon=" + madon, true);
+          xmlhttp.send();
+          window.location.href = "admin.php"
         }
-        xmlhttp.open("GET", "xulydonhang.php?madon=" + madon, true);
-        xmlhttp.send();
-        window.location.href = "admin.php"
       }
     </script>
     <script src="IMGDEMO/jquery-2.1.4.min.js"></script>

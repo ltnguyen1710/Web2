@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -58,5 +59,6 @@ for ($i = 0; $i < $soluongSP; $i++) {
     $sql = sprintf("UPDATE sanpham set soluongtonkho=soluongtonkho-'%s' WHERE tenSP='%s'",$data['soluong'][$i], $data['ten'][$i]);
     $con->query($sql);        
 }
+unset($_SESSION['cart']);
 $con->close();
 ?>

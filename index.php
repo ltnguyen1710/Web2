@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <?php
 require('login.php');
-$loginResult = '';
 if (isset($_POST['username'])) {
-    $loginResult = "Hi, " . login($_POST['username'], $_POST['psw']);
+    if(login($_POST['username'], $_POST['psw'])==""){
+        echo '<script>alert("Wrong password")</script>';
+    } 
+    else{
+        echo '<script>alert("Login successfully")</script>';
+    }
 }
 ?>
 <?php
@@ -280,7 +284,7 @@ if (isset($_POST["username1"])) {
                             <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username" required value="checker">
                             <label><b>Password</b></label>
                             <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required value="12345">
-                            <input class="w3-button w3-block w3-black w3-section w3-padding" type="submit" value="Log in">
+                            <input class="w3-button w3-block w3-black w3-section w3-padding" type="submit" value="Log in" >
                             <a class="w3-button w3-block w3-gray w3-section w3-padding" onclick="document.getElementById('id02').style.display='block'">Sign up</a>
                             <input class="w3-check w3-margin-top " type="checkbox" checked="checked"> Remember me
                         </div>
@@ -593,7 +597,7 @@ if (isset($_POST["username1"])) {
                         </div>
 
                         <div class="w3-container w3-border-top w3-padding-24 ">
-                            <button class="w3-button w3-red w3-transparent w3-right" onclick="<?= LogCard() ?>">Add to cart
+                            <button class="w3-button w3-red w3-transparent w3-right" id="addtoc" onclick="<?= LogCard() ?>">Add to cart
                                 <i class="fa fa-shopping-cart"></i></button>
                         </div>
 

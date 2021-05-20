@@ -24,6 +24,9 @@ function login($username, $password)
                 $_SESSION['username'] = $username;
                 return $username;
             }
+            else{
+                return "";
+            }
         }
     }
     $con->close();
@@ -41,6 +44,9 @@ function adminlogin($admin, $pass){
             if ($row['passAD'] == $pass) {
                 $_SESSION['admin'] = $admin;
                 return $admin;
+            }
+            else{
+                return "";
             }
         }
     }

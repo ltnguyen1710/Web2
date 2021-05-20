@@ -7,6 +7,13 @@ function showdetail(ten, gia, hinh, mota, soluong) {
   document.getElementById("hinh").src = hinh;
   document.getElementById("mota").innerHTML = mota;
   document.getElementById("sl").innerHTML = soluong;
+  x=Number(soluong);
+  if(x==0){
+    document.getElementById("addtoc").disabled=true;
+  }
+  else{
+    document.getElementById("addtoc").disabled=false;
+  }
 }
 /*function xoacart() {
   var remove_cart = document.getElementsByClassName("btn-danger");

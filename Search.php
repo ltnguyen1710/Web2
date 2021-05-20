@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <?php
 require('login.php');
-
-$loginResult = '';
 if (isset($_POST['username'])) {
-    $loginResult = "Hi, " . login($_POST['username'], $_POST['psw']);
+    if(login($_POST['username'], $_POST['psw'])==""){
+        echo '<script>alert("Wrong password")</script>';
+    } 
+    else{
+        echo '<script>alert("Login successfully")</script>';
+    }
 }
 ?>
 <?php
