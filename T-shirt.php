@@ -379,7 +379,7 @@ if (isset($_POST["username1"])) {
 
 
                         <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                            <button  type="button" class="w3-button w3-grey">Cancel</button>
+                            <button  type="button" onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-grey">Cancel</button>
                             <input class="w3-button  w3-black w3-right" name="submit" value="Submit" href="#" type="Submit" onclick="">
                         </div>
 
