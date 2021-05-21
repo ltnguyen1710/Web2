@@ -370,7 +370,7 @@ if (isset($_POST["username1"])) {
                             <label><b>Full name</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Full name" name="fullname" required>
                             <label><b>Phone number</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="0123456789" pattern="[0][2,7,9]{1}[0-9]{4}[0-9]{4}" name="phone" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="Enter your phone number" pattern="[0][2,7,9]{1}[0-9]{4}[0-9]{4}" name="phone" required>
 
                             <label><b>Sex: </b></label>
                             Male <input class="" type="radio" name="radsex" required>
