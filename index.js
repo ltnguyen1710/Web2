@@ -203,7 +203,7 @@ function xulythanhtoan(user) {
   }
 
 
-  xmlhttp.open("GET", "thanhtoan.php?totalprice=" + gia + "&soluongSP=" + soluongSP + "&userKH=" + user + "&diachi=" + diachi + sanpham, true);
+  xmlhttp.open("GET", "process/thanhtoan.php?totalprice=" + gia + "&soluongSP=" + soluongSP + "&userKH=" + user + "&diachi=" + diachi + sanpham, true);
   xmlhttp.send();
   alert('Buy successfully !');
   document.getElementById('checkout').style.display='none';
@@ -225,7 +225,7 @@ function xulygiohang(title, price, img, soluong, soluongtonkho) {
 
     }
   }
-  xmlhttp.open("GET", "giohang.php?ten=" + title + "&gia=" + price + "&hinhanh=" + img + "&soluongSP=" + soluong + "&soluongtonkho=" + soluongtonkho, true);
+  xmlhttp.open("GET", "process/giohang.php?ten=" + title + "&gia=" + price + "&hinhanh=" + img + "&soluongSP=" + soluong + "&soluongtonkho=" + soluongtonkho, true);
   xmlhttp.send();
 }
 //hàm xử lý xóa sản phẩm
@@ -242,7 +242,7 @@ function xulyxoasanpham(ten) {
 
     }
   }
-  xmlhttp.open("GET", "giohang.php?tenxoa=" + ten, true);
+  xmlhttp.open("GET", "process/giohang.php?tenxoa=" + ten, true);
   xmlhttp.send();
 }
 

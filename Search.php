@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <?php
-require('login.php');
+require('process/login.php');
 if (isset($_POST['username'])) {
-    if(login($_POST['username'], $_POST['psw'])==""){
+    if (login($_POST['username'], $_POST['psw']) == "") {
         echo '<script>alert("Wrong password")</script>';
-    } 
-    else{
+    } else {
         echo '<script>alert("Login successfully")</script>';
     }
 }
 ?>
 <?php
-require('register_submit.php');
+require('process/register_submit.php');
 if (isset($_POST["username1"])) {
     Register($_POST["username1"], $_POST["psw1"], $_POST["repsw"], $_POST["phone"], $_POST["fullname"]);
 }
 ?>
-
-
-
-
-
-
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -149,39 +142,7 @@ if (isset($_POST["username1"])) {
 <body class="w3-content" style="max-width:1200px" onload="reloadgiohang()">
 
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
-        <div class="w3-container w3-display-container w3-padding-16">
-            <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-            <a href="index.php"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
-        </div>
-        <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-
-            <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align">
-                Shirt <i class="fa fa-caret-down"></i>
-            </a>
-            <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                <a href="T-shirt.php" class="w3-bar-item w3-button">T-Shirt</a>
-                <a href="Hoodie.html" class="w3-bar-item w3-button">Hoodie</a>
-                <a href="Sweater.html" class="w3-bar-item w3-button">Sweater</a>
-                <a href="Jacket.php" class="w3-bar-item w3-button">Jackets</a>
-            </div>
-
-            <a onclick="myAccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align">
-                Item <i class="fa fa-caret-down"></i>
-            </a>
-            <div id="demoAcc1" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                <a href="#" class="w3-bar-item w3-button">Chain</a>
-                <a href="#" class="w3-bar-item w3-button">Socks</a>
-                <a href="#" class="w3-bar-item w3-button">Wallet</a>
-            </div>
-
-            <a href="#" class="w3-bar-item w3-white w3-button ">Pants</a>
-
-        </div>
-        <a href="#footer" class="w3-bar-item w3-button w3-padding">Contact</a>
-        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
-        <a href="#footer" class="w3-bar-item w3-button w3-padding">Subscribe</a>
-    </nav>
+    <?php include 'components/nav.php'; ?>
 
     <!-- Top menu on small screens -->
     <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
@@ -239,7 +200,6 @@ if (isset($_POST["username1"])) {
             </form>
             </p>
             <div class=" " style="padding-top: 64px;padding-bottom: 32px;">
-
                 Price
                 <select name="price" id="price2" style="width: 125px;height: 40px;" onchange="reload1()">
                     <option id="pr1" value="***-"></option>
@@ -269,13 +229,13 @@ if (isset($_POST["username1"])) {
                 <?php
                 }
                 ?>
-            
-                document.getElementById("loaisp").value=<?= isset($_REQUEST['loaisp']) ? $_REQUEST['loaisp'] : 0 ?>;
-                
-              
+
+                document.getElementById("loaisp").value = <?= isset($_REQUEST['loaisp']) ? $_REQUEST['loaisp'] : 0 ?>;
+
+
 
                 function reload1() {
-                    if(document.getElementById("find").value == ""){
+                    if (document.getElementById("find").value == "") {
                         alert("Please type name of product to search")
                         return;
                     }
@@ -355,7 +315,7 @@ if (isset($_POST["username1"])) {
                 </div>
             </div>
 
-             <!--Sign up-->
+            <!--Sign up-->
             <div id="id02" class="w3-modal w3-padding-24">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
@@ -396,62 +356,62 @@ if (isset($_POST["username1"])) {
 
 
                         <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                            <button  type="button" class="w3-button w3-grey" onclick="document.getElementById('id02').style.display='none'">Cancel</button>
+                            <button type="button" class="w3-button w3-grey" onclick="document.getElementById('id02').style.display='none'">Cancel</button>
                             <input class="w3-button  w3-black w3-right" name="submit" value="Submit" href="#" type="Submit" onclick="">
                         </div>
 
                 </div>
                 </form>
             </div>
-                  <!--check out-->
-      <div id="checkout" class="w3-modal">
-        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+            <!--check out-->
+            <div id="checkout" class="w3-modal">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
-          <div class="w3-center"><br>
-            <span onclick="document.getElementById('checkout').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-            <h1>Checkout</h1>
-          </div>
-          <?php
-          $con = createDBConnection();
-          $sql = "SELECT * FROM khachhang WHERE userKH='" . $_SESSION['username'] . "'";
-          $result = $con->query($sql);
-          $row = $result->fetch_assoc()
-          ?>
-          <form class="w3-container">
-            <div class="w3-section">
-              <label><b>Full name</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required disabled>
-              <label><b>Phone number</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required disabled>
-              <label><b>Adress</b></label>
-              <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress" required>
-              <label><b>Nation</b></label>
-              <select name="nation">
-                <option value="">Vietnam</option>
-                <option value="">USA</option>
-                <option value="">UK</option>
-                <option value="">Spain</option>
-              </select>
-              <br>
-              <label><b>Payments</b></label>
-              <select name="nation">
-                <option value="">Credit card</option>
-                <option value="">Cash</option>
-              </select>
+                    <div class="w3-center"><br>
+                        <span onclick="document.getElementById('checkout').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+                        <h1>Checkout</h1>
+                    </div>
+                    <?php
+                    $con = createDBConnection();
+                    $sql = "SELECT * FROM khachhang WHERE userKH='" . $_SESSION['username'] . "'";
+                    $result = $con->query($sql);
+                    $row = $result->fetch_assoc()
+                    ?>
+                    <form class="w3-container">
+                        <div class="w3-section">
+                            <label><b>Full name</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required disabled>
+                            <label><b>Phone number</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required disabled>
+                            <label><b>Adress</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress" required>
+                            <label><b>Nation</b></label>
+                            <select name="nation">
+                                <option value="">Vietnam</option>
+                                <option value="">USA</option>
+                                <option value="">UK</option>
+                                <option value="">Spain</option>
+                            </select>
+                            <br>
+                            <label><b>Payments</b></label>
+                            <select name="nation">
+                                <option value="">Credit card</option>
+                                <option value="">Cash</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="cart-total">
+                        <strong class="cart-total-title">Total Price: $</strong>
+                        <strong class="cart-total-price" id="price1"></strong>
+                    </div>
+
+                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                        <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
+                        <button class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>')">Confirm</button>
+                    </div>
+
+                </div>
             </div>
-          </form>
-          <div class="cart-total">
-            <strong class="cart-total-title">Total Price: $</strong>
-            <strong class="cart-total-price" id="price1"></strong>
-          </div>
-
-          <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-            <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-            <button class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>')">Confirm</button>
-          </div>
-
-        </div>
-      </div>
         </header>
 
 
@@ -751,7 +711,7 @@ if (isset($_POST["username1"])) {
                         }
                         ?>
                     </div>
-                 <?php }  else {
+            <?php } else {
                     echo "
           <p>Product was not found</p>";
                 }

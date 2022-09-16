@@ -61,4 +61,5 @@ for ($i = 0; $i < $soluongSP; $i++) {
 }
 unset($_SESSION['cart']);
 $con->close();
+exit();
 ?>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-require_once('login.php');
+require_once('../process/login.php');
 ?>
 
 <?php
@@ -25,7 +25,7 @@ if (isset($_POST['Insert'])) {
             $maloaiSP = $row['maloaiSP'];
             $pname = $_FILES["myFile"]["name"];
             $tname = $_FILES['myFile']['tmp_name'];
-            $uploaddir = "Images/T-shirt/" . $pname;
+            $uploaddir = "../Images/T-shirt/" . $pname;
             move_uploaded_file($tname, $uploaddir);
             $sql = sprintf(
                 "INSERT INTO sanpham (maloaiSP,thongtinSP,tenSP,giaSP,hinhanhSP,soluongtonkho) 
@@ -76,7 +76,7 @@ if (isset($_POST['Update'])) {
             $pname = $_FILES["hinh"]["name"];
         $tname = $_FILES['hinh']['tmp_name'];
         $_REQUEST['imagehere1'] = $pname;
-        $uploaddir = "Images/T-shirt/" . $pname;
+        $uploaddir = "../Images/T-shirt/" . $pname;
         move_uploaded_file($tname, $uploaddir);
         $sql = sprintf(
             "UPDATE sanpham 
@@ -144,7 +144,7 @@ if (isset($_REQUEST['Delete'])) {
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="SOURCE.css">
+<link rel="stylesheet" href="../SOURCE.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -264,7 +264,7 @@ if (isLoginedAdmin()) {
         <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
             <div class="w3-container w3-display-container w3-padding-16">
                 <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-                <a href="#"><img src="Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
+                <a href="#"><img src="../Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
             </div>
             <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
                 <a href="admin.php" class="w3-button w3-block w3-white w3-left-align">Bill management</a>
@@ -458,12 +458,12 @@ if (isLoginedAdmin()) {
                         <div class="w3-col l3 s6">
                             <div class="w3-container">
                                 <div class="w3-display-container">
-                                    <img src="Images/T-shirt/<?= $row['hinhanhSP'] ?>" style="width:200px">
+                                    <img src="../Images/T-shirt/<?= $row['hinhanhSP'] ?>" style="width:200px">
                                     <span class="w3-tag w3-display-topleft">New</span>
                                 </div>
                                 <p><?= $row['tenSP'] ?><br><b>$ <?= $row['giaSP'] ?></b></p>
                                 <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                                    <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
+                                    <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','../Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
                                         </button>
                                     </p>
                                 </a>
