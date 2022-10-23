@@ -10,6 +10,7 @@ if(isset($_REQUEST['ten'])){
             $_SESSION['cart']['hinhanh'][$i] = $_REQUEST['hinhanh'];
             $_SESSION['cart']['gia'][$i] = $_REQUEST['gia'];
             $_SESSION['cart']['soluongtonkho'][$i]=$_REQUEST['soluongtonkho'];
+            $_SESSION['cart']['size'][$i]=$_REQUEST['size'];
         }
     }
 }
@@ -20,10 +21,12 @@ if(isset($_REQUEST['tenxoa'])){
             $_SESSION['cart']['hinhanh'][$i]=$_SESSION['cart']['hinhanh'][$_SESSION['soluongSP']-1];
             $_SESSION['cart']['gia'][$i]=$_SESSION['cart']['gia'][$_SESSION['soluongSP']-1];
             $_SESSION['cart']['soluongtonkho'][$i]=$_SESSION['cart']['soluongtonkho'][$_SESSION['soluongSP']-1];
+            $_SESSION['cart']['size'][$i]=$_SESSION['cart']['size'][$_SESSION['soluongSP']-1];
             unset($_SESSION['cart']['ten'][$_SESSION['soluongSP']-1]) ;
             unset($_SESSION['cart']['hinhanh'][$_SESSION['soluongSP']-1]);
             unset($_SESSION['cart']['gia'][$_SESSION['soluongSP']-1]);
             unset($_SESSION['cart']['soluongtonkho'][$_SESSION['soluongSP']-1]);
+            unset($_SESSION['cart']['size'][$_SESSION['soluongSP']-1]);
             $_SESSION['soluongSP']--;
             return;
         }

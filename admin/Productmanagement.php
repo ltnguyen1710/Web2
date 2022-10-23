@@ -28,24 +28,24 @@ if (isset($_POST['Insert'])) {
             $uploaddir = "../Images/T-shirt/" . $pname;
             move_uploaded_file($tname, $uploaddir);
             $sql = sprintf(
-                "INSERT INTO sanpham (maloaiSP,thongtinSP,tenSP,giaSP,hinhanhSP,soluongtonkho) 
-                        VALUES ( '%s','%s', '%s', '%s' ,'%s','%s')",
+                "INSERT INTO sanpham (maloaiSP,thongtinSP,tenSP,giaSP,hinhanhSP,sizeL,sizeXL) 
+                        VALUES ( '%s','%s', '%s', '%s' ,'%s','%s', '%s')",
                 $maloaiSP,
                 $_REQUEST['bio'],
                 $_REQUEST['name'],
                 $_REQUEST['gia'],
                 $pname,
-                $_REQUEST['quantitySP']
+                $_REQUEST['sizeL'],
+                $_REQUEST['sizeXL']
             );
             if ($conn->query($sql) === TRUE) {
                 echo '<script>alert("Insert successfully!")</script>';
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
-           
         }
     }
-    
+
     $conn->close();
 }
 ?>
@@ -55,73 +55,72 @@ if (isset($_POST['Update'])) {
     $conn = createDbConnection();
     $sql = "select * from sanpham where tenSP='" . $_REQUEST['ten'] . "'";
     $result = $conn->query($sql);
-    if ($result->num_rows > 0 && $_REQUEST['ten']!=$_REQUEST['oldname']) {
+    if ($result->num_rows > 0 && $_REQUEST['ten'] != $_REQUEST['oldname']) {
         echo '<script>alert("This name has existed, update failed")</script>';
         $result->free_result();
-    }
-    else {
-        
-    $sql1 = "select maloaiSP from loaisanpham where loaiSP='" . $_REQUEST['loaiSP'] . "'";
-    $result = $conn->query($sql1);
-    $row = $result->fetch_assoc();
-    $maloaiSP = $row['maloaiSP'];
-    if ($_FILES["hinh"]["name"] != "") {
-        $sql = "select * from sanpham where hinhanhSP='" . $_FILES["hinh"]["name"] . "'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-            echo '<script>alert("This image has existed, update failed")</script>';
-            $result->free_result();
-        } 
-        else{
-            $pname = $_FILES["hinh"]["name"];
-        $tname = $_FILES['hinh']['tmp_name'];
-        $_REQUEST['imagehere1'] = $pname;
-        $uploaddir = "../Images/T-shirt/" . $pname;
-        move_uploaded_file($tname, $uploaddir);
-        $sql = sprintf(
-            "UPDATE sanpham 
-                SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
-                WHERE tenSP = '%s'",
-            $_REQUEST['ten'],
-            $_REQUEST['gia1'],
-            $_REQUEST['imagehere1'],
-            $_REQUEST['mota'],
-            $maloaiSP,
-            $_REQUEST['soluongSP'],
-            $_REQUEST['oldname']
-        );
-        if ($conn->query($sql) === TRUE) {
-            echo '<script>alert("Update successfully!")</script>';
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-
-        $conn->close();
-        }
-        
     } else {
-        $sql = sprintf(
-            "UPDATE sanpham 
-                SET tenSP = '%s', giaSP='%s', thongtinSP='%s' ,maloaiSP='%s',soluongtonkho='%s'
-                WHERE tenSP = '%s'",
-            $_REQUEST['ten'],
-            $_REQUEST['gia1'],
-            $_REQUEST['mota'],
-            $maloaiSP,
-            $_REQUEST['soluongSP'],
-            $_REQUEST['oldname']
-        );
-        var_dump($sql);
-        if ($conn->query($sql) === TRUE) {
-            echo "The record updated successfully";
-            header("Location:Productmanagement.php");
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
 
-        $conn->close();
+        $sql1 = "select maloaiSP from loaisanpham where loaiSP='" . $_REQUEST['loaiSP'] . "'";
+        $result = $conn->query($sql1);
+        $row = $result->fetch_assoc();
+        $maloaiSP = $row['maloaiSP'];
+        if ($_FILES["hinh"]["name"] != "") {
+            $sql = "select * from sanpham where hinhanhSP='" . $_FILES["hinh"]["name"] . "'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                echo '<script>alert("This image has existed, update failed")</script>';
+                $result->free_result();
+            } else {
+                $pname = $_FILES["hinh"]["name"];
+                $tname = $_FILES['hinh']['tmp_name'];
+                $_REQUEST['imagehere1'] = $pname;
+                $uploaddir = "../Images/T-shirt/" . $pname;
+                move_uploaded_file($tname, $uploaddir);
+                $sql = sprintf(
+                    "UPDATE sanpham 
+                SET tenSP = '%s', giaSP='%s', hinhanhSP='%s', thongtinSP='%s' ,maloaiSP='%s', sizeL='%s', sizeXL='%s'
+                WHERE tenSP = '%s'",
+                    $_REQUEST['ten'],
+                    $_REQUEST['gia1'],
+                    $_REQUEST['imagehere1'],
+                    $_REQUEST['mota'],
+                    $maloaiSP,
+                    $_REQUEST['sizeL'],
+                    $_REQUEST['sizeXL'],
+                    $_REQUEST['oldname']
+                );
+                if ($conn->query($sql) === TRUE) {
+                    echo '<script>alert("Update successfully!")</script>';
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+
+                $conn->close();
+            }
+        } else {
+            $sql = sprintf(
+                "UPDATE sanpham 
+                SET tenSP = '%s', giaSP='%s', thongtinSP='%s' ,maloaiSP='%s', sizeL='%s', sizeXL='%s'
+                WHERE tenSP = '%s'",
+                $_REQUEST['ten'],
+                $_REQUEST['gia1'],
+                $_REQUEST['mota'],
+                $maloaiSP,
+                $_REQUEST['sizeL'],
+                $_REQUEST['sizeXL'],
+                $_REQUEST['oldname']
+            );
+            // var_dump($sql);
+            if ($conn->query($sql) === TRUE) {
+                echo '<script>alert("Update successfully!")</script>';
+                // header("Location:Productmanagement.php");
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+
+            $conn->close();
+        }
     }
-}
 }
 ?>
 <?php
@@ -336,20 +335,28 @@ if (isLoginedAdmin()) {
                             </li>
                             <li>
                                 <b><label for="bio">Description</label></b>
-                                <textarea class="w3-input w3-input w3-border w3-margin-bottom " id="bioo" name="bio" onkeyup="adjust_textarea(this)" ></textarea>
+                                <textarea class="w3-input w3-input w3-border w3-margin-bottom " id="bioo" name="bio" onkeyup="adjust_textarea(this)"></textarea>
                             </li>
                             <li>
                                 <b><label for="bio">Type of product</label></b>
                                 <select name="typeSP" style="width: 120px;height: 30px;" required>
-                                    <option value="tee">T-shirt</option>
-                                    <option value="hoodie">Hoodie</option>
-                                    <option value="sweater">Sweater</option>
-                                    <option value="jacket">Jacket </option>
+                                    <?php $conn = createDBConnection();
+                                    $result = mysqli_query($conn, "Select * from loaisanpham");
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <option value="<?php echo $row['loaiSP'] ?>"><?php echo $row['loaiSP'] ?></option>
+
+                                    <?php } ?>
+                                </select>
                                 </select>
                             </li>
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" min="1" name="quantitySP" required>
+                                <br>
+                                <label for="bio">Size L</label>
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" min="1" name="sizeL" required>
+                                <label for="bio">Size XL</label>
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" min="1" name="sizeXL" required>
                             </li>
                             <li>
                                 <input type="submit" value="Insert" name="Insert" onclick="them()">
@@ -393,21 +400,28 @@ if (isLoginedAdmin()) {
                             <li>
                                 <b><label>Description</label></b>
 
-                                <textarea class="w3-input w3-input w3-border w3-margin-bottom " id="mota" name="mota" onkeyup="adjust_textarea(this)" ></textarea>
+                                <textarea class="w3-input w3-input w3-border w3-margin-bottom " id="mota" name="mota" onkeyup="adjust_textarea(this)"></textarea>
 
                             </li>
                             <li>
                                 <b><label for="bio">Type of product</label></b>
                                 <select name="loaiSP" id="loaiSP" style="width: 120px;height: 30px;" required>
-                                    <option value="tee">T-shirt</option>
-                                    <option value="hoodie">Hoodie</option>
-                                    <option value="sweater">Sweater</option>
-                                    <option value="jacket">Jacket </option>
+                                    <?php $conn = createDBConnection();
+                                    $result = mysqli_query($conn, "Select * from loaisanpham");
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <option value="<?php echo $row['loaiSP'] ?>"><?php echo $row['loaiSP'] ?></option>
+
+                                    <?php } ?>
                                 </select>
                             </li>
                             <li>
                                 <b><label for="bio">Quantity of product</label></b>
-                                <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" min="1" name="soluongSP" id="soluongSP" required>
+                                <br>
+                                <label for="bio">Size L</label>
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="sizeL" type="number" maxlength="100" min="1" name="sizeL" required>
+                                <label for="bio">Size XL</label>
+                                <input class="w3-input w3-input w3-border w3-margin-bottom " id="sizeXL" type="number" maxlength="100" min="1" name="sizeXL" required>
                             </li>
                             <li>
                                 <input type="submit" value="Update" name="Update">
@@ -463,7 +477,7 @@ if (isLoginedAdmin()) {
                                 </div>
                                 <p><?= $row['tenSP'] ?><br><b>$ <?= $row['giaSP'] ?></b></p>
                                 <a href="javascript:void(0)" class="w3-bar-item w3-left  " onclick="w3_open()">
-                                    <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','../Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['soluongtonkho'] ?>')">Update and Delete
+                                    <p><button onclick="document.getElementById('suasp').style.display='block',suasp('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','../Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row1['loaiSP'] ?>','<?= $row['sizeL'] ?>','<?= $row['sizeXL'] ?>')">Update and Delete
                                         </button>
                                     </p>
                                 </a>

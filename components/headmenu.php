@@ -79,6 +79,7 @@
                     <div class="cart-row w3-container">
                         <span class="cart-item cart-header cart-column">Items</span>
                         <span class="cart-price cart-header cart-column">Price</span>
+                        <span class="cart-price cart-header cart-column">Size</span>
                         <span class="cart-quantity cart-header cart-column">Quantity</span>
                     </div>
 

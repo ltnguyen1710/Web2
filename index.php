@@ -23,8 +23,9 @@ if (isset($_POST["username1"])) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous"> -->
 <script src="index.js"></script>
-
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script> -->
 <style>
     .w3-sidebar a,
     form {
@@ -276,8 +277,8 @@ if (isset($_POST["username1"])) {
 
         while ($row = $result->fetch_assoc()) {
         ?>
-        <!-- Product and Detail of Product -->
-        <?php include 'components/Product.php' ?>
+            <!-- Product and Detail of Product -->
+            <?php include 'components/Product.php' ?>
 
         <?php } ?>
 
@@ -292,7 +293,7 @@ if (isset($_POST["username1"])) {
 
         // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
         if ($current_page > 1 && $total_page > 1) {
-            echo '<a href="Index.php?page=' . ($current_page - 1) . '">Prev</a> | ';
+            echo '<button style=" color: #fff;border:none;background-color: black"><a href="Index.php?page=' . ($current_page - 1) . '">Prev</a></button>  ';
         }
 
         // Lặp khoảng giữa
@@ -300,15 +301,15 @@ if (isset($_POST["username1"])) {
             // Nếu là trang hiện tại thì hiển thị thẻ span
             // ngược lại hiển thị thẻ a
             if ($i == $current_page) {
-                echo '<span>' . $i . '</span> | ';
+                echo '<button style=" color: #fff;border:none;background-color: gray"><span>' . $i . '</span></button>  ';
             } else {
-                echo '<a href="Index.php?page=' . $i . '">' . $i . '</a> | ';
+                echo '<button style=" color: #fff;border:none;background-color: black"><a href="Index.php?page=' . $i . '">' . $i . '</a></button>  ';
             }
         }
 
         // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
         if ($current_page < $total_page && $total_page > 1) {
-            echo '<a href="Index.php?page=' . ($current_page + 1) . '">Next</a> | ';
+            echo '<button style=" color: #fff;border:none;background-color: black"><a href="Index.php?page=' . ($current_page + 1) . '">Next</a></button>  ';
         }
         ?>
     </div>
@@ -387,6 +388,8 @@ if (isset($_POST["username1"])) {
         </div>
     </div>
 
+
+
     <script>
         // Accordion 
         function myAccFunc() {
@@ -423,12 +426,14 @@ if (isset($_POST["username1"])) {
             var hinh = [];
             var gia = [];
             var soluong = [];
+            var size = [];
             ten = <?php echo json_encode($_SESSION['cart']['ten']); ?>;
             hinh = <?php echo json_encode($_SESSION['cart']['hinhanh']); ?>;
             gia = <?php echo json_encode($_SESSION['cart']['gia']); ?>;
             soluong = <?php echo json_encode($_SESSION['cart']['soluongtonkho']); ?>;
+            size = <?php echo json_encode($_SESSION['cart']['size']); ?>;
             for (var i = 0; i < ten.length; i++) {
-                reload(ten[i], gia[i], hinh[i], soluong[i])
+                reload(ten[i], gia[i], hinh[i], soluong[i], size[i])
             }
         }
     </script>

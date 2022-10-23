@@ -1,5 +1,5 @@
 
-function suasp(ten,gia,hinh,mota,loai,soluong)
+function suasp(ten,gia,hinh,mota,loai,sizeL,sizeXL)
 {
     document.getElementById("f77").style.display="block";
     document.getElementById("oldname").value=ten;
@@ -8,7 +8,8 @@ function suasp(ten,gia,hinh,mota,loai,soluong)
     document.getElementById("imagehere1").src=hinh;
     document.getElementById("mota").value=mota;
     document.getElementById("loaiSP").value=loai;
-    document.getElementById("soluongSP").value=soluong;
+    document.getElementById("sizeL").value=sizeL;
+    document.getElementById("sizeXL").value=sizeXL;
 }
 function xoasp()
 {

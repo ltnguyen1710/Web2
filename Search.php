@@ -251,222 +251,151 @@ if (isset($_POST["username1"])) {
                 }
             </script>
 
+            <!-- Head menu -->
+            <?php include 'components/headmenu.php' ?>
 
-            <!-- Bottom Bar End -->
-            <!-- Shopping -->
-            <div id="shoppingcart" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width: 900px">
+            <script>
+                var slideIndex = 0;
+                showSlides();
 
-                    <div class="w3-container w3-padding-16 w3-light-grey">
-                        <span class=" cart-header ">Cart</span>
-                        <span onclick="document.getElementById('shoppingcart').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-                    </div>
-
-                    <div class="cart-row w3-container">
-                        <span class="cart-item cart-header cart-column">Items</span>
-                        <span class="cart-price cart-header cart-column">Price</span>
-                        <span class="cart-quantity cart-header cart-column">Quantity</span>
-                    </div>
-
-                    <div class="cart-items w3-container">
-
-
-
-                    </div>
-                    <div class="cart-total">
-                        <strong class="cart-total-title">Total Price: $</strong>
-                        <strong class="cart-total-price" id="price"></strong>
-                    </div>
-                    <div class="w3-container w3-border-top w3-padding-24 ">
-                        <button onclick="<?= isLogined() ? "thanhtoan(document.getElementById('price').innerHTML)" : "document.getElementById('id01').style.display='block'" ?>" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Account -->
-            <!--login-->
-
-            <div id="id01" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-                    <div class="w3-center"><br>
-                        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-                        <h1>Log in</h1>
-                    </div>
-
-                    <form action='index.php' method="post" class="w3-container">
-                        <div class="w3-section">
-                            <label><b>User name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username" required value="checker">
-                            <label><b>Password</b></label>
-                            <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required value="12345">
-                            <input class="w3-button w3-block w3-black w3-section w3-padding" type="submit" value="Log in">
-                            <a class="w3-button w3-block w3-gray w3-section w3-padding" onclick="document.getElementById('id02').style.display='block'">Sign up</a>
-                            <input class="w3-check w3-margin-top " type="checkbox" checked="checked"> Remember me
-                        </div>
-                    </form>
-
-                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-                        <span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>
-                    </div>
-
-                </div>
-            </div>
-
-            <!--Sign up-->
-            <div id="id02" class="w3-modal w3-padding-24">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-                    <div class="w3-center"><br>
-                        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-                        <h1>Create account</h1>
-                    </div>
-
-                    <form class="w3-container" action="index.php" method="POST" name="signup" onsubmit="return kiemTraDuLieu()">
-                        <div class="w3-section">
-
-                            <label><b>Full name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Full name" name="fullname" required>
-                            <label><b>Phone number</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="Enter your phone number" pattern="[0][2,7,9]{1}[0-9]{4}[0-9]{4}" name="phone" required>
-
-                            <label><b>Sex: </b></label>
-                            Male <input class="" type="radio" name="radsex" required>
-                            Female <input class="" type="radio" name="radsex" required>
-
-                            <br>
-
-                            <label><b>Birthday:</b></label>
-                            <input type="date" name="bday">
-
-                            <br>
-                            <label><b>Email:</b></label>
-                            <br>
-                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email" required>
-                            <label><b>User name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" required>
-                            <label><b>Password</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="psw1" id="psw1" required>
-                            <label><b>Confirm password</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Confirm Password" name="repsw" id="repsw" required>
-
-                        </div>
-
-
-                        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                            <button type="button" class="w3-button w3-grey" onclick="document.getElementById('id02').style.display='none'">Cancel</button>
-                            <input class="w3-button  w3-black w3-right" name="submit" value="Submit" href="#" type="Submit" onclick="">
-                        </div>
-
-                </div>
-                </form>
-            </div>
-            <!--check out-->
-            <div id="checkout" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-                    <div class="w3-center"><br>
-                        <span onclick="document.getElementById('checkout').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-                        <h1>Checkout</h1>
-                    </div>
-                    <?php
-                    $con = createDBConnection();
-                    $sql = "SELECT * FROM khachhang WHERE userKH='" . $_SESSION['username'] . "'";
-                    $result = $con->query($sql);
-                    $row = $result->fetch_assoc()
-                    ?>
-                    <form class="w3-container">
-                        <div class="w3-section">
-                            <label><b>Full name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required disabled>
-                            <label><b>Phone number</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required disabled>
-                            <label><b>Adress</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress" required>
-                            <label><b>Nation</b></label>
-                            <select name="nation">
-                                <option value="">Vietnam</option>
-                                <option value="">USA</option>
-                                <option value="">UK</option>
-                                <option value="">Spain</option>
-                            </select>
-                            <br>
-                            <label><b>Payments</b></label>
-                            <select name="nation">
-                                <option value="">Credit card</option>
-                                <option value="">Cash</option>
-                            </select>
-                        </div>
-                    </form>
-                    <div class="cart-total">
-                        <strong class="cart-total-title">Total Price: $</strong>
-                        <strong class="cart-total-price" id="price1"></strong>
-                    </div>
-
-                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                        <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-                        <button class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>')">Confirm</button>
-                    </div>
-
-                </div>
-            </div>
-        </header>
-
-
-        <script>
-            var slideIndex = 0;
-            showSlides();
-
-            function showSlides() {
-                var i;
-                var slides = document.getElementsByClassName("mySlides");
-                var dots = document.getElementsByClassName("dot");
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
+                function showSlides() {
+                    var i;
+                    var slides = document.getElementsByClassName("mySlides");
+                    var dots = document.getElementsByClassName("dot");
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";
+                    }
+                    slideIndex++;
+                    if (slideIndex > slides.length) {
+                        slideIndex = 1
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex - 1].style.display = "block";
+                    dots[slideIndex - 1].className += " active";
+                    setTimeout(showSlides, 2000); // Change image every 2 seconds
                 }
-                slideIndex++;
-                if (slideIndex > slides.length) {
-                    slideIndex = 1
-                }
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-                slides[slideIndex - 1].style.display = "block";
-                dots[slideIndex - 1].className += " active";
-                setTimeout(showSlides, 2000); // Change image every 2 seconds
-            }
-        </script>
+            </script>
 
-        <div class="w3-container w3-text-grey" id="jeans">
+            <div class="w3-container w3-text-grey" id="jeans">
 
-        </div>
+            </div>
 
 
 
-        <!-------------- Phan trang--------------->
-        <?php
-
-        ?>
-        <!-- Product grid -->
-        <div class="w3-row w3-whitescale" id="myTable">
-
+            <!-------------- Phan trang--------------->
             <?php
-            if ($_REQUEST['tukhoa'] != "") {
-                $search = $_SESSION['tukhoa'] = $_REQUEST['tukhoa'];
 
-                $conn = createDbConnection();
-                if (isset($_REQUEST['from'])) {
-                    $_SESSION['loaisp'] = $_REQUEST['loaisp'];
-                    $_SESSION['from'] = $_REQUEST['from'];
-                    $_SESSION['to'] = $_REQUEST['to'];
-                    if ($_SESSION['from'] == "***") {
+            ?>
+            <!-- Product grid -->
+            <div class="w3-row w3-whitescale" id="myTable">
+
+                <?php
+                if ($_REQUEST['tukhoa'] != "") {
+                    $search = $_SESSION['tukhoa'] = $_REQUEST['tukhoa'];
+
+                    $conn = createDbConnection();
+                    if (isset($_REQUEST['from'])) {
+                        $_SESSION['loaisp'] = $_REQUEST['loaisp'];
+                        $_SESSION['from'] = $_REQUEST['from'];
+                        $_SESSION['to'] = $_REQUEST['to'];
+                        if ($_SESSION['from'] == "***") {
+                            // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+                            if ($_SESSION['loaisp'] == 0)
+                                $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' ");
+                            else
+                                $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%'&&  MALOAISP=" . $_SESSION['loaisp']);
+                            $row = mysqli_fetch_assoc($result);
+                            $total_records = $row['total'];
+                            // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+                            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                            $limit = 4;
+                            // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+                            // tổng số trang
+                            $total_page = ceil($total_records / $limit);
+                            // Giới hạn current_page trong khoảng 1 đến total_page
+                            if ($current_page > $total_page) {
+                                $current_page = $total_page;
+                            } else if ($current_page < 1) {
+                                $current_page = 1;
+                            }
+
+                            // Tìm Start
+                            $start = ($current_page - 1) * $limit;
+
+                            // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+                            // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+                            if ($_SESSION['loaisp'] == 0)
+                                $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' LIMIT $start, $limit");
+                            else
+                                $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && MALOAISP=" . $_SESSION['loaisp'] . " LIMIT " . $start . "," . $limit);
+                        } else if ($_SESSION['from'] == 300) {
+                            // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+                            if ($_SESSION['loaisp'] == 0)
+                                $result = mysqli_query($conn, "select count(*) as total from sanpham where giasp>=300 && tenSP like '%$search%' ");
+                            else
+                                $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' && giasp>=300 &&  MALOAISP=" . $_SESSION['loaisp']);
+
+                            $row = mysqli_fetch_assoc($result);
+                            $total_records = $row['total'];
+                            // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+                            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                            $limit = 2;
+                            // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+                            // tổng số trang
+                            $total_page = ceil($total_records / $limit);
+                            // Giới hạn current_page trong khoảng 1 đến total_page
+                            if ($current_page > $total_page) {
+                                $current_page = $total_page;
+                            } else if ($current_page < 1) {
+                                $current_page = 1;
+                            }
+
+                            // Tìm Start
+                            $start = ($current_page - 1) * $limit;
+
+                            // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+                            // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+                            if ($_SESSION['loaisp'] == 0)
+                                $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && GIASP>=" .  $_SESSION['from'] . " LIMIT " . $start . "," . $limit);
+                            else
+                                $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && GIASP>=" .  $_SESSION['from'] . ' && MALOAISP= ' . $_SESSION['loaisp'] . " LIMIT " . $start . "," . $limit);
+                        } else {
+                            // BƯỚC 2: TÌM TỔNG SỐ RECORDS
+                            if ($_SESSION['loaisp'] == 0)
+                                $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' && giasp>=" .  $_SESSION['from'] . ' && GIASP<= ' . $_SESSION['to']);
+                            else
+                                $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' && giasp>=" .  $_SESSION['from'] . ' && GIASP<= ' . $_SESSION['to'] . ' && MALOAISP= ' . $_SESSION['loaisp']);
+
+                            $row = mysqli_fetch_assoc($result);
+                            $total_records = $row['total'];
+                            // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
+                            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                            $limit = 2;
+                            // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
+                            // tổng số trang
+                            $total_page = ceil($total_records / $limit);
+                            // Giới hạn current_page trong khoảng 1 đến total_page
+                            if ($current_page > $total_page) {
+                                $current_page = $total_page;
+                            } else if ($current_page < 1) {
+                                $current_page = 1;
+                            }
+
+                            // Tìm Start
+                            $start = ($current_page - 1) * $limit;
+
+                            // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
+                            // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
+                            if ($_SESSION['loaisp'] == 0)
+                                $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && GIASP>=" .  $_SESSION['from'] . " && GIASP<= " . $_SESSION['to'] . " LIMIT " . $start . "," . $limit);
+                            else
+                                $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && GIASP>=" .  $_SESSION['from'] . " && GIASP<= " . $_SESSION['to'] . ' && MALOAISP= ' . $_SESSION['loaisp'] . " LIMIT " . $start . "," . $limit);
+                        }
+                    } else {
                         // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-                        if ($_SESSION['loaisp'] == 0)
-                            $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' ");
-                        else
-                            $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%'&&  MALOAISP=" . $_SESSION['loaisp']);
+                        $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' ");
                         $row = mysqli_fetch_assoc($result);
                         $total_records = $row['total'];
                         // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
@@ -487,305 +416,215 @@ if (isset($_POST["username1"])) {
 
                         // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
                         // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-                        if ($_SESSION['loaisp'] == 0)
-                            $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' LIMIT $start, $limit");
-                        else
-                            $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && MALOAISP=" . $_SESSION['loaisp'] . " LIMIT " . $start . "," . $limit);
-                    } else if ($_SESSION['from'] == 300) {
-                        // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-                        if ($_SESSION['loaisp'] == 0)
-                            $result = mysqli_query($conn, "select count(*) as total from sanpham where giasp>=300 && tenSP like '%$search%' ");
-                        else
-                            $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' && giasp>=300 &&  MALOAISP=" . $_SESSION['loaisp']);
-
-                        $row = mysqli_fetch_assoc($result);
-                        $total_records = $row['total'];
-                        // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-                        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                        $limit = 2;
-                        // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-                        // tổng số trang
-                        $total_page = ceil($total_records / $limit);
-                        // Giới hạn current_page trong khoảng 1 đến total_page
-                        if ($current_page > $total_page) {
-                            $current_page = $total_page;
-                        } else if ($current_page < 1) {
-                            $current_page = 1;
-                        }
-
-                        // Tìm Start
-                        $start = ($current_page - 1) * $limit;
-
-                        // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-                        // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-                        if ($_SESSION['loaisp'] == 0)
-                            $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && GIASP>=" .  $_SESSION['from'] . " LIMIT " . $start . "," . $limit);
-                        else
-                            $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && GIASP>=" .  $_SESSION['from'] . ' && MALOAISP= ' . $_SESSION['loaisp'] . " LIMIT " . $start . "," . $limit);
-                    } else {
-                        // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-                        if ($_SESSION['loaisp'] == 0)
-                            $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' && giasp>=" .  $_SESSION['from'] . ' && GIASP<= ' . $_SESSION['to']);
-                        else
-                            $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' && giasp>=" .  $_SESSION['from'] . ' && GIASP<= ' . $_SESSION['to'] . ' && MALOAISP= ' . $_SESSION['loaisp']);
-
-                        $row = mysqli_fetch_assoc($result);
-                        $total_records = $row['total'];
-                        // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-                        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                        $limit = 2;
-                        // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-                        // tổng số trang
-                        $total_page = ceil($total_records / $limit);
-                        // Giới hạn current_page trong khoảng 1 đến total_page
-                        if ($current_page > $total_page) {
-                            $current_page = $total_page;
-                        } else if ($current_page < 1) {
-                            $current_page = 1;
-                        }
-
-                        // Tìm Start
-                        $start = ($current_page - 1) * $limit;
-
-                        // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-                        // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-                        if ($_SESSION['loaisp'] == 0)
-                            $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && GIASP>=" .  $_SESSION['from'] . " && GIASP<= " . $_SESSION['to'] . " LIMIT " . $start . "," . $limit);
-                        else
-                            $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' && GIASP>=" .  $_SESSION['from'] . " && GIASP<= " . $_SESSION['to'] . ' && MALOAISP= ' . $_SESSION['loaisp'] . " LIMIT " . $start . "," . $limit);
+                        $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' LIMIT $start, $limit");
                     }
-                } else {
-                    // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-                    $result = mysqli_query($conn, "select count(*) as total from sanpham where tenSP like '%$search%' ");
-                    $row = mysqli_fetch_assoc($result);
-                    $total_records = $row['total'];
-                    // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
-                    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-                    $limit = 4;
-                    // BƯỚC 4: TÍNH TOÁN TOTAL_PAGE VÀ START
-                    // tổng số trang
-                    $total_page = ceil($total_records / $limit);
-                    // Giới hạn current_page trong khoảng 1 đến total_page
-                    if ($current_page > $total_page) {
-                        $current_page = $total_page;
-                    } else if ($current_page < 1) {
-                        $current_page = 1;
-                    }
+                    if ($result !== false && $result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                ?>
 
-                    // Tìm Start
-                    $start = ($current_page - 1) * $limit;
-
-                    // BƯỚC 5: TRUY VẤN LẤY DANH SÁCH TIN TỨC
-                    // Có limit và start rồi thì truy vấn CSDL lấy danh sách sản phẩm
-                    $result = mysqli_query($conn, "SELECT * FROM sanpham  where tenSP like '%$search%' LIMIT $start, $limit");
-                }
-                if ($result !== false && $result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-            ?>
-
-                        <div class="w3-col l3 s6">
-                            <div class="w3-container">
-                                <div class="w3-display-container">
-                                    <img src="Images/T-shirt/<?= $row['hinhanhSP'] ?>" style="width:100%">
-                                    <span class="w3-tag w3-display-topleft">Sale</span>
-                                    <div class="w3-display-middle w3-display-hover">
-                                        <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row['soluongtonkho'] ?>')">
-                                            <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
-                                        </a>
+                            <div class="w3-col l3 s6">
+                                <div class="w3-container">
+                                    <div class="w3-display-container">
+                                        <img src="Images/T-shirt/<?= $row['hinhanhSP'] ?>" style="width:100%">
+                                        <span class="w3-tag w3-display-topleft">Sale</span>
+                                        <div class="w3-display-middle w3-display-hover">
+                                            <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row['soluongtonkho'] ?>')">
+                                                <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
+                                            </a>
+                                        </div>
                                     </div>
+                                    <p><?= $row['tenSP'] ?> <br><b>$<?= $row['giaSP'] ?></b></p>
                                 </div>
-                                <p><?= $row['tenSP'] ?> <br><b>$<?= $row['giaSP'] ?></b></p>
                             </div>
-                        </div>
-                        <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
-                        <div id="detail5" class="w3-modal  ">
-                            <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
+                            <!--BXD - ALEX OVERPRINT TEES/BLACK detail-->
+                            <div id="detail5" class="w3-modal  ">
+                                <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
 
-                                <div class="w3-container w3-padding-16 w3-light-grey">
-                                    <span class=" cart-header " id='ten'></span>
-                                    <span onclick="document.getElementById('detail5').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
-                                </div>
+                                    <div class="w3-container w3-padding-16 w3-light-grey">
+                                        <span class=" cart-header " id='ten'></span>
+                                        <span onclick="document.getElementById('detail5').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+                                    </div>
 
-                                <div class="cart-row w3-container">
-                                    <span class="cart-item cart-header cart-column">Items</span>
-                                    <span class="cart-quantity cart-header cart-column">Infor</span>
-                                </div>
+                                    <div class="cart-row w3-container">
+                                        <span class="cart-item cart-header cart-column">Items</span>
+                                        <span class="cart-quantity cart-header cart-column">Infor</span>
+                                    </div>
 
-                                <div class="cart-items w3-container">
+                                    <div class="cart-items w3-container">
 
-                                    <div class="cart-row">
+                                        <div class="cart-row">
 
-                                        <div class="cart-item cart-column">
-                                            <img class="cart-item-image1" id='hinh' width="400" height="400">
+                                            <div class="cart-item cart-column">
+                                                <img class="cart-item-image1" id='hinh' width="400" height="400">
+                                            </div>
+                                            <div class="cart-quantity cart-column">
+                                                <p id='mota'></p>
+
+                                            </div>
+
                                         </div>
-                                        <div class="cart-quantity cart-column">
-                                            <p id='mota'></p>
+
+
+                                        <div class="cart-total">
+                                            <strong class="cart-total-title">Price: $</strong>
+                                            <strong class="cart-total-price" id='gia1'></strong>
+                                            <div class="w3-left">
+                                                <strong class="cart-total-title">Size</strong>
+                                                <select name="size" id="" style="width: 80px;height: 50px;">
+                                                    <option value="">S</option>
+                                                    <option value="">M</option>
+                                                    <option value="">L</option>
+                                                    <option value="">XL</option>
+                                                    <option value="">XXL</option>
+                                                </select>
+                                                <strong class="cart-total-title">Quantity of product:</strong>
+                                                <strong class="cart-total-title w3-text-red" id="sl"></strong>
+
+
+                                                </select>
+                                            </div>
 
                                         </div>
+
 
                                     </div>
 
-
-                                    <div class="cart-total">
-                                        <strong class="cart-total-title">Price: $</strong>
-                                        <strong class="cart-total-price" id='gia1'></strong>
-                                        <div class="w3-left">
-                                            <strong class="cart-total-title">Size</strong>
-                                            <select name="size" id="" style="width: 80px;height: 50px;">
-                                                <option value="">S</option>
-                                                <option value="">M</option>
-                                                <option value="">L</option>
-                                                <option value="">XL</option>
-                                                <option value="">XXL</option>
-                                            </select>
-                                            <strong class="cart-total-title">Quantity of product:</strong>
-                                            <strong class="cart-total-title w3-text-red" id="sl"></strong>
-
-
-                                            </select>
-                                        </div>
-
+                                    <div class="w3-container w3-border-top w3-padding-24 ">
+                                        <button class="w3-button w3-red w3-transparent w3-right" onclick="<?= LogCard() ?>">Add to cart <i class="fa fa-shopping-cart"></i></button>
                                     </div>
 
-
                                 </div>
-
-                                <div class="w3-container w3-border-top w3-padding-24 ">
-                                    <button class="w3-button w3-red w3-transparent w3-right" onclick="<?= LogCard() ?>">Add to cart <i class="fa fa-shopping-cart"></i></button>
-                                </div>
-
                             </div>
-                        </div>
 
-                    <?php
-                    }
-                    ?>
-                    <div class="w3-bar w3-center ">
                         <?php
-                        if (isset($_REQUEST['from'])) {
-                            // PHẦN HIỂN THỊ PHÂN TRANG
-                            // BƯỚC 7: HIỂN THỊ PHÂN TRANG
-                            // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-                            if ($current_page > 1 && $total_page > 1) {
-                                echo '<a href="Search.php?page=' . ($current_page - 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '&loaisp=' . $_SESSION['loaisp']  . '&tukhoa=' . $_SESSION['tukhoa'] . '">Prev</a> | ';
-                            }
-
-                            // Lặp khoảng giữa
-                            for ($i = 1; $i <= $total_page; $i++) {
-                                // Nếu là trang hiện tại thì hiển thị thẻ span
-                                // ngược lại hiển thị thẻ a
-                                if ($i == $current_page) {
-                                    echo '<span>' . $i . '</span> | ';
-                                } else {
-                                    echo '<a href="Search.php?page=' . $i . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '&loaisp=' . $_SESSION['loaisp']  . '&tukhoa=' . $_SESSION['tukhoa'] . '">' . $i . '</a> | ';
-                                }
-                            }
-
-                            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
-                            if ($current_page < $total_page && $total_page > 1) {
-                                echo '<a href="Search.php?page=' . ($current_page + 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '&loaisp=' . $_SESSION['loaisp']  . '&tukhoa=' . $_SESSION['tukhoa'] . '">Next</a> | ';
-                            }
-                        } else {
-                            // PHẦN HIỂN THỊ PHÂN TRANG
-                            // BƯỚC 7: HIỂN THỊ PHÂN TRANG
-                            // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
-                            if ($current_page > 1 && $total_page > 1) {
-                                echo '<a href="Search.php?page=' . ($current_page - 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Prev</a> | ';
-                            }
-
-                            // Lặp khoảng giữa
-                            for ($i = 1; $i <= $total_page; $i++) {
-                                // Nếu là trang hiện tại thì hiển thị thẻ span
-                                // ngược lại hiển thị thẻ a
-                                if ($i == $current_page) {
-                                    echo '<span>' . $i . '</span> | ';
-                                } else {
-                                    echo '<a href="Search.php?page=' . $i . '&tukhoa=' . $_SESSION['tukhoa'] . '">' . $i . '</a> | ';
-                                }
-                            }
-
-                            // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
-                            if ($current_page < $total_page && $total_page > 1) {
-                                echo '<a href="Search.php?page=' . ($current_page + 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Next</a> | ';
-                            }
                         }
                         ?>
-                    </div>
-            <?php } else {
-                    echo "
+                        <div class="w3-bar w3-center ">
+                            <?php
+                            if (isset($_REQUEST['from'])) {
+                                // PHẦN HIỂN THỊ PHÂN TRANG
+                                // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+                                // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                                if ($current_page > 1 && $total_page > 1) {
+                                    echo '<button style=" color: #fff;border:none;background-color: black"><a href="Search.php?page=' . ($current_page - 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '&loaisp=' . $_SESSION['loaisp']  . '&tukhoa=' . $_SESSION['tukhoa'] . '">Prev</a></button> ';
+                                }
+
+                                // Lặp khoảng giữa
+                                for ($i = 1; $i <= $total_page; $i++) {
+                                    // Nếu là trang hiện tại thì hiển thị thẻ span
+                                    // ngược lại hiển thị thẻ a
+                                    if ($i == $current_page) {
+                                        echo '<button style=" color: #fff;border:none;background-color: gray"><span>' . $i . '</span> | ';
+                                    } else {
+                                        echo '<button style=" color: #fff;border:none;background-color: black"><a href="Search.php?page=' . $i . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '&loaisp=' . $_SESSION['loaisp']  . '&tukhoa=' . $_SESSION['tukhoa'] . '">' . $i . '</a> </button> ';
+                                    }
+                                }
+
+                                // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                                if ($current_page < $total_page && $total_page > 1) {
+                                    echo '<button style=" color: #fff;border:none;background-color: black"><a href="Search.php?page=' . ($current_page + 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '&loaisp=' . $_SESSION['loaisp']  . '&tukhoa=' . $_SESSION['tukhoa'] . '">Next</a> </button> ';
+                                }
+                            } else {
+                                // PHẦN HIỂN THỊ PHÂN TRANG
+                                // BƯỚC 7: HIỂN THỊ PHÂN TRANG
+                                // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
+                                if ($current_page > 1 && $total_page > 1) {
+                                    echo '<button style=" color: #fff;border:none;background-color: black"><a href="Search.php?page=' . ($current_page - 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Prev</a> </button> ';
+                                }
+
+                                // Lặp khoảng giữa
+                                for ($i = 1; $i <= $total_page; $i++) {
+                                    // Nếu là trang hiện tại thì hiển thị thẻ span
+                                    // ngược lại hiển thị thẻ a
+                                    if ($i == $current_page) {
+                                        echo '<button style=" color: #fff;border:none;background-color: gray"><span>' . $i . '</span> | ';
+                                    } else {
+                                        echo '<button style=" color: #fff;border:none;background-color: black"><a href="Search.php?page=' . $i . '&tukhoa=' . $_SESSION['tukhoa'] . '">' . $i . '</a> </button> ';
+                                    }
+                                }
+
+                                // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
+                                if ($current_page < $total_page && $total_page > 1) {
+                                    echo '<button style=" color: #fff;border:none;background-color: black"><a href="Search.php?page=' . ($current_page + 1) . '&tukhoa=' . $_SESSION['tukhoa'] . '">Next</a> </button> ';
+                                }
+                            }
+                            ?>
+                        </div>
+                <?php } else {
+                        echo "
           <p>Product was not found</p>";
-                }
-            } else {
-                echo "
+                    }
+                } else {
+                    echo "
         <p>Product was not found</p>
         ";
-            }
+                }
 
-            ?>
+                ?>
 
 
-        </div>
-
-        <!-- Subscribe section -->
-        <div class="w3-container w3-black w3-padding-32">
-            <h1>Subscribe</h1>
-            <p>To get special offers and VIP treatment:</p>
-            <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
-            <button type="button" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
-        </div>
-
-        <!-- Footer -->
-        <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
-            <div class="w3-row-padding">
-                <div class="w3-col s4">
-                    <h4>Contact</h4>
-                    <p>Questions? Go ahead.</p>
-                    <form action="/action_page.php" target="_blank">
-                        <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required>
-                        </p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required>
-                        </p>
-                        <button type="submit" class="w3-button w3-block w3-black">Send</button>
-                    </form>
-                </div>
-
-                <div class="w3-col s4">
-                    <h4>About</h4>
-                    <p><a href="#">About us</a></p>
-                    <p><a href="#">We're hiring</a></p>
-                    <p><a href="#">Support</a></p>
-                    <p><a href="#">Find store</a></p>
-                    <p><a href="#">Shipment</a></p>
-                    <p><a href="#">Payment</a></p>
-                    <p><a href="#">Gift card</a></p>
-                    <p><a href="#">Return</a></p>
-                    <p><a href="#">Help</a></p>
-                </div>
-
-                <div class="w3-col s4 w3-justify">
-                    <h4>Store</h4>
-                    <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
-                    <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
-                    <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
-                    <h4>We accept</h4>
-                    <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
-                    <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
-                    <br>
-                    <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
-                    <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
-                    <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
-                    <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
-                    <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
-                    <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
-                </div>
             </div>
-        </footer>
 
-        <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+            <!-- Subscribe section -->
+            <div class="w3-container w3-black w3-padding-32">
+                <h1>Subscribe</h1>
+                <p>To get special offers and VIP treatment:</p>
+                <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
+                <button type="button" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
+            </div>
 
-        <!-- End page content -->
+            <!-- Footer -->
+            <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+                <div class="w3-row-padding">
+                    <div class="w3-col s4">
+                        <h4>Contact</h4>
+                        <p>Questions? Go ahead.</p>
+                        <form action="/action_page.php" target="_blank">
+                            <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
+                            <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
+                            <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required>
+                            </p>
+                            <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required>
+                            </p>
+                            <button type="submit" class="w3-button w3-block w3-black">Send</button>
+                        </form>
+                    </div>
+
+                    <div class="w3-col s4">
+                        <h4>About</h4>
+                        <p><a href="#">About us</a></p>
+                        <p><a href="#">We're hiring</a></p>
+                        <p><a href="#">Support</a></p>
+                        <p><a href="#">Find store</a></p>
+                        <p><a href="#">Shipment</a></p>
+                        <p><a href="#">Payment</a></p>
+                        <p><a href="#">Gift card</a></p>
+                        <p><a href="#">Return</a></p>
+                        <p><a href="#">Help</a></p>
+                    </div>
+
+                    <div class="w3-col s4 w3-justify">
+                        <h4>Store</h4>
+                        <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
+                        <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
+                        <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
+                        <h4>We accept</h4>
+                        <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
+                        <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
+                        <br>
+                        <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
+                        <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
+                        <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
+                        <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
+                        <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
+                        <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
+                    </div>
+                </div>
+            </footer>
+
+            <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+
+            <!-- End page content -->
     </div>
 
     <!-- Newsletter Modal -->
@@ -842,12 +681,14 @@ if (isset($_POST["username1"])) {
             var hinh = [];
             var gia = [];
             var soluong = [];
+            var size = [];
             ten = <?php echo json_encode($_SESSION['cart']['ten']); ?>;
             hinh = <?php echo json_encode($_SESSION['cart']['hinhanh']); ?>;
             gia = <?php echo json_encode($_SESSION['cart']['gia']); ?>;
             soluong = <?php echo json_encode($_SESSION['cart']['soluongtonkho']); ?>;
+            size = <?php echo json_encode($_SESSION['cart']['size']); ?>;
             for (var i = 0; i < ten.length; i++) {
-                reload(ten[i], gia[i], hinh[i], soluong[i])
+                reload(ten[i], gia[i], hinh[i], soluong[i], size[i])
             }
         }
     </script>

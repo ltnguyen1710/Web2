@@ -20,6 +20,7 @@ $data = [
     'ten' => array(),
     'hinhanh' => array(),
     'soluong' => array(),
+    'size' => array(),
     'gia' => array()
 ];
 //them san pham vao mang
@@ -28,10 +29,12 @@ for ($i = 0; $i < $soluongSP; $i++) {
     $hinhanh = "hinhanh".$i;
     $soluong = "soluong".$i;
     $gia = "gia".$i;
+    $size = "size".$i;
     $data['ten'][$i]= $_REQUEST[$ten];
     $data['hinhanh'][$i]= $_REQUEST[$hinhanh];
     $data['soluong'][$i]= $_REQUEST[$soluong];
     $data['gia'][$i]= $_REQUEST[$gia];
+    $data['size'][$i]= $_REQUEST[$size];
 }
 var_dump($data);
 //them vao database
@@ -47,16 +50,17 @@ for ($i = 0; $i < $soluongSP; $i++) {
     $row = $result->fetch_assoc();
     $madon=$row['maDon'];
     $sql = sprintf(
-        "INSERT INTO chitiethoadon(maDon,maSP,tenSP,userKH,soluong,gia) VALUES ('%s','%s','%s','%s','%s','%s')",
+        "INSERT INTO chitiethoadon(maDon,maSP,tenSP,userKH,soluong,gia,size) VALUES ('%s','%s','%s','%s','%s','%s','%s')",
         $madon,
         $masp,
         $data['ten'][$i],
         $_REQUEST['userKH'],
         $data['soluong'][$i],
-        $data['gia'][$i]
+        $data['gia'][$i],
+        $data['size'][$i]
     );
     $con->query($sql);
-    $sql = sprintf("UPDATE sanpham set soluongtonkho=soluongtonkho-'%s' WHERE tenSP='%s'",$data['soluong'][$i], $data['ten'][$i]);
+    $sql = sprintf("UPDATE sanpham set size".$data['size'][$i]."=size".$data['size'][$i]."-'%s' WHERE tenSP='%s'",$data['soluong'][$i], $data['ten'][$i]);
     $con->query($sql);        
 }
 unset($_SESSION['cart']);

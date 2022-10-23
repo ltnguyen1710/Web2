@@ -309,7 +309,7 @@ if (isset($_POST["username1"])) {
         // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
         if (isset($_REQUEST['from'])) {
           if ($current_page > 1 && $total_page > 1) {
-            echo '<a href="jacket.php?page=' . ($current_page - 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to']  . '">Prev</a> | ';
+            echo '<button style=" color: #fff;border:none;background-color: black"><a href="jacket.php?page=' . ($current_page - 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to']  . '">Prev</a> </button> ';
           }
 
           // Lặp khoảng giữa
@@ -317,19 +317,19 @@ if (isset($_POST["username1"])) {
             // Nếu là trang hiện tại thì hiển thị thẻ span
             // ngược lại hiển thị thẻ a
             if ($i == $current_page) {
-              echo '<span>' . $i . '</span> | ';
+              echo '<button style=" color: #fff;border:none;background-color: gray"><span>' . $i . '</span> </button> ';
             } else {
-              echo '<a href="jacket.php?page=' . $i . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '">' . $i . '</a> | ';
+              echo '<button style=" color: #fff;border:none;background-color: black"><a href="jacket.php?page=' . $i . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '">' . $i . '</a> </button> ';
             }
           }
 
           // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
           if ($current_page < $total_page && $total_page > 1) {
-            echo '<a href="jacket.php?page=' . ($current_page + 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '">Next</a> | ';
+            echo '<button style=" color: #fff;border:none;background-color: black"><a href="jacket.php?page=' . ($current_page + 1) . '&from=' . $_SESSION['from'] . '&to=' . $_SESSION['to'] . '">Next</a> </button>';
           }
         } else {
           if ($current_page > 1 && $total_page > 1) {
-            echo '<a href="jacket.php?page=' . ($current_page - 1) . '">Prev</a> | ';
+            echo '<button style=" color: #fff;border:none;background-color: black"><a href="jacket.php?page=' . ($current_page - 1) . '">Prev</a> </button> ';
           }
 
           // Lặp khoảng giữa
@@ -337,15 +337,15 @@ if (isset($_POST["username1"])) {
             // Nếu là trang hiện tại thì hiển thị thẻ span
             // ngược lại hiển thị thẻ a
             if ($i == $current_page) {
-              echo '<span>' . $i . '</span> | ';
+              echo '<button style=" color: #fff;border:none;background-color: gray"><span>' . $i . '</span> </button> ';
             } else {
-              echo '<a href="jacket.php?page=' . $i . '">' . $i . '</a> | ';
+              echo '<button style=" color: #fff;border:none;background-color: black"><a href="jacket.php?page=' . $i . '">' . $i . '</a> </button> ';
             }
           }
 
           // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
           if ($current_page < $total_page && $total_page > 1) {
-            echo '<a href="jacket.php?page=' . ($current_page + 1) . '">Next</a> | ';
+            echo '<button style=" color: #fff;border:none;background-color: black"><a href="jacket.php?page=' . ($current_page + 1) . '">Next</a> </button> ';
           }
         }
 
@@ -475,12 +475,14 @@ if (isset($_POST["username1"])) {
       var hinh = [];
       var gia = [];
       var soluong = [];
+      var size = [];
       ten = <?php echo json_encode($_SESSION['cart']['ten']); ?>;
       hinh = <?php echo json_encode($_SESSION['cart']['hinhanh']); ?>;
       gia = <?php echo json_encode($_SESSION['cart']['gia']); ?>;
       soluong = <?php echo json_encode($_SESSION['cart']['soluongtonkho']); ?>;
+      size = <?php echo json_encode($_SESSION['cart']['size']); ?>;
       for (var i = 0; i < ten.length; i++) {
-        reload(ten[i], gia[i], hinh[i], soluong[i])
+        reload(ten[i], gia[i], hinh[i], soluong[i], size[i])
       }
     }
   </script>
