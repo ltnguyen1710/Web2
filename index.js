@@ -3,7 +3,6 @@ function showdetail(ten, gia, hinh, mota, sizeL, sizeXL) {
   var L = Number(sizeL);
   var XL = Number(sizeXL);
   var size = document.getElementById("size");
-  var soluong = XL + L;
   document.getElementById("detail5").style.display = "block";
   document.getElementById("ten").innerHTML = ten;
   document.getElementById("gia1").innerHTML = gia;
@@ -18,15 +17,39 @@ function showdetail(ten, gia, hinh, mota, sizeL, sizeXL) {
     var value = document.getElementById("size").value;
     if (value === "L") {
       document.getElementById("sl").innerHTML = L;
+      if(L <=0 ){
+        document.getElementById("addtoc").disabled = true;
+      }
+      else{
+        document.getElementById("addtoc").disabled = false;
+      }
     } else {
       document.getElementById("sl").innerHTML = XL;
+      if(XL <=0 ){
+        document.getElementById("addtoc").disabled = true;
+      }
+      else{
+        document.getElementById("addtoc").disabled = false;
+      }
     }
   });
-  x = Number(soluong);
-  if (x <= 0) {
-    document.getElementById("addtoc").disabled = true;
-  } else {
-    document.getElementById("addtoc").disabled = false;
+  if(size.value === "L"){
+    document.getElementById("sl").innerHTML = L;
+    if(L <=0 ){
+      document.getElementById("addtoc").disabled = true;
+    }
+    else{
+      document.getElementById("addtoc").disabled = false;
+    }
+  }
+  else {
+    document.getElementById("sl").innerHTML = XL;
+    if(XL <=0 ){
+      document.getElementById("addtoc").disabled = true;
+    }
+    else{
+      document.getElementById("addtoc").disabled = false;
+    }
   }
 }
 /*function xoacart() {
@@ -107,7 +130,7 @@ function addItemToCart(title, price, img, soluong, size) {
   <span class="cart-item-title">${title}</span>
 </div>
 <span class="cart-price cart-column">${price}</span>
-<span class="size cart-price cart-column">${size}</span>
+<span class="size cart-column">${size}</span>
 <div class="cart-quantity cart-column">
   <input class="cart-quantity-input" type="number" value="1" max="${soluong}" >
   <button class="btn btn-danger" type="button" onclick="">Delete</button>
@@ -158,7 +181,7 @@ function reload(title, price, img, soluong, size) {
   <span class="cart-item-title">${title}</span>
 </div>
 <span class="cart-price cart-column">${price}</span>
-<span class="size cart-price cart-column">${size}</span>
+<span class="size cart-column">${size}</span>
 <div class="cart-quantity cart-column">
   <input class="cart-quantity-input" type="number" value="1" max="${soluong}" >
   <button class="btn btn-danger" type="button" onclick="">Delete</button>

@@ -269,13 +269,15 @@ if (isset($_POST["username1"])) {
     <!-- Product grid -->
     <div class="w3-row w3-whitescale" id="myTable">
         <?php
-        $con = createDBConnection();
+       $con = createDBConnection();
 
-        $sql = "SELECT * FROM SANPHAM LIMIT $start, $limit";
-        $result = $con->query($sql);
+       $sql = "SELECT * FROM sanpham LIMIT $start, $limit";
+
+       $result = mysqli_query($con, $sql);
 
 
-        while ($row = $result->fetch_assoc()) {
+
+       while ($row = mysqli_fetch_assoc($result)) {
         ?>
             <!-- Product and Detail of Product -->
             <?php include 'components/Product.php' ?>
@@ -293,7 +295,7 @@ if (isset($_POST["username1"])) {
 
         // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
         if ($current_page > 1 && $total_page > 1) {
-            echo '<button style=" color: #fff;border:none;background-color: black"><a href="Index.php?page=' . ($current_page - 1) . '">Prev</a></button>  ';
+            echo '<button style=" color: #fff;border:none;background-color: black"><a href="index.php?page=' . ($current_page - 1) . '">Prev</a></button>  ';
         }
 
         // Lặp khoảng giữa
@@ -303,13 +305,13 @@ if (isset($_POST["username1"])) {
             if ($i == $current_page) {
                 echo '<button style=" color: #fff;border:none;background-color: gray"><span>' . $i . '</span></button>  ';
             } else {
-                echo '<button style=" color: #fff;border:none;background-color: black"><a href="Index.php?page=' . $i . '">' . $i . '</a></button>  ';
+                echo '<button style=" color: #fff;border:none;background-color: black"><a href="index.php?page=' . $i . '">' . $i . '</a></button>  ';
             }
         }
 
         // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
         if ($current_page < $total_page && $total_page > 1) {
-            echo '<button style=" color: #fff;border:none;background-color: black"><a href="Index.php?page=' . ($current_page + 1) . '">Next</a></button>  ';
+            echo '<button style=" color: #fff;border:none;background-color: black"><a href="index.php?page=' . ($current_page + 1) . '">Next</a></button>  ';
         }
         ?>
     </div>

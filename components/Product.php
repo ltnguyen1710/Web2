@@ -1,29 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        select {
-            width: 100%;
-            padding: 16px 20px;
-            border: none;
-            border-radius: 4px;
-            background-color: #f1f1f1;
-        }
-    </style>
-</head>
-
-<body>
+<html>
     <div class="w3-col l3 s6">
         <div class="w3-container">
             <div class="w3-display-container">
-                <img src="Images/T-shirt/<?= $row['hinhanhSP'] ?>" style="width:100%">
+                <img src="Images/T-SHIRT/<?= $row['hinhanhSP'] ?>" style="width:100%">
                 <span class="w3-tag w3-display-topleft">Sale</span>
                 <div class="w3-display-middle w3-display-hover">
-                    <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-shirt/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row['sizeL'] ?>','<?= $row['sizeXL'] ?>')">
+                    <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-SHIRT/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row['sizeL'] ?>','<?= $row['sizeXL'] ?>')">
                         <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
                     </a>
                 </div>
@@ -82,7 +64,4 @@
 
         </div>
     </div>
-</body>
-
-
-</html>
+    </html>

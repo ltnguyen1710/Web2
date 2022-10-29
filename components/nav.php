@@ -20,7 +20,7 @@
                 <a href="T-shirt.php" class="w3-bar-item w3-button">T-Shirt</a>
                 <!-- <a href="#" class="w3-bar-item w3-button">Hoodie</a>
                 <a href="#" class="w3-bar-item w3-button">Sweater</a> -->
-                <a href="Jacket.php" class="w3-bar-item w3-button">Jackets</a>
+                <a href="jacket.php" class="w3-bar-item w3-button">Jackets</a>
             </div>
 
             <a onclick="myAccFunc1()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align">

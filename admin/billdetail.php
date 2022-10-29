@@ -254,6 +254,7 @@ if (isLoginedAdmin()) {
                           <th>ID PRODUCT</th>
                           <th>NAME OF PRODUCT</th>
                           <th>QUANTITY</th>
+                          <th>SIZE</th>
                           <th>PRICE</th>
                           
                         </tr>
@@ -269,6 +270,7 @@ if (isLoginedAdmin()) {
                             <td class="hidden-xs"><?php echo $row['maSP'] ?></td>
                             <td><?php echo $row['tenSP'] ?></td>
                             <td><?php echo $row['soluong'] ?></td>
+                            <td><?php echo $row['size'] ?></td>
                             <td><?php echo $row['gia'] ?></td>
 
 

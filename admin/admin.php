@@ -1,15 +1,5 @@
 <!DOCTYPE html>
-<?php
-require_once('../process/login.php');
-if (isset($_POST['admin'])) {
-  if (adminlogin($_POST['admin'], $_POST['psw']) == "") {
-    echo '<script>alert("Wrong password")</script>';
-  }
-  else {
-    echo '<script>alert("Login successfully")</script>';
-  }
-}
-?>
+<?php  require_once('../process/login.php');?>
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -21,106 +11,8 @@ if (isset($_POST['admin'])) {
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="js/jquery-1.11.1.min.js"></script>
 <script src="admin.js"></script>
 <style>
-  /* cart */
-  .cart-header {
-    font-weight: bold;
-    font-size: 1.25em;
-    color: #333;
-  }
-
-  .cart-column {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid black;
-    margin-right: 1.5em;
-    padding-bottom: 10px;
-    margin-top: 10px;
-  }
-
-  .cart-row {
-    display: flex;
-  }
-
-  .cart-item {
-    width: 45%;
-  }
-
-  .cart-price {
-    width: 20%;
-    font-size: 1.2em;
-    color: #333;
-  }
-
-  .cart-quantity {
-    width: 35%;
-  }
-
-  .cart-item-title {
-    color: #333;
-    margin-left: .5em;
-    font-size: 1.0em;
-  }
-
-  .cart-item-image {
-    width: 75px;
-    height: auto;
-    border-radius: 10px;
-  }
-
-  .btn-danger {
-    color: white;
-    background-color: green;
-    border: none;
-    border-radius: .3em;
-    font-weight: bold;
-  }
-
-  .btn-danger:hover {
-    background-color: #CC4C4C;
-  }
-
-  .cart-quantity-input {
-    height: 34px;
-    width: 100px;
-    border-radius: 5px;
-    border: 1px solid #56CCF2;
-    background-color: #eee;
-    color: #333;
-    padding: 0;
-    text-align: center;
-    font-size: 1.2em;
-    margin-right: 25px;
-  }
-
-  .cart-row:last-child {
-    border-bottom: 1px solid black;
-  }
-
-  .cart-row:last-child .cart-column {
-    border: none;
-  }
-
-  .cart-total {
-    text-align: end;
-    margin-top: 10px;
-    margin-right: 10px;
-  }
-
-  .cart-total-title {
-    font-weight: bold;
-    font-size: 1.5em;
-    color: black;
-    margin-right: 20px;
-  }
-
-  .cart-total-price {
-    color: #333;
-    font-size: 1.5em;
-  }
-
   .w3-sidebar a,
   form {
     font-family: "Roboto", sans-serif
@@ -200,7 +92,8 @@ if (isLoginedAdmin()) {
         <a href="#"><img src="../Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
       </div>
       <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-        <a href="admin.php" class="w3-button w3-block w3-light-grey w3-left-align">Bill management</a>
+        <a href="index.php" class="w3-bar-item w3-button w3-white">Home</a>
+        <a href="#" class="w3-button w3-block w3-light-grey w3-left-align">Bill management</a>
         <a href="Productmanagement.php" class="w3-bar-item w3-button w3-white">Product management</a>
       </div>
     </nav>
@@ -417,35 +310,10 @@ if (isLoginedAdmin()) {
   </body>
 <?php
 } else {
-?>
-
-  <body>
-
-    <div class="w3-modal-content" style="max-width:600px">
-
-      <div class="w3-center  "><br>
-        <img src="../Images/ANHNEN/logocheck.jpg" alt="" width="20%">
-      </div>
-
-      <form action='admin.php' method="post" class="w3-container">
-        <div class="w3-section">
-          <label><b>User name</b></label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="admin" required value="checker">
-          <label><b>Password</b></label>
-          <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required value="12345">
-          <input class="w3-button w3-block w3-black w3-section w3-padding" type="submit" value="Log in">
-          <input class="w3-check w3-margin-top " type="checkbox" checked="checked"> Remember me
-        </div>
-      </form>
-
-
-
-    </div>
-
-  </body>
-<?php
+  echo '<script>window.location.replace("/WEB2/admin")</script>';
 }
 ?>
+
 
 
 </html>
