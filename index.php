@@ -275,17 +275,12 @@ if (isset($_POST["username1"])) {
 
        $result = mysqli_query($con, $sql);
 
-
-
        while ($row = mysqli_fetch_assoc($result)) {
         ?>
             <!-- Product and Detail of Product -->
             <?php include 'components/Product.php' ?>
 
         <?php } ?>
-
-
-
 
     </div>
     <div class="w3-bar w3-center ">

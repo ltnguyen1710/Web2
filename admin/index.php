@@ -41,7 +41,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Document</title>
+    <title>CHECKERVIET</title>
     <style>
         .w3-sidebar a,
         form {
@@ -124,8 +124,9 @@ if (isLoginedAdmin()) {
             </div>
             <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
                 <a href="#" class="w3-button w3-block w3-light-grey w3-left-align">Home</a>
-                <a href="admin.php" class="w3-bar-item w3-button w3-white">Bill management</a>
+                <a href="admin.php" class="w3-bar-item w3-button w3-white">Order management</a>
                 <a href="Productmanagement.php" class="w3-bar-item w3-button w3-white">Product management</a>
+                <a href="user.php" class="w3-button w3-block w3-white w3-left-align">User management</a>
             </div>
         </nav>
 
@@ -158,10 +159,10 @@ if (isLoginedAdmin()) {
             </header>
 
             <div class="w3-container">
-                <h5><b>Bill Status</b></h5>
+                <h5><b>Order Status</b></h5>
                 <div id="pie-chart"></div>
 
-                <h5><b>Products Quantity</b></h5>
+                <h5><b>Product Quantity</b></h5>
                 <div id="product-chart"></div>
             </div>
         </div>
@@ -178,12 +179,13 @@ if (isLoginedAdmin()) {
         function drawCharts() {
 
             // BEGIN PIE CHART
-
+            var processed = <?php echo $processed ? $processed : 0; ?>;
+            var nonprocessed = <?php echo $nonprocessed ? $nonprocessed : 0; ?>;
             // bill chart data
             var pieData = google.visualization.arrayToDataTable([
-                ['Bill', 'Status'],
-                ['Proccessed', <?php echo $processed; ?>],
-                ['Non-Proccessed', <?php echo $nonprocessed; ?>],
+                ['Order', 'Status'],
+                ['Proccessed', processed],
+                ['Non-Proccessed', nonprocessed],
             ]);
             // pie chart options
             var pieOptions = {
@@ -218,8 +220,14 @@ if (isLoginedAdmin()) {
                 is3D: true,
             };
             // draw bill chart
-            var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
-            pieChart.draw(pieData, pieOptions);
+            if (processed !== 0 || nonprocessed !== 0) {
+                var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
+                pieChart.draw(pieData, pieOptions);
+            }
+            else{
+                document.getElementById('pie-chart').innerHTML = "Don't have order yet"
+            }
+
             var loaiSP = []
             var sizeL = []
             var sizeXL = []
@@ -233,6 +241,7 @@ if (isLoginedAdmin()) {
                 [loaiSP[1], parseInt(sizeL[1]) + parseInt(sizeXL[1])],
             ]);
             // draw product chart
+            
             var productChart = new google.visualization.PieChart(document.getElementById('product-chart'));
             productChart.draw(productData, pieOptions);
         }

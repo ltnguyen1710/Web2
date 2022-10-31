@@ -215,7 +215,7 @@ if (isLoginedAdmin()) {
 
       <!-- Top header -->
       <header class="w3-container w3-xlarge w3-padding-24">
-        <p class="w3-left"><?php echo "Detail of Bill: ".$_REQUEST['madon']; ?></p>
+        <p class="w3-left"><?php echo "Order Detail: ".$_REQUEST['madon']; ?></p>
         <p class="w3-right">
 
           

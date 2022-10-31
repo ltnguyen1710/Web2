@@ -143,10 +143,10 @@ if (isset($_POST["username1"])) {
 
   <!-- Sidebar/menu -->
   <?php include 'components/nav.php'; ?>
-
   <!-- Head menu -->
   <?php include 'components/headmenu.php' ?>
-
+  <!-- Filter -->
+  <?php include 'components/filter.php' ?>
 
 
   <script>

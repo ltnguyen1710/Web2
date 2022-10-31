@@ -142,7 +142,7 @@ function addItemToCart(title, price, img, soluong, size) {
     .addEventListener("click", function () {
       var button_remove = event.target;
       button_remove.parentElement.parentElement.remove();
-      xulyxoasanpham(title);
+      xulyxoasanpham(title,size);
       updatecart();
     });
   cartRow
@@ -193,7 +193,7 @@ function reload(title, price, img, soluong, size) {
     .addEventListener("click", function () {
       var button_remove = event.target;
       button_remove.parentElement.parentElement.remove();
-      xulyxoasanpham(title);
+      xulyxoasanpham(title,size);
       updatecart();
     });
   cartRow
@@ -322,7 +322,7 @@ function xulygiohang(title, price, img, soluong, soluongtonkho, size) {
   xmlhttp.send();
 }
 //hàm xử lý xóa sản phẩm
-function xulyxoasanpham(ten) {
+function xulyxoasanpham(ten,size) {
   var xmlhttp;
   if (window.XMLHttpRequest) {
     // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -335,7 +335,7 @@ function xulyxoasanpham(ten) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
   };
-  xmlhttp.open("GET", "process/giohang.php?tenxoa=" + ten, true);
+  xmlhttp.open("GET", "process/giohang.php?tenxoa=" + ten+"&sizexoa="+size, true);
   xmlhttp.send();
 }
 

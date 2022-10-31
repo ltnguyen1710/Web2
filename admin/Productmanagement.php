@@ -266,9 +266,10 @@ if (isLoginedAdmin()) {
                 <a href="#"><img src="../Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
             </div>
             <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-            <a href="index.php" class="w3-button w3-block w3-white w3-left-align">Home</a>
-                <a href="admin.php" class="w3-button w3-block w3-white w3-left-align">Bill management</a>
+                <a href="index.php" class="w3-button w3-block w3-white w3-left-align">Home</a>
+                <a href="admin.php" class="w3-button w3-block w3-white w3-left-align">Order management</a>
                 <a href="#" class="w3-bar-item w3-button w3-light-grey">Product management</a>
+                <a href="user.php" class="w3-button w3-block w3-white w3-left-align">User management</a>
             </div>
 
         </nav>

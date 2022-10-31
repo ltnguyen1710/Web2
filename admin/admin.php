@@ -93,8 +93,9 @@ if (isLoginedAdmin()) {
       </div>
       <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
         <a href="index.php" class="w3-bar-item w3-button w3-white">Home</a>
-        <a href="#" class="w3-button w3-block w3-light-grey w3-left-align">Bill management</a>
+        <a href="#" class="w3-button w3-block w3-light-grey w3-left-align">Order management</a>
         <a href="Productmanagement.php" class="w3-bar-item w3-button w3-white">Product management</a>
+        <a href="user.php" class="w3-button w3-block w3-white w3-left-align">User management</a>
       </div>
     </nav>
 
@@ -189,7 +190,7 @@ if (isLoginedAdmin()) {
                         <tr>
                           <th><em class="fa fa-cog"></em>
                           </th>
-                          <th class="hidden-xs" width=75px>ID Bill</th>
+                          <th class="hidden-xs" width=75px>ID Order</th>
                           <th>Price</th>
                           <th width=80px>Number of products</th>
                           <th width=100px>Status</th>

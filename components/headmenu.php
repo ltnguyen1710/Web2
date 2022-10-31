@@ -59,7 +59,7 @@
                     <div class="w3-modal-find w3-padding-32 w3-right">
                         <div class="search" class="w3-container  ">
                             <button class="w3-bar-item w3-button  w3-right fa fa-search" type="submit" name="timkiem"></button>
-                            <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" required>
+                            <input type="text" name="tukhoa" placeholder="Search for names.." title="Type in a name" id="find" value="<?= isset($_SESSION['tukhoa']) ? $_SESSION['tukhoa'] : "" ?>" required>
                         </div>
                     </div>
                 </div>
