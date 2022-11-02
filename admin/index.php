@@ -58,56 +58,6 @@ while ($row = mysqli_fetch_assoc($result)) {
         .w3-wide {
             font-family: "Montserrat", sans-serif;
         }
-
-        .panel-table .panel-body {
-            padding: 0;
-        }
-
-        .panel-table .panel-body .table-bordered {
-            border-style: none;
-            margin: 0;
-        }
-
-        .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type {
-            text-align: center;
-            width: 100px;
-        }
-
-        .panel-table .panel-body .table-bordered>thead>tr>th:last-of-type,
-        .panel-table .panel-body .table-bordered>tbody>tr>td:last-of-type {
-            border-right: 0px;
-        }
-
-        .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type,
-        .panel-table .panel-body .table-bordered>tbody>tr>td:first-of-type {
-            border-left: 0px;
-        }
-
-        .panel-table .panel-body .table-bordered>tbody>tr:first-of-type>td {
-            border-bottom: 0px;
-        }
-
-        .panel-table .panel-body .table-bordered>thead>tr:first-of-type>th {
-            border-top: 0px;
-        }
-
-        .panel-table .panel-footer .pagination {
-            margin: 0;
-        }
-
-        .panel-table .panel-footer .col {
-            line-height: 34px;
-            height: 34px;
-        }
-
-        .panel-table .panel-heading .col h3 {
-            line-height: 30px;
-            height: 30px;
-        }
-
-        .panel-table .panel-body .table-bordered>tbody>tr>td {
-            line-height: 34px;
-        }
     </style>
 
 </head>
@@ -115,7 +65,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 if (isLoginedAdmin()) {
 ?>
 
-    <body class="w3-container" style="max-width:1200px">
+    <body class="w3-content" style="max-width:1200px">
         <!-- Sidebar/menu -->
         <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
             <div class="w3-container w3-display-container w3-padding-16">
@@ -166,86 +116,84 @@ if (isLoginedAdmin()) {
                 <div id="product-chart"></div>
             </div>
         </div>
-    </body>
 
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.load("visualization", "1", {
-            packages: ["corechart"]
-        });
-        google.setOnLoadCallback(drawCharts);
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {
+                packages: ["corechart"]
+            });
+            google.setOnLoadCallback(drawCharts);
 
-        function drawCharts() {
+            function drawCharts() {
 
-            // BEGIN PIE CHART
-            var processed = <?php echo $processed ? $processed : 0; ?>;
-            var nonprocessed = <?php echo $nonprocessed ? $nonprocessed : 0; ?>;
-            // bill chart data
-            var pieData = google.visualization.arrayToDataTable([
-                ['Order', 'Status'],
-                ['Proccessed', processed],
-                ['Non-Proccessed', nonprocessed],
-            ]);
-            // pie chart options
-            var pieOptions = {
-                backgroundColor: 'transparent',
-                pieHole: 0.4,
-                // colors: ["cornflowerblue",
-                //     "olivedrab",
-                //     "orange",
-                //     "tomato",
-                //     "crimson",
-                //     "purple",
-                //     "turquoise",
-                //     "forestgreen",
-                //     "navy",
-                //     "gray"
-                // ],
-                pieSliceText: 'value',
-                tooltip: {
-                    text: 'percentage'
-                },
-                fontName: 'Open Sans',
-                chartArea: {
-                    width: '94%',
-                    height: '94%',
-                    left: 100
-                },
-                legend: {
-                    textStyle: {
-                        fontSize: 13
+                // BEGIN PIE CHART
+                var processed = <?php echo $processed ? $processed : 0; ?>;
+                var nonprocessed = <?php echo $nonprocessed ? $nonprocessed : 0; ?>;
+                // bill chart data
+                var pieData = google.visualization.arrayToDataTable([
+                    ['Order', 'Status'],
+                    ['Proccessed', processed],
+                    ['Non-Proccessed', nonprocessed],
+                ]);
+                // pie chart options
+                var pieOptions = {
+                    backgroundColor: 'transparent',
+                    pieHole: 0.4,
+                    // colors: ["cornflowerblue",
+                    //     "olivedrab",
+                    //     "orange",
+                    //     "tomato",
+                    //     "crimson",
+                    //     "purple",
+                    //     "turquoise",
+                    //     "forestgreen",
+                    //     "navy",
+                    //     "gray"
+                    // ],
+                    pieSliceText: 'value',
+                    tooltip: {
+                        text: 'percentage'
                     },
-                },
-                is3D: true,
-            };
-            // draw bill chart
-            if (processed !== 0 || nonprocessed !== 0) {
-                var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
-                pieChart.draw(pieData, pieOptions);
-            }
-            else{
-                document.getElementById('pie-chart').innerHTML = "Don't have order yet"
-            }
+                    fontName: 'Open Sans',
+                    chartArea: {
+                        width: '94%',
+                        height: '94%',
+                        left: 100
+                    },
+                    legend: {
+                        textStyle: {
+                            fontSize: 13
+                        },
+                    },
+                    is3D: true,
+                };
+                // draw bill chart
+                if (processed !== 0 || nonprocessed !== 0) {
+                    var pieChart = new google.visualization.PieChart(document.getElementById('pie-chart'));
+                    pieChart.draw(pieData, pieOptions);
+                } else {
+                    document.getElementById('pie-chart').innerHTML = "Don't have order yet"
+                }
 
-            var loaiSP = []
-            var sizeL = []
-            var sizeXL = []
-            loaiSP = <?php echo json_encode($product['category']); ?>;
-            sizeL = <?php echo json_encode($product['sizeL']); ?>;
-            sizeXL = <?php echo json_encode($product['sizeXL']); ?>;
-            // product chart data
-            var productData = google.visualization.arrayToDataTable([
-                ['Products', 'Quantity'],
-                [loaiSP[0], parseInt(sizeL[0]) + parseInt(sizeXL[0])],
-                [loaiSP[1], parseInt(sizeL[1]) + parseInt(sizeXL[1])],
-            ]);
-            // draw product chart
-            
-            var productChart = new google.visualization.PieChart(document.getElementById('product-chart'));
-            productChart.draw(productData, pieOptions);
-        }
-    </script>
+                var loaiSP = []
+                var sizeL = []
+                var sizeXL = []
+                loaiSP = <?php echo json_encode($product['category']); ?>;
+                sizeL = <?php echo json_encode($product['sizeL']); ?>;
+                sizeXL = <?php echo json_encode($product['sizeXL']); ?>;
+                // product chart data
+                var productData = google.visualization.arrayToDataTable([
+                    ['Products', 'Quantity'],
+                    [loaiSP[0], parseInt(sizeL[0]) + parseInt(sizeXL[0])],
+                    [loaiSP[1], parseInt(sizeL[1]) + parseInt(sizeXL[1])],
+                ]);
+                // draw product chart
+
+                var productChart = new google.visualization.PieChart(document.getElementById('product-chart'));
+                productChart.draw(productData, pieOptions);
+            }
+        </script>
     </body>
 <?php
 } else {
