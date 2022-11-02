@@ -26,9 +26,16 @@
 
     <?php
     }
+    if (isset($_REQUEST['tukhoa'])) { ?>
+        document.getElementById("loaisp").value = <?= isset($_REQUEST['loaisp']) ? $_REQUEST['loaisp'] : 0 ?>;
+
+    <?php
+    } else { ?>
+        document.getElementById("loaisp").value = <?= isset($_REQUEST['loaisp']) ? $_REQUEST['loaisp'] : $include_type ?>;
+
+    <?php }
     ?>
 
-    document.getElementById("loaisp").value = <?= isset($_REQUEST['loaisp']) ? $_REQUEST['loaisp'] : $include_type ?>;
 
     function reload1() {
         var pri = document.getElementById("price2");
@@ -39,7 +46,7 @@
         var valueloai = loai.value;
         var tukhoa = document.getElementById("find").value;
         window.location.href = "Search.php?from=" + from + "&to=" + to1 + "&loaisp=" + valueloai + "&tukhoa=" +
-        tukhoa
+            tukhoa
 
     }
 </script>
