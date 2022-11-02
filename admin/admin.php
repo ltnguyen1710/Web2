@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php  require_once('../process/login.php');?>
+<?php require_once('../process/login.php'); ?>
 <html>
 <title>CHECKERVIET</title>
 <meta charset="UTF-8">
@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 <script src="admin.js"></script>
 <style>
   .w3-sidebar a,
@@ -29,61 +29,23 @@
     font-family: "Montserrat", sans-serif;
   }
 
-  .panel-table .panel-body {
-    padding: 0;
-  }
-
-  .panel-table .panel-body .table-bordered {
-    border-style: none;
-    margin: 0;
-  }
-
-  .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type {
+  .button {
+    background-color: #555555;
+    /* Green */
+    border: none;
+    color: white;
+    /* padding: 15px 32px; */
     text-align: center;
-    width: 100px;
-  }
-
-  .panel-table .panel-body .table-bordered>thead>tr>th:last-of-type,
-  .panel-table .panel-body .table-bordered>tbody>tr>td:last-of-type {
-    border-right: 0px;
-  }
-
-  .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type,
-  .panel-table .panel-body .table-bordered>tbody>tr>td:first-of-type {
-    border-left: 0px;
-  }
-
-  .panel-table .panel-body .table-bordered>tbody>tr:first-of-type>td {
-    border-bottom: 0px;
-  }
-
-  .panel-table .panel-body .table-bordered>thead>tr:first-of-type>th {
-    border-top: 0px;
-  }
-
-  .panel-table .panel-footer .pagination {
-    margin: 0;
-  }
-
-  .panel-table .panel-footer .col {
-    line-height: 34px;
-    height: 34px;
-  }
-
-  .panel-table .panel-heading .col h3 {
-    line-height: 30px;
-    height: 30px;
-  }
-
-  .panel-table .panel-body .table-bordered>tbody>tr>td {
-    line-height: 34px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
   }
 </style>
 <?php
 if (isLoginedAdmin()) {
 ?>
 
-  <body class="w3-content" action="admin.php" style="max-width:1200px">
+  <body class="w3-content" style="max-width:1200px">
 
     <!-- Sidebar/menu -->
     <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
@@ -126,20 +88,27 @@ if (isLoginedAdmin()) {
 
         </p>
       </header>
-      <form action="/action_page.php" style="padding-left: 15px;" onchange="reloadadmin()">
-        <input type="radio" id="all" name="gender" value="1" <?php if (isset($_REQUEST['select'])) {
-                                                                echo ($_REQUEST['select'] == 1) ? 'checked="checked"' : '';
-                                                              }
-                                                              echo 'checked="checked"'  ?>>
+      <form style="padding-left: 15px;" onchange="reloadadmin()">
+        <input type="radio" id="all" name="select" value="1" <?php if (isset($_REQUEST['select'])) {
+                                                  echo ($_REQUEST['select'] == 1) ? 'checked="checked"' : '';
+                                                }
+                                                echo 'checked="checked"'  ?>>
         <label for="All">All</label>
-        <input type="radio" id="pro" name="gender" value="2" <?php if (isset($_REQUEST['select'])) {
-                                                                echo ($_REQUEST['select'] == 2) ? 'checked="checked"' : '';
-                                                              } ?>>
+        <input type="radio" id="pro" name="select" value="2" <?php if (isset($_REQUEST['select'])) {
+                                                  echo ($_REQUEST['select'] == 2) ? 'checked="checked"' : '';
+                                                } ?>>
         <label for="Processed">Processed</label>
-        <input type="radio" id="nonepro" name="gender" value="3" <?php if (isset($_REQUEST['select'])) {
-                                                                    echo ($_REQUEST['select'] == 3) ? 'checked="checked"' : '';
-                                                                  } ?>>
+        <input type="radio" id="nonepro" value="3" name="select"  <?php if (isset($_REQUEST['select'])) {
+                                                      echo ($_REQUEST['select'] == 3) ? 'checked="checked"' : '';
+                                                    } ?>>
         <label for="nonepro">None process</label>
+        <div>
+          <label for="searchOrder">Search order </label>
+          <input type="text" id="textOrder" name="searchText" style="width: 20%" placeholder="Type Order ID or Username" value="<?php
+                                                                                                              echo isset($_REQUEST['searchText']) ? $_REQUEST['searchText'] : "";
+                                                                                                              ?>">
+          <button class="button" onclick="reloadadmin()">Search</button>
+        </div>
       </form>
       <script>
         function reloadadmin() {
@@ -150,7 +119,8 @@ if (isLoginedAdmin()) {
             var valuecheck = document.getElementById('pro').value;
 
           } else var valuecheck = document.getElementById('nonepro').value;
-          window.location.href = "admin.php?select=" + valuecheck
+          var text = document.getElementById('textOrder').value
+          window.location.href = "admin.php?select=" + valuecheck + "&searchText=" + text
         }
       </script>
       <!--Admin-->
@@ -169,16 +139,31 @@ if (isLoginedAdmin()) {
               <div class="panel-body">
                 <?php
                 $conn = createDbConnection();
-                if (isset($_REQUEST['select'])) {
-                  if ($_REQUEST['select'] == 1)
-                    $sql = "SELECT * FROM donhang";
-                  else if ($_REQUEST['select'] == 2)
-                    $sql = "SELECT * FROM donhang WHERE tinhtrang='Da xu ly'";
-                  else
-                    $sql = "SELECT * FROM donhang WHERE tinhtrang='Chua xu ly'";
+                if (isset($_REQUEST['searchText'])) {
+                  $seachtext = $_REQUEST['searchText'];
+                  if (isset($_REQUEST['select'])) {
+                    if ($_REQUEST['select'] == 1)
+                      $sql = "SELECT * FROM donhang  where (maDon like '%$seachtext%' or userKH like '%$seachtext%')";
+                    else if ($_REQUEST['select'] == 2)
+                      $sql = "SELECT * FROM donhang WHERE tinhtrang='Da xu ly' and (maDon like '%$seachtext%' or userKH like '%$seachtext%')";
+                    else
+                      $sql = "SELECT * FROM donhang WHERE tinhtrang='Chua xu ly' and (maDon like '%$seachtext%' or userKH like '%$seachtext%')";
+                  } else {
+                    $sql = "SELECT * FROM donhang where (maDon like '%$seachtext%' or userKH like '%$seachtext%')";
+                  }
                 } else {
-                  $sql = "SELECT * FROM donhang";
+                  if (isset($_REQUEST['select'])) {
+                    if ($_REQUEST['select'] == 1)
+                      $sql = "SELECT * FROM donhang";
+                    else if ($_REQUEST['select'] == 2)
+                      $sql = "SELECT * FROM donhang WHERE tinhtrang='Da xu ly'";
+                    else
+                      $sql = "SELECT * FROM donhang WHERE tinhtrang='Chua xu ly'";
+                  } else {
+                    $sql = "SELECT * FROM donhang";
+                  }
                 }
+
                 if ($result = mysqli_query($conn, $sql)) {
 
                   if (mysqli_num_rows($result) > 0) {
@@ -307,7 +292,6 @@ if (isLoginedAdmin()) {
         }
       }
     </script>
-    <script src="IMGDEMO/jquery-2.1.4.min.js"></script>
   </body>
 <?php
 } else {

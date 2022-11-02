@@ -172,85 +172,16 @@ if (isset($_REQUEST['Delete'])) {
         font-family: "Montserrat", sans-serif;
     }
 
-    .panel-table .panel-body {
-        padding: 0;
-    }
-
-    .panel-table .panel-body .table-bordered {
-        border-style: none;
-        margin: 0;
-    }
-
-    .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type {
-        text-align: center;
-        width: 100px;
-    }
-
-    .panel-table .panel-body .table-bordered>thead>tr>th:last-of-type,
-    .panel-table .panel-body .table-bordered>tbody>tr>td:last-of-type {
-        border-right: 0px;
-    }
-
-    .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type,
-    .panel-table .panel-body .table-bordered>tbody>tr>td:first-of-type {
-        border-left: 0px;
-    }
-
-    .panel-table .panel-body .table-bordered>tbody>tr:first-of-type>td {
-        border-bottom: 0px;
-    }
-
-    .panel-table .panel-body .table-bordered>thead>tr:first-of-type>th {
-        border-top: 0px;
-    }
-
-    .panel-table .panel-footer .pagination {
-        margin: 0;
-    }
-
-    .panel-table .panel-footer .col {
-        line-height: 34px;
-        height: 34px;
-    }
-
-    .panel-table .panel-heading .col h3 {
-        line-height: 30px;
-        height: 30px;
-    }
-
-    .panel-table .panel-body .table-bordered>tbody>tr>td {
-        line-height: 34px;
-    }
-
-    /* Paging */
-    .pagination>li>a {
-        background-color: white;
-        color: black
-    }
-
-    .page-item.active .page-link {
-        background-color: black;
-        border-color: black
-    }
-
-    .pagination>li>a:focus,
-    .pagination>li>a:hover,
-    .pagination>li>span:focus,
-    .pagination>li>span:hover {
-        color: red;
-        background-color: #eee;
-        border-color: #ddd;
-    }
-
-    .pagination>.active>a {
+    .button {
+        background-color: #555555;
+        /* Green */
+        border: none;
         color: white;
-        background-color: black;
-        border: solid 1px black;
-    }
-
-    .pagination>.active>a:hover {
-        background-color: black;
-        border: solid 1px black;
+        /* padding: 15px 32px; */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
     }
 </style>
 <?php
@@ -300,13 +231,28 @@ if (isLoginedAdmin()) {
                     </a>
 
             </header>
-
-            <!--Add button-->
-            <div class="col col-xs-6 text-right">
-                <button type="button" class="btn btn-sm btn-primary btn-create " id="nutthemsanpham" onclick="document.getElementById('themsp').style.display='block',themsp()">&#43; Add
-                    product</a></button>
+            <div>
+                <form style="padding-left: 15px;" class="text-right" onchange="reloadadmin()">
+                    <div>
+                        <label for="searchOrder">Search Product </label>
+                        <input type="text" id="textOrder" name="searchText" style="width: 30%" placeholder="Type Product ID or Productname" value="<?php
+                                                                                                                                                    echo isset($_REQUEST['searchText']) ? $_REQUEST['searchText'] : "";
+                                                                                                                                                    ?>">
+                        <button class="button" onclick="reloadadmin()">Search</button>
+                    </div>
+                </form>
+                <script>
+                    function reloadadmin() {
+                        var text = document.getElementById('textOrder').value
+                        window.location.href = "admin.php?select=" + valuecheck + "&searchText=" + text
+                    }
+                </script>
+                <!--Add button-->
+                <div class="col col-xs-6 ">
+                    <button type="button" class="btn btn-sm btn-primary btn-create " id="nutthemsanpham" onclick="document.getElementById('themsp').style.display='block',themsp()">&#43; Add
+                        product</a></button>
+                </div>
             </div>
-
             <br>
 
 
@@ -437,7 +383,14 @@ if (isLoginedAdmin()) {
             <?php
             $conn = createDbConnection();
             // BƯỚC 2: TÌM TỔNG SỐ RECORDS
-            $result = mysqli_query($conn, 'select count(*) as total from sanpham');
+            if (isset($_REQUEST['searchText'])) {
+                $searchText =  $_REQUEST['searchText'];
+                $sql = 'select count(*) as total from sanpham where tenSP like "%'.$searchText.'%"';
+            } else {
+                $sql = 'select count(*) as total from sanpham';
+            }
+
+            $result = mysqli_query($conn, $sql);
             $row = mysqli_fetch_assoc($result);
             $total_records = $row['total'];
             // BƯỚC 3: TÌM LIMIT VÀ CURRENT_PAGE
@@ -464,7 +417,12 @@ if (isLoginedAdmin()) {
             <div class="w3-row w3-whitescale">
                 <?php
                 $conn = createDBConnection();
-                if ($result = mysqli_query($conn, "SELECT * FROM sanpham LIMIT $start, $limit")) {
+                if (isset($_REQUEST['searchText'])) {
+                    $sql = "SELECT * FROM sanpham WHERE tenSP LIKE '%$searchText%' LIMIT $start, $limit";
+                } else {
+                    $sql = "SELECT * FROM sanpham LIMIT $start, $limit";
+                }
+                if ($result = mysqli_query($conn, $sql)) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $sql1 = "SELECT loaiSP FROM loaisanpham WHERE maloaiSP='" . $row['maloaiSP'] . "'";
                         $result1 = $conn->query($sql1);
@@ -496,10 +454,10 @@ if (isLoginedAdmin()) {
                 <?php
                 // PHẦN HIỂN THỊ PHÂN TRANG
                 // BƯỚC 7: HIỂN THỊ PHÂN TRANG
-
+                $text = isset($_REQUEST['searchText']) ? $_REQUEST['searchText'] : "";
                 // nếu current_page > 1 và total_page > 1 mới hiển thị nút prev
                 if ($current_page > 1 && $total_page > 1) {
-                    echo '<a href="Productmanagement.php?page=' . ($current_page - 1) . '">Prev</a> | ';
+                    echo '<a href="Productmanagement.php?page=' . ($current_page - 1) . '&searchText=' . $text . '">Prev</a> | ';
                 }
 
                 // Lặp khoảng giữa
@@ -509,13 +467,13 @@ if (isLoginedAdmin()) {
                     if ($i == $current_page) {
                         echo '<span>' . $i . '</span> | ';
                     } else {
-                        echo '<a href="Productmanagement.php?page=' . $i . '">' . $i . '</a> | ';
+                        echo '<a href="Productmanagement.php?page=' . $i . '&searchText=' . $text. '">' . $i . '</a> | ';
                     }
                 }
 
                 // nếu current_page < $total_page và total_page > 1 mới hiển thị nút prev
                 if ($current_page < $total_page && $total_page > 1) {
-                    echo '<a href="Productmanagement.php?page=' . ($current_page + 1) . '">Next</a> | ';
+                    echo '<a href="Productmanagement.php?page=' . ($current_page + 1) . '&searchText=' . $text . '">Next</a> | ';
                 }
                 ?>
             </div>
@@ -635,7 +593,6 @@ if (isLoginedAdmin()) {
                 }
             </script>
 
-            <script src="IMGDEMO/jquery-2.1.4.min.js"></script>
     </body>
 <?php } else {
     echo '<script>window.location.replace("/WEB2/admin")</script>';
