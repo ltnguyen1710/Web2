@@ -14,6 +14,7 @@
         <option value="2">Jacket</option>
     </select>
 </div>
+
 <script>
     <?php if (isset($_REQUEST['from'])) {
 
@@ -22,13 +23,12 @@
         let element = document.getElementById("price2");
         console.log(price);
         element.value = price;
+
     <?php
     }
     ?>
 
-    document.getElementById("loaisp").value = <?= isset($_REQUEST['loaisp']) ? $_REQUEST['loaisp'] : 0 ?>;
-
-
+    document.getElementById("loaisp").value = <?= isset($_REQUEST['loaisp']) ? $_REQUEST['loaisp'] : $include_type ?>;
 
     function reload1() {
         var pri = document.getElementById("price2");
@@ -37,8 +37,9 @@
         var from = valueprice.substr(0, 3)
         var to1 = valueprice.substr(4, 3)
         var valueloai = loai.value;
-        var tukhoa = document.getElementById("find").value ;
+        var tukhoa = document.getElementById("find").value;
         window.location.href = "Search.php?from=" + from + "&to=" + to1 + "&loaisp=" + valueloai + "&tukhoa=" +
-            tukhoa
+        tukhoa
+
     }
 </script>

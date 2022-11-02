@@ -147,7 +147,10 @@ if (isset($_POST["username1"])) {
   <!-- Head menu -->
   <?php include 'components/headmenu.php' ?>
   <!-- Filter -->
-  <?php include 'components/filter.php' ?>
+  <?php
+  $include_type = '2';
+  include 'components/filter.php' 
+  ?>
 
   <script>
     var slideIndex = 0;
