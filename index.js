@@ -222,7 +222,7 @@ function thanhtoan(gia) {
   document.getElementById("price1").innerHTML = gia;
 }
 //hàm xử lý thanh toán, tạo đơn hàng và chi tiết hóa đơn
-function xulythanhtoan(user) {
+function xulythanhtoan(user,payment) {
   var cartItems = document.getElementsByClassName("cart-items")[0];
   var gia = document.getElementById("price1").innerHTML;
   var soluongSP = cartItems.getElementsByClassName("cart-item-title").length;
@@ -279,6 +279,8 @@ function xulythanhtoan(user) {
       soluongSP +
       "&userKH=" +
       user +
+      "&thanhtoan=" +
+      payment +
       "&diachi=" +
       diachi +
       sanpham,

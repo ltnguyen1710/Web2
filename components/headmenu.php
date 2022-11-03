@@ -209,22 +209,42 @@
                                 <option value="">Spain</option>
                             </select>
                             <br>
+                            <div class="cart-total">
+                                <strong class="cart-total-title">Total Price: $</strong>
+                                <strong class="cart-total-price" id="price1"></strong>
+                            </div>
                             <label><b>Payments</b></label>
-                            <select name="nation">
-                                <option value="">Credit card</option>
-                                <option value="">Cash</option>
-                            </select>
+                            <div id="paypal-button-container"></div>
+                            <script src="https://www.paypal.com/sdk/js?client-id=AV8_RUyAcgRpcbjtOBm708Vr9QfjzR7mlcgrquzQUjs7EdBXsvY0X-QasymyohYa-NztAqVjN22PV-5c">
+                                // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+                            </script>
+                            <script>
+                                paypal.Buttons({
+                                    createOrder: function(data, actions) {
+                                        var tongtien = document.getElementsByClassName("cart-total-price")[0].innerText;
+                                        // This function sets up the details of the transaction, including the amount and line item details.
+                                        return actions.order.create({
+                                            purchase_units: [{
+                                                amount: {
+                                                    value: tongtien
+                                                }
+                                            }]
+                                        });
+                                    },
+                                    onApprove: function(data, actions) {
+                                        // This function captures the funds from the transaction.
+                                        return actions.order.capture().then(function(details) {
+                                            // This function shows a transaction success message to your buyer.
+                                            alert('Transaction completed by ' + details.payer.name.given_name);
+                                            xulythanhtoan('<?= $_SESSION['username'] ?>',"paypal");
+                                        });
+                                    }
+                                }).render('#paypal-button-container');
+                                //This function displays Smart Payment Buttons on your web page.
+                            </script>
                         </div>
                     </form>
-                    <div class="cart-total">
-                        <strong class="cart-total-title">Total Price: $</strong>
-                        <strong class="cart-total-price" id="price1"></strong>
-                    </div>
 
-                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                        <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-                        <button class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>')">Confirm</button>
-                    </div>
 
                 </div>
             </div>
