@@ -209,7 +209,16 @@
                                 <option value="">Spain</option>
                             </select>
                             <br>
+                            <label><b>Delivery Method</b></label>
+                            <select name="delivery" id="delivery">
+                                <option value="ghn">GHN 7$</option>
+                                <option value="hoatoc">In day(HCM Only) 30$</option>
+
+                            </select>
+                            <br>
                             <div class="cart-total">
+                                <br>
+                                <i>Cash Delivery:</i> <b id="delivery_price"></b> <br>
                                 <strong class="cart-total-title">Total Price: $</strong>
                                 <strong class="cart-total-price" id="price1"></strong>
                             </div>
@@ -221,7 +230,7 @@
                             <script>
                                 paypal.Buttons({
                                     createOrder: function(data, actions) {
-                                        var tongtien = document.getElementsByClassName("cart-total-price")[0].innerText;
+                                        var tongtien = document.getElementById("price1").innerText;
                                         // This function sets up the details of the transaction, including the amount and line item details.
                                         return actions.order.create({
                                             purchase_units: [{
@@ -236,7 +245,7 @@
                                         return actions.order.capture().then(function(details) {
                                             // This function shows a transaction success message to your buyer.
                                             alert('Transaction completed by ' + details.payer.name.given_name);
-                                            xulythanhtoan('<?= $_SESSION['username'] ?>',"paypal");
+                                            xulythanhtoan('<?= $_SESSION['username'] ?>', "paypal");
                                         });
                                     }
                                 }).render('#paypal-button-container');

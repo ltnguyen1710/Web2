@@ -17,37 +17,32 @@ function showdetail(ten, gia, hinh, mota, sizeL, sizeXL) {
     var value = document.getElementById("size").value;
     if (value === "L") {
       document.getElementById("sl").innerHTML = L;
-      if(L <=0 ){
+      if (L <= 0) {
         document.getElementById("addtoc").disabled = true;
-      }
-      else{
+      } else {
         document.getElementById("addtoc").disabled = false;
       }
     } else {
       document.getElementById("sl").innerHTML = XL;
-      if(XL <=0 ){
+      if (XL <= 0) {
         document.getElementById("addtoc").disabled = true;
-      }
-      else{
+      } else {
         document.getElementById("addtoc").disabled = false;
       }
     }
   });
-  if(size.value === "L"){
+  if (size.value === "L") {
     document.getElementById("sl").innerHTML = L;
-    if(L <=0 ){
+    if (L <= 0) {
       document.getElementById("addtoc").disabled = true;
-    }
-    else{
+    } else {
       document.getElementById("addtoc").disabled = false;
     }
-  }
-  else {
+  } else {
     document.getElementById("sl").innerHTML = XL;
-    if(XL <=0 ){
+    if (XL <= 0) {
       document.getElementById("addtoc").disabled = true;
-    }
-    else{
+    } else {
       document.getElementById("addtoc").disabled = false;
     }
   }
@@ -142,7 +137,7 @@ function addItemToCart(title, price, img, soluong, size) {
     .addEventListener("click", function () {
       var button_remove = event.target;
       button_remove.parentElement.parentElement.remove();
-      xulyxoasanpham(title,size);
+      xulyxoasanpham(title, size);
       updatecart();
     });
   cartRow
@@ -193,7 +188,7 @@ function reload(title, price, img, soluong, size) {
     .addEventListener("click", function () {
       var button_remove = event.target;
       button_remove.parentElement.parentElement.remove();
-      xulyxoasanpham(title,size);
+      xulyxoasanpham(title, size);
       updatecart();
     });
   cartRow
@@ -219,10 +214,32 @@ function thanhtoan(gia) {
     return;
   }
   document.getElementById("checkout").style.display = "block";
+
+  var delivery = document.getElementById("delivery").value;
+  if (delivery === "hoatoc") {
+    gia = parseInt(gia) + 30;
+    document.getElementById("delivery_price").innerHTML = 30;
+  } else if (delivery === "ghn") {
+    gia = parseInt(gia) + 7;
+    document.getElementById("delivery_price").innerHTML = 7;
+  }
+
   document.getElementById("price1").innerHTML = gia;
+  var value = document.getElementById("delivery");
+  value.addEventListener("change", function () {
+    var value = document.getElementById("delivery").value;
+    if (value === "hoatoc") {
+      gia = parseInt(gia) + 30;
+      document.getElementById("delivery_price").innerHTML = 30;
+    } else if (value === "ghn") {
+      gia = parseInt(gia) + 7;
+      document.getElementById("delivery_price").innerHTML = 7;
+    }
+    document.getElementById("price1").innerHTML = gia;
+  });
 }
 //hàm xử lý thanh toán, tạo đơn hàng và chi tiết hóa đơn
-function xulythanhtoan(user,payment) {
+function xulythanhtoan(user, payment) {
   var cartItems = document.getElementsByClassName("cart-items")[0];
   var gia = document.getElementById("price1").innerHTML;
   var soluongSP = cartItems.getElementsByClassName("cart-item-title").length;
@@ -268,7 +285,7 @@ function xulythanhtoan(user,payment) {
       i +
       "=" +
       cartItems.getElementsByClassName("cart-price")[i].innerText;
-    sanpham = sanpham + "&size" + i +"="+ size[i].innerText;
+    sanpham = sanpham + "&size" + i + "=" + size[i].innerText;
   }
 
   xmlhttp.open(
@@ -317,15 +334,15 @@ function xulygiohang(title, price, img, soluong, soluongtonkho, size) {
       img +
       "&soluongSP=" +
       soluong +
-      "&soluongtonkho="+
-      soluongtonkho+
+      "&soluongtonkho=" +
+      soluongtonkho +
       sizeproduct,
     true
   );
   xmlhttp.send();
 }
 //hàm xử lý xóa sản phẩm
-function xulyxoasanpham(ten,size) {
+function xulyxoasanpham(ten, size) {
   var xmlhttp;
   if (window.XMLHttpRequest) {
     // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -338,7 +355,11 @@ function xulyxoasanpham(ten,size) {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
     }
   };
-  xmlhttp.open("GET", "process/giohang.php?tenxoa=" + ten+"&sizexoa="+size, true);
+  xmlhttp.open(
+    "GET",
+    "process/giohang.php?tenxoa=" + ten + "&sizexoa=" + size,
+    true
+  );
   xmlhttp.send();
 }
 

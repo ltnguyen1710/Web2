@@ -106,7 +106,7 @@
         <h4>We accept</h4>
         <h6><i class="fa fa-fw fa-cc-amex"></i> Amex</h6>
         <h6><i class="fa fa-fw fa-credit-card"></i> Credit Card</h6>
-        <br>
+        <h4>Visit us</h4>
         <a href="https://www.facebook.com/profile.php?id=100087103316928"><i class="fa fa-facebook-official w3-hover-opacity w3-large"></i></a>
 
       </div>
