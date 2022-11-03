@@ -208,13 +208,13 @@ if (isLoginedAdmin()) {
                                                     <tr>
                                                         <td align="center">
 
-                                                            <!-- <?php
+                                                            <?php
                                                                     if ($row['tinhtrang'] == "Chua xu ly") { ?>
-                                                                <button class="btn btn-danger fa fa-check" onclick="myFunction('<?= $row['maDon'] ?>')"></button>
+                                                                <button class="btn btn-danger fa fa-lock" onclick="myFunction('<?= $row['maDon'] ?>')"></button>
 
                                                             <?php } else { ?>
-                                                                <button class="btn btn-danger fa fa-check" style="background-color: gray;"></button>
-                                                            <?php } ?> -->
+                                                                <button class="btn btn-danger fa fa-lock" style="background-color: gray;"></button>
+                                                            <?php } ?>
                                                         </td>
 
 

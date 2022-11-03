@@ -315,7 +315,8 @@ function xulygiohang(title, price, img, soluong, soluongtonkho, size) {
       img +
       "&soluongSP=" +
       soluong +
-      // soluongtonkho+
+      "&soluongtonkho="+
+      soluongtonkho+
       sizeproduct,
     true
   );
