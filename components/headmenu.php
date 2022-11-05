@@ -193,21 +193,34 @@
                     $result = $con->query($sql);
                     $row = $result->fetch_assoc()
                     ?>
+                    <script type="text/javascript">
+                        function text() {
+                            var payment = document.getElementById('Payment').value
+                            if (payment === "cash"){
+                                document.getElementById('paypal-button-container').style.display = 'none';
+                                document.getElementById('cash').style.display = 'block';}
+                            else{
+                                document.getElementById('paypal-button-container').style.display = 'block';
+                                document.getElementById('cash').style.display = 'none';}
+                        }
+                    </script>
                     <form class="w3-container">
                         <div class="w3-section">
                             <label><b>Full name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required disabled>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" id="name5" name="name" required disabled>
                             <label><b>Phone number</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required disabled>
-                            <label><b>Adress</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress" required>
-                            <label><b>Nation</b></label>
-                            <select name="nation">
-                                <option value="">Vietnam</option>
-                                <option value="">USA</option>
-                                <option value="">UK</option>
-                                <option value="">Spain</option>
+                            <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" id="phone5" name="phone" placeholder="Enter Phone" required >
+                            <label><b>Address</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['diachi'] ?>" name="useraddress" id="useraddress5" placeholder="Enter Address" required>
+                            <label><b>Payment</b></label>
+                            
+                            <select name="Payment" id="Payment" onchange="text()">
+                                
+                                <option value="cash">Cash</option>
+                                <option selected value="card">Card</option>
+                            
                             </select>
+<<<<<<< Updated upstream
                             <br>
                             <label><b>Delivery Method</b></label>
                             <select name="delivery" id="delivery">
@@ -216,14 +229,15 @@
 
                             </select>
                             <br>
+=======
+>>>>>>> Stashed changes
                             <div class="cart-total">
                                 <br>
                                 <i>Cash Delivery:</i> <b id="delivery_price"></b> <br>
                                 <strong class="cart-total-title">Total Price: $</strong>
                                 <strong class="cart-total-price" id="price1"></strong>
                             </div>
-                            <label><b>Payments</b></label>
-                            <div id="paypal-button-container"></div>
+                            <div id="paypal-button-container"> </div>
                             <script src="https://www.paypal.com/sdk/js?client-id=AV8_RUyAcgRpcbjtOBm708Vr9QfjzR7mlcgrquzQUjs7EdBXsvY0X-QasymyohYa-NztAqVjN22PV-5c">
                                 // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
                             </script>
@@ -245,13 +259,27 @@
                                         return actions.order.capture().then(function(details) {
                                             // This function shows a transaction success message to your buyer.
                                             alert('Transaction completed by ' + details.payer.name.given_name);
+<<<<<<< Updated upstream
                                             xulythanhtoan('<?= $_SESSION['username'] ?>', "paypal");
+=======
+                                            xulythanhtoan('<?= $_SESSION['username'] ?>', 'paypal');
+                                            
+
+>>>>>>> Stashed changes
                                         });
                                     }
                                 }).render('#paypal-button-container');
                                 //This function displays Smart Payment Buttons on your web page.
                             </script>
+                            <br>
+                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey" id="cash" style="display:none">
+                                <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
+                                <button class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>','cash')">Confirm</button>
+                            </div>
+
+
                         </div>
+
                     </form>
 
 

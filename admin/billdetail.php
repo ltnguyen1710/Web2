@@ -194,7 +194,7 @@ if (isLoginedAdmin()) {
         <a href="#"><img src="../Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
       </div>
       <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-        
+
       </div>
     </nav>
 
@@ -215,10 +215,10 @@ if (isLoginedAdmin()) {
 
       <!-- Top header -->
       <header class="w3-container w3-xlarge w3-padding-24">
-        <p class="w3-left"><?php echo "Order Detail: ".$_REQUEST['madon']; ?></p>
+        <p class="w3-left"><?php echo "Order Detail: " . $_REQUEST['madon']; ?></p>
         <p class="w3-right">
 
-          
+
 
         </p>
       </header>
@@ -231,19 +231,19 @@ if (isLoginedAdmin()) {
               <div class="panel-heading">
                 <div class="row">
                   <div class="col col-xs-6">
-                    <h1 class="panel-title"><?php 
-                    $conn=createDBConnection();
-                    $sql = "SELECT hoTen FROM khachhang where userKH='".$_REQUEST['userKH']."'";
-                    $result = $conn->query($sql);
-                    $row = $result->fetch_assoc();
-                    echo $row['hoTen']; ?></h1>
+                    <h1 class="panel-title"><?php
+                                            $conn = createDBConnection();
+                                            $sql = "SELECT hoTen FROM khachhang where userKH='" . $_REQUEST['userKH'] . "'";
+                                            $result = $conn->query($sql);
+                                            $row = $result->fetch_assoc();
+                                            echo $row['hoTen']; ?></h1>
                   </div>
 
                 </div>
               </div>
               <div class="panel-body">
                 <?php
-                $sql = "SELECT * FROM chitiethoadon where maDon=".$_REQUEST['madon'];
+                $sql = "SELECT * FROM chitiethoadon where maDon=" . $_REQUEST['madon'];
                 if ($result = mysqli_query($conn, $sql)) {
 
                   if (mysqli_num_rows($result) > 0) {
@@ -256,7 +256,7 @@ if (isLoginedAdmin()) {
                           <th>QUANTITY</th>
                           <th>SIZE</th>
                           <th>PRICE</th>
-                          
+
                         </tr>
 
                       </thead>
@@ -265,24 +265,15 @@ if (isLoginedAdmin()) {
                         while ($row = mysqli_fetch_array($result)) {
                         ?>
                           <tr>
-                            
-
                             <td class="hidden-xs"><?php echo $row['maSP'] ?></td>
                             <td><?php echo $row['tenSP'] ?></td>
                             <td><?php echo $row['soluong'] ?></td>
                             <td><?php echo $row['size'] ?></td>
                             <td><?php echo $row['gia'] ?></td>
-
-
                           </tr>
-
-
-
-                                
               </div>
             </div>
       <?php
-
                         }
                       }
                     }
