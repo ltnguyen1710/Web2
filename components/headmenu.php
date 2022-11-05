@@ -211,7 +211,7 @@
                             <label><b>Phone number</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" id="phone5" name="phone" placeholder="Enter Phone" required >
                             <label><b>Address</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['diachi'] ?>" name="useraddress" id="useraddress5" placeholder="Enter Address" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['diachi'] ?>" name="useraddress5" id="useraddress5" placeholder="Enter Address" required>
                             <label><b>Payment</b></label>
                             
                             <select name="Payment" id="Payment" onchange="text()">
