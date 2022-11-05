@@ -212,11 +212,11 @@
                     <form class="w3-container">
                         <div class="w3-section">
                             <label><b>Full name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" id="name5" name="adress" required>
                             <label><b>Phone number</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" id="phone5" name="tel" required>
                             <label><b>Adress</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" name="useraddress" id="useraddress" placeholder="Enter Adress" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['diachi'] ?>" name="useraddress" id="useraddress5" placeholder="Enter Adress" required>
                             <?php
                             $con->close();
                             ?>
