@@ -233,7 +233,7 @@
                                 </select>
                                 <br>
                                 <label style="font-size: 20px;"><i>Discount:</i> </label>
-                                <button onclick="document.getElementById('voucher_list').style.display='block';document.getElementById('default').checked='checked'" class="w3-right" style="font-size: 20px;"><i>"Choose your voucher"</i></button>
+                                <button type="button" onclick="document.getElementById('voucher_list').style.display='block'" class="w3-right" style="font-size: 20px;">"Choose your voucher"</button>
                                 <br><br>
                             </div>
 
@@ -268,7 +268,7 @@
                                     </div>
 
                                     <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                        <button onclick="document.getElementById('voucher_list').style.display='none'" type="button" class="w3-button w3-red w3-right">Confirm</button>
+                                        <button type="button" onclick="document.getElementById('voucher_list').style.display='none'" type="button" class="w3-button w3-red w3-right">Confirm</button>
                                     </div>
 
                                 </div>
@@ -294,7 +294,6 @@
                                             document.getElementById("cashdiscount").innerHTML = price_decrease;
                                             document.getElementById("price1").innerHTML = total;
 
-
                                         }
 
                                     }
@@ -302,7 +301,7 @@
                             </div>
 
                             <div class="cart-total">
-                                
+
                                 <i style="font-size: 20px;">Cash Delivery: $</i>
                                 <b style="color: #333333 ;" id="delivery_price"></b> <br>
                                 <i style="font-size: 20px;">Discount: $-</i>
