@@ -29,54 +29,16 @@
         font-family: "Montserrat", sans-serif;
     }
 
-    .panel-table .panel-body {
-        padding: 0;
-    }
-
-    .panel-table .panel-body .table-bordered {
-        border-style: none;
-        margin: 0;
-    }
-
-    .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type {
+    .button {
+        background-color: #555555;
+        /* Green */
+        border: none;
+        color: white;
+        /* padding: 15px 32px; */
         text-align: center;
-        width: 100px;
-    }
-
-    .panel-table .panel-body .table-bordered>thead>tr>th:last-of-type,
-    .panel-table .panel-body .table-bordered>tbody>tr>td:last-of-type {
-        border-right: 0px;
-    }
-
-    .panel-table .panel-body .table-bordered>thead>tr>th:first-of-type,
-    .panel-table .panel-body .table-bordered>tbody>tr>td:first-of-type {
-        border-left: 0px;
-    }
-
-    .panel-table .panel-body .table-bordered>tbody>tr:first-of-type>td {
-        border-bottom: 0px;
-    }
-
-    .panel-table .panel-body .table-bordered>thead>tr:first-of-type>th {
-        border-top: 0px;
-    }
-
-    .panel-table .panel-footer .pagination {
-        margin: 0;
-    }
-
-    .panel-table .panel-footer .col {
-        line-height: 34px;
-        height: 34px;
-    }
-
-    .panel-table .panel-heading .col h3 {
-        line-height: 30px;
-        height: 30px;
-    }
-
-    .panel-table .panel-body .table-bordered>tbody>tr>td {
-        line-height: 34px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
     }
 </style>
 <?php
@@ -126,20 +88,27 @@ if (isLoginedAdmin()) {
 
                 </p>
             </header>
-            <form action="/action_page.php" style="padding-left: 15px;" onchange="reloadadmin()">
-                <input type="radio" id="all" name="gender" value="1" <?php if (isset($_REQUEST['select'])) {
+            <form style="padding-left: 15px;" onchange="reloadadmin()">
+                <input type="radio" id="all" name="select" value="1" <?php if (isset($_REQUEST['select'])) {
                                                                             echo ($_REQUEST['select'] == 1) ? 'checked="checked"' : '';
                                                                         }
                                                                         echo 'checked="checked"'  ?>>
                 <label for="All">All</label>
-                <input type="radio" id="pro" name="gender" value="2" <?php if (isset($_REQUEST['select'])) {
+                <input type="radio" id="pro" name="select" value="2" <?php if (isset($_REQUEST['select'])) {
                                                                             echo ($_REQUEST['select'] == 2) ? 'checked="checked"' : '';
                                                                         } ?>>
-                <label for="Processed">Processed</label>
-                <input type="radio" id="nonepro" name="gender" value="3" <?php if (isset($_REQUEST['select'])) {
+                <label for="Processed">Active</label>
+                <input type="radio" id="nonepro" name="select" value="3" <?php if (isset($_REQUEST['select'])) {
                                                                                 echo ($_REQUEST['select'] == 3) ? 'checked="checked"' : '';
                                                                             } ?>>
-                <label for="nonepro">None process</label>
+                <label for="nonepro">Block</label>
+                <div>
+                    <label for="searchOrder">Search order </label>
+                    <input type="text" id="textOrder" name="searchText" style="width: 20%" placeholder="Type Order ID or Username" value="<?php
+                                                                                                                                            echo isset($_REQUEST['searchText']) ? $_REQUEST['searchText'] : "";
+                                                                                                                                            ?>">
+                    <button class="button" onclick="reloadadmin()">Search</button>
+                </div>
             </form>
             <script>
                 function reloadadmin() {
@@ -150,7 +119,8 @@ if (isLoginedAdmin()) {
                         var valuecheck = document.getElementById('pro').value;
 
                     } else var valuecheck = document.getElementById('nonepro').value;
-                    window.location.href = "user.php?select=" + valuecheck
+                    var text = document.getElementById('textOrder').value
+                    window.location.href = "user.php?select=" + valuecheck + "&searchText=" + text
                 }
             </script>
             <!--Admin-->
@@ -169,16 +139,31 @@ if (isLoginedAdmin()) {
                             <div class="panel-body">
                                 <?php
                                 $conn = createDbConnection();
-                                if (isset($_REQUEST['select'])) {
-                                    if ($_REQUEST['select'] == 1)
-                                        $sql = "SELECT * FROM donhang";
-                                    else if ($_REQUEST['select'] == 2)
-                                        $sql = "SELECT * FROM donhang WHERE tinhtrang='Da xu ly'";
-                                    else
-                                        $sql = "SELECT * FROM donhang WHERE tinhtrang='Chua xu ly'";
+                                if (isset($_REQUEST['searchText'])) {
+                                    $seachtext = $_REQUEST['searchText'];
+                                    if (isset($_REQUEST['select'])) {
+                                        if ($_REQUEST['select'] == 1)
+                                            $sql = "SELECT * FROM khachhang  where (sdt like '%$seachtext%' or userKH like '%$seachtext%' or email like '%$seachtext%')";
+                                        else if ($_REQUEST['select'] == 2)
+                                            $sql = "SELECT * FROM khachhang WHERE trangthai='Active' and (sdt like '%$seachtext%' or userKH like '%$seachtext%' or email like '%$seachtext%')";
+                                        else
+                                            $sql = "SELECT * FROM khachhang WHERE tinhtrang='Block' and (sdt like '%$seachtext%' or userKH like '%$seachtext%' or email like '%$seachtext%')";
+                                    } else {
+                                        $sql = "SELECT * FROM khachhang where (sdt like '%$seachtext%' or userKH like '%$seachtext%' or email like '%$seachtext%')";
+                                    }
                                 } else {
-                                    $sql = "SELECT * FROM khachhang";
+                                    if (isset($_REQUEST['select'])) {
+                                        if ($_REQUEST['select'] == 1)
+                                            $sql = "SELECT * FROM khachhang";
+                                        else if ($_REQUEST['select'] == 2)
+                                            $sql = "SELECT * FROM khachhang WHERE trangthai='Active'";
+                                        else
+                                            $sql = "SELECT * FROM khachhang WHERE trangthai='Block'";
+                                    } else {
+                                        $sql = "SELECT * FROM khachhang";
+                                    }
                                 }
+
                                 if ($result = mysqli_query($conn, $sql)) {
 
                                     if (mysqli_num_rows($result) > 0) {
@@ -197,7 +182,7 @@ if (isLoginedAdmin()) {
                                                     <th width=20%>Email</th>
                                                     <th width=30%>Phone number</th>
                                                     <th width=30%>Full Name</th>
-                                                    <th width=30%>Address</th>
+                                                    <th width=50%>Address</th>
                                                 </tr>
 
                                             </thead>
@@ -209,24 +194,24 @@ if (isLoginedAdmin()) {
                                                         <td align="center">
 
                                                             <?php
-                                                                    if ($row['tinhtrang'] == "Chua xu ly") { ?>
-                                                                <button class="btn btn-danger fa fa-lock" onclick="myFunction('<?= $row['maDon'] ?>')"></button>
+                                                            if ($row['trangthai'] == "Block") { ?>
+                                                                <button class="btn btn-danger fa fa-lock" onclick="changeStatus('<?= $row['userKH'] ?>','<?= $row['trangthai'] ?>')"></button>
 
                                                             <?php } else { ?>
-                                                                <button class="btn btn-danger fa fa-lock" style="background-color: gray;"></button>
+                                                                <button class="btn btn-danger fa fa-unlock" style="background-color: green;" onclick="changeStatus('<?= $row['userKH'] ?>','<?= $row['trangthai'] ?>')"></button>
                                                             <?php } ?>
                                                         </td>
 
 
                                                         <td><?php echo $row['userKH'] ?></td>
                                                         <td><?php echo $row['passKH'] ?></td>
-                                                        <td><?php //echo $row['tinhtrang'] 
+                                                        <td><?php echo $row['trangthai']
                                                             ?></td>
-                                                        <td><?php //echo $row['ngaydat'] 
+                                                        <td><?php echo $row['email']
                                                             ?></td>
                                                         <td><?php echo $row['sdt'] ?></td>
                                                         <td><?php echo $row['hoTen'] ?></td>
-                                                        <td></td>
+                                                        <td><?php echo $row['diachi'] ?></td>
 
                                                     </tr>
 
@@ -272,8 +257,6 @@ if (isLoginedAdmin()) {
                 }
             }
 
-            // Click on the "Jeans" link on page load to open the accordion for demo purposes
-            document.getElementById("myBtn").click();
 
 
             // Open and close sidebar
@@ -288,7 +271,7 @@ if (isLoginedAdmin()) {
             }
         </script>
         <script>
-            function myFunction(madon) {
+            function changeStatus(userKH, trangthai) {
                 var cof = confirm("Are you sure ?");
                 if (cof) {
 
@@ -303,13 +286,12 @@ if (isLoginedAdmin()) {
 
                         }
                     }
-                    xmlhttp.open("GET", "xulydonhang.php?madon=" + madon, true);
+                    xmlhttp.open("GET", "userProcess.php?userKH=" + userKH + "&trangthai=" + trangthai, true);
                     xmlhttp.send();
-                    window.location.href = "admin.php"
+                    window.location.href = "user.php"
                 }
             }
         </script>
-        <script src="IMGDEMO/jquery-2.1.4.min.js"></script>
     </body>
 <?php
 } else {

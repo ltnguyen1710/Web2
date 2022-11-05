@@ -479,6 +479,7 @@ if (isLoginedAdmin()) {
                 }
                 ?>
             </div>
+            <br>
             <!-------------- Phan trang--------------->
             <script>
                 // Accordion 

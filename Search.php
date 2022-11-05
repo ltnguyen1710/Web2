@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <?php
 require('process/login.php');
-if (isset($_POST['username'])) {
-    if (login($_POST['username'], $_POST['psw']) == "") {
-        echo '<script>alert("Wrong password")</script>';
-    } else {
-        echo '<script>alert("Login successfully")</script>';
-    }
-}
 ?>
 <?php
 require('process/register_submit.php');
-if (isset($_POST["username1"])) {
-    Register($_POST["username1"], $_POST["psw1"], $_POST["repsw"], $_POST["phone"], $_POST["fullname"]);
-}
 ?>
 <html>
 <title>CHECKERVIET</title>

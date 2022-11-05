@@ -257,6 +257,7 @@ if (isLoginedAdmin()) {
                           <th>SIZE</th>
                           <th>PRICE</th>
                           
+                          
                         </tr>
 
                       </thead>

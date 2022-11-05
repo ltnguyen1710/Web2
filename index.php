@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <?php
 require('process/login.php');
-if (isset($_POST['username'])) {
-    if (login($_POST['username'], $_POST['psw']) == "") {
-        echo '<script>alert("Wrong password")</script>';
-    } else {
-        echo '<script>alert("Login successfully")</script>';
-    }
-}
+
 ?>
 <?php
 require('process/register_submit.php');
-if (isset($_POST["username1"])) {
-    Register($_POST["username1"], $_POST["psw1"], $_POST["repsw"], $_POST["phone"], $_POST["fullname"]);
-}
 ?>
 <html>
 <title>CHECKERVIET</title>
@@ -74,7 +65,7 @@ if (isset($_POST["username1"])) {
     }
 
     .cart-quantity {
-        width: 35%;
+        width: 20%;
     }
 
     .cart-item-title {
@@ -269,13 +260,13 @@ if (isset($_POST["username1"])) {
     <!-- Product grid -->
     <div class="w3-row w3-whitescale" id="myTable">
         <?php
-       $con = createDBConnection();
+        $con = createDBConnection();
 
-       $sql = "SELECT * FROM sanpham LIMIT $start, $limit";
+        $sql = "SELECT * FROM sanpham LIMIT $start, $limit";
 
-       $result = mysqli_query($con, $sql);
+        $result = mysqli_query($con, $sql);
 
-       while ($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($result)) {
         ?>
             <!-- Product and Detail of Product -->
             <?php include 'components/Product.php' ?>

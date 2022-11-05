@@ -182,6 +182,7 @@ if (isLoginedAdmin()) {
                           <th width=20%>Date</th>
                           <th width=30%>User</th>
                           <th width=30%>Address</th>
+                          <th width=30%>Payment</th>
                         </tr>
 
                       </thead>
@@ -210,7 +211,7 @@ if (isLoginedAdmin()) {
                             <td><?php echo $row['ngaydat'] ?></td>
                             <td><?php echo $row['userKH'] ?></td>
                             <td><?php echo $row['diachinhan'] ?></td>
-
+                            <td><?php echo $row['thanhtoan'] ?></td>
                           </tr>
 
 

@@ -153,13 +153,16 @@
 
                             <br>
 
-                            <label><b>Birthday:</b></label>
+                            <label><b>Birthday</b></label>
                             <input type="date" name="bday">
 
                             <br>
-                            <label><b>Email:</b></label>
+                            <label><b>Email</b></label>
                             <br>
                             <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email" required>
+                            <label><b>Adress</b></label>
+                            <br>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" name="useradress" placeholder="Enter adress" required>
                             <label><b>User name</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" required>
                             <label><b>Password</b></label>
