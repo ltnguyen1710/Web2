@@ -220,7 +220,6 @@
                                 <option selected value="card">Card</option>
                             
                             </select>
-<<<<<<< Updated upstream
                             <br>
                             <label><b>Delivery Method</b></label>
                             <select name="delivery" id="delivery">
@@ -229,8 +228,6 @@
 
                             </select>
                             <br>
-=======
->>>>>>> Stashed changes
                             <div class="cart-total">
                                 <br>
                                 <i>Cash Delivery:</i> <b id="delivery_price"></b> <br>
@@ -259,13 +256,7 @@
                                         return actions.order.capture().then(function(details) {
                                             // This function shows a transaction success message to your buyer.
                                             alert('Transaction completed by ' + details.payer.name.given_name);
-<<<<<<< Updated upstream
                                             xulythanhtoan('<?= $_SESSION['username'] ?>', "paypal");
-=======
-                                            xulythanhtoan('<?= $_SESSION['username'] ?>', 'paypal');
-                                            
-
->>>>>>> Stashed changes
                                         });
                                     }
                                 }).render('#paypal-button-container');
