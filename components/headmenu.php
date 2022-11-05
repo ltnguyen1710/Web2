@@ -193,37 +193,125 @@
                     $result = $con->query($sql);
                     $row = $result->fetch_assoc()
                     ?>
+                    <script type="text/javascript">
+                        function text() {
+                            var payment = document.getElementById('Payment').value
+                            if (payment === "cash") {
+                                document.getElementById('paypal-button-container').style.display = 'none';
+                                document.getElementById('cash').style.display = 'block';
+                            } else {
+                                document.getElementById('paypal-button-container').style.display = 'block';
+                                document.getElementById('cash').style.display = 'none';
+                            }
+                        }
+                    </script>
+
                     <form class="w3-container">
                         <div class="w3-section">
                             <label><b>Full name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required disabled>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" name="adress" required>
                             <label><b>Phone number</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required disabled>
+                            <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" name="tel" required>
                             <label><b>Adress</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useraddress" id="useraddress" placeholder="Enter Adress" required>
-                            <label><b>Nation</b></label>
-                            <select name="nation">
-                                <option value="">Vietnam</option>
-                                <option value="">USA</option>
-                                <option value="">UK</option>
-                                <option value="">Spain</option>
-                            </select>
-                            <br>
-                            <label><b>Delivery Method</b></label>
-                            <select name="delivery" id="delivery">
-                                <option value="ghn">GHN 7$</option>
-                                <option value="hoatoc">In day(HCM Only) 30$</option>
-
-                            </select>
-                            <br>
-                            <div class="cart-total">
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" name="useraddress" id="useraddress" placeholder="Enter Adress" required>
+                            <?php
+                            $con->close();
+                            ?>
+                            <div class="w3-border-top w3-border-bottom">
                                 <br>
-                                <i>Cash Delivery:</i> <b id="delivery_price"></b> <br>
+                                <label style="font-size: 20px;"><i>Payments:</i></label>
+                                <select class="w3-right" name="Payment" id="Payment" onchange="text()">
+                                    <option selected value="cash">Cash</option>
+                                    <option value="card">Card: </option>
+                                </select>
+                                <br>
+                                <label style="font-size: 20px;"><i>Delivery Method: </i></label>
+                                <select class="w3-right" name="delivery" id="delivery">
+                                    <option value="ghn">GHN 7$</option>
+                                    <option value="hoatoc">In day(HCM Only) 30$</option>
+
+                                </select>
+                                <br>
+                                <label style="font-size: 20px;"><i>Discount:</i> </label>
+                                <button onclick="document.getElementById('voucher_list').style.display='block';document.getElementById('default').checked='checked'" class="w3-right" style="font-size: 20px;"><i>"Choose your voucher"</i></button>
+                                <br><br>
+                            </div>
+
+                            <div id="voucher_list" class="w3-modal">
+                                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                                    <div class="w3-center"><br>
+                                        <span onclick="document.getElementById('voucher_list').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+                                        <h1>Voucher List</h1>
+                                    </div>
+                                    <div id="customers" class="w3-container w3-center w3-border" style="align-items: center;">
+                                        <div style="display: none;">   <input onclick="handle_discount('','','')" type="radio" id="default" name="giamgia" value="default" checked="checked"></div>
+
+                                        <?php
+                                        $currentday = date("Y-m-d");
+                                        $con = createDBConnection();
+                                        $sql = "SELECT * FROM magiamgia where (ngayketthuc >= '" . $currentday . "' and ngaybatdau <= '" . $currentday . "')";
+                                        $result = $con->query($sql);
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                        ?>
+
+                                            <div class="w3-row w3-border-top w3-border-bottom">
+                                                <div class="w3-col s3 w3-left-align" style=" font-size: 18px; ">
+                                                    <div class="w3-row">Giảm <?= $row['value'] ?><?= $row['type'] === 'cash' ? '$' : '%' ?></div>
+                                                    <div class="w3-row">Đơn tối thiểu:<?= $row['dieukienapdung'] ?></div>
+                                                </div>
+                                                <div class="w3-col s3 " style="font-size: 18px; "> Số lượng còn:<?= $row['soluong'] ?></div>
+                                                <div class="w3-col s3 " style="font-size: 16px; color: #333333 ;">HSD: <?= $row['ngayketthuc'] ?></div>
+                                                <div class="w3-col s3 ">   <input onclick=" handle_discount('<?= $row['value'] ?>','<?= $row['type'] ?>','<?= $row['dieukienapdung'] ?>')" type="radio" id="<?= $row['magiam'] ?>" name="giamgia" value="<?= $row['magiam'] ?>"></div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+
+                                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                        <button onclick="document.getElementById('voucher_list').style.display='none'" type="button" class="w3-button w3-red w3-right">Confirm</button>
+                                    </div>
+
+                                </div>
+                                <script>
+                                    function handle_discount(sotiengiam, type, dieukienapdung) {
+                                        var gia = document.getElementById("price").innerText;
+                                        var total = document.getElementById("price1").innerText;
+                                        var price_decrease = parseFloat(sotiengiam);
+                                        gia = parseFloat(gia);
+                                        dieukienapdung = parseFloat(dieukienapdung);
+                                        if (gia < dieukienapdung) {
+                                            var so_tien_conthieu = dieukienapdung - gia;
+                                            alert("Bạn cần mua thêm " + so_tien_conthieu + "$ để sử dụng Voucher này!!")
+                                        } else {
+                                            if (type === 'cash') {
+
+                                                price_decrease = price_decrease;
+                                            } else if (type === 'percent') {
+                                                price_decrease = gia * price_decrease / 100;
+                                            }
+                                            total = total - price_decrease;
+
+                                            document.getElementById("cashdiscount").innerHTML = price_decrease;
+                                            document.getElementById("price1").innerHTML = total;
+
+
+                                        }
+
+                                    }
+                                </script>
+                            </div>
+
+                            <div class="cart-total">
+                                
+                                <i style="font-size: 20px;">Cash Delivery: $</i>
+                                <b style="color: #333333 ;" id="delivery_price"></b> <br>
+                                <i style="font-size: 20px;">Discount: $-</i>
+                                <b style="color: #333333 ;" id="cashdiscount">0</b> <br>
                                 <strong class="cart-total-title">Total Price: $</strong>
-                                <strong class="cart-total-price" id="price1"></strong>
+                                <strong style="color: #000000 ;" class="cart-total-price" id="price1"></strong>
                             </div>
                             <label><b>Payments</b></label>
-                            <div id="paypal-button-container"></div>
+                            <div id="paypal-button-container" style="display:none"></div>
                             <script src="https://www.paypal.com/sdk/js?client-id=AV8_RUyAcgRpcbjtOBm708Vr9QfjzR7mlcgrquzQUjs7EdBXsvY0X-QasymyohYa-NztAqVjN22PV-5c">
                                 // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
                             </script>
@@ -251,6 +339,11 @@
                                 }).render('#paypal-button-container');
                                 //This function displays Smart Payment Buttons on your web page.
                             </script>
+                            <br>
+                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey" id="cash">
+                                <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
+                                <button class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>','cash')">Confirm</button>
+                            </div>
                         </div>
                     </form>
 
