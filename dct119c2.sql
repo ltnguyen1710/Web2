@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 23, 2022 lúc 09:08 AM
--- Phiên bản máy phục vụ: 10.4.14-MariaDB
--- Phiên bản PHP: 7.4.10
+-- Thời gian đã tạo: Th10 05, 2022 lúc 03:08 PM
+-- Phiên bản máy phục vụ: 10.4.20-MariaDB
+-- Phiên bản PHP: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -63,7 +63,11 @@ INSERT INTO `chitiethoadon` (`maDon`, `maSP`, `tenSP`, `userKH`, `soluong`, `gia
 (21, 1, 'tee1 summers', 'ha', 1, 390, 'Array'),
 (22, 1, 'tee1 summers', 'ha', 1, 390, 'Array'),
 (23, 1, 'tee1 summers', 'ha', 1, 390, '[object HT'),
-(24, 1, 'tee1 summers', 'ha', 1, 390, 'L');
+(24, 1, 'tee1 summers', 'ha', 1, 390, 'L'),
+(24, 3, 'tee101 summers', 'ha', 2, 390, 'XL'),
+(24, 4, 'tee102 summers', 'ha', 1, 390, 'L'),
+(25, 6, 'tee104 summers', 'ha', 1, 150, 'L'),
+(26, 7, 'tee105 summers', 'ha', 1, 150, 'L');
 
 -- --------------------------------------------------------
 
@@ -78,6 +82,7 @@ CREATE TABLE `donhang` (
   `tinhtrang` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `ngaydat` date NOT NULL,
   `userKH` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `thanhtoan` varchar(10) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `diachinhan` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
@@ -85,11 +90,13 @@ CREATE TABLE `donhang` (
 -- Đang đổ dữ liệu cho bảng `donhang`
 --
 
-INSERT INTO `donhang` (`maDon`, `giaDon`, `soluongMua`, `tinhtrang`, `ngaydat`, `userKH`, `diachinhan`) VALUES
-(21, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', 'ssss'),
-(22, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', 'sss'),
-(23, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', 'sss'),
-(24, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', 'ssss');
+INSERT INTO `donhang` (`maDon`, `giaDon`, `soluongMua`, `tinhtrang`, `ngaydat`, `userKH`, `thanhtoan`, `diachinhan`) VALUES
+(21, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', '', 'ssss'),
+(22, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', '', 'sss'),
+(23, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', '', 'sss'),
+(24, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', '', 'ssss'),
+(25, 157, 1, 'Chua xu ly', '2022-11-03', 'ha', 'paypal', 'some'),
+(26, 157, 1, 'Chua xu ly', '2022-11-03', 'ha', 'cash', 'hgf');
 
 -- --------------------------------------------------------
 
@@ -112,7 +119,8 @@ INSERT INTO `khachhang` (`userKH`, `passKH`, `sdt`, `hoTen`) VALUES
 ('ha', '123', '0939635455', 'le nguyen'),
 ('ha45', '123456', '0923456789', 'le trung nguyen'),
 ('nghiameow', 'nghiameow', '0339941057', 'nguyen huu nghia'),
-('nhilele', '123456', '0797911332', 'nhi le ');
+('nhilele', '123456', '0797911332', 'nhi le '),
+('nhokvlkkk', '123456', '0765038968', 'Đặng Ngọc Khang');
 
 -- --------------------------------------------------------
 
@@ -132,6 +140,34 @@ CREATE TABLE `loaisanpham` (
 INSERT INTO `loaisanpham` (`maloaiSP`, `loaiSP`) VALUES
 (1, 'Tee'),
 (2, 'Jacket');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `magiamgia`
+--
+
+CREATE TABLE `magiamgia` (
+  `magiam` varchar(20) NOT NULL,
+  `soluong` int(11) NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `value` int(10) NOT NULL,
+  `dieukienapdung` int(11) NOT NULL,
+  `ngaybatdau` date NOT NULL,
+  `ngayketthuc` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `magiamgia`
+--
+
+INSERT INTO `magiamgia` (`magiam`, `soluong`, `type`, `value`, `dieukienapdung`, `ngaybatdau`, `ngayketthuc`) VALUES
+('freeship10', 100, 'percent', 10, 200, '2022-10-05', '2022-11-04'),
+('freeship100', 2, 'cash', 100, 500, '2022-10-05', '2022-11-05'),
+('freeship30', 100, 'cash', 30, 300, '2022-10-05', '2022-12-05'),
+('freeship55', 2, 'percent', 55, 200, '2022-11-06', '2022-12-06'),
+('voucher100', 100, 'cash', 100, 500, '2022-10-05', '2022-12-05'),
+('voucher50', 100, 'percent', 50, 500, '2022-10-05', '2022-12-05');
 
 -- --------------------------------------------------------
 
@@ -157,11 +193,11 @@ CREATE TABLE `sanpham` (
 INSERT INTO `sanpham` (`maSP`, `maloaiSP`, `thongtinSP`, `tenSP`, `giaSP`, `hinhanhSP`, `sizeL`, `sizeXL`) VALUES
 (1, 1, 'The quality of the product is guaranteed', 'tee1 summers', 390, '1.1.jpg', 1, 3),
 (2, 1, 'The quality of the product is guaranteed', 'tee100 summers', 390, '10.1.jpg', 10, 30),
-(3, 1, 'The quality of the product is guaranteed', 'tee101 summers', 390, '11.1.jpg', 10, 30),
-(4, 1, 'The quality of the product is guaranteed', 'tee102 summers', 390, '12.1.jpg', 10, 30),
+(3, 1, 'The quality of the product is guaranteed', 'tee101 summers', 390, '11.1.jpg', 10, 28),
+(4, 1, 'The quality of the product is guaranteed', 'tee102 summers', 390, '12.1.jpg', 9, 30),
 (5, 1, 'The quality of the product is guaranteed', 'tee103 summers', 150, '13.1.jpg', 10, 30),
-(6, 1, 'The quality of the product is guaranteed', 'tee104 summers', 150, '14.1.jpg', 10, 30),
-(7, 1, 'The quality of the product is guaranteed', 'tee105 summers', 150, '15.1.jpg', 10, 30),
+(6, 1, 'The quality of the product is guaranteed', 'tee104 summers', 150, '14.1.jpg', 9, 30),
+(7, 1, 'The quality of the product is guaranteed', 'tee105 summers', 150, '15.1.jpg', 9, 30),
 (8, 1, 'The quality of the product is guaranteed', 'tee106 summers', 150, '16.1.jpg', 10, 30),
 (9, 1, 'The quality of the product is guaranteed', 'tee107 summers', 150, '17.1.jpg', 10, 30),
 (10, 1, 'The quality of the product is guaranteed', 'tee108 summers', 150, '18.1.jpg', 10, 30),
@@ -183,33 +219,33 @@ INSERT INTO `sanpham` (`maSP`, `maloaiSP`, `thongtinSP`, `tenSP`, `giaSP`, `hinh
 (26, 1, 'The quality of the product is guaranteed', 'tee124 winter', 155, '21.1.jpg', 10, 30),
 (27, 1, 'The quality of the product is guaranteed', 'tee125 winter', 155, '7.1.jpg', 10, 30),
 (28, 1, 'The quality of the product is guaranteed', 'tee126 winter', 155, '8.1.jpg', 10, 30),
-(29, 2, 'The quality of the product is guaranteed', 'jacket100 summers', 155, 'jk1.jpg', 10, 30),
-(30, 2, 'The quality of the product is guaranteed', 'jacket101 summers', 155, 'jk1.jpg', 10, 30),
-(31, 2, 'The quality of the product is guaranteed', 'jacket102 summers', 155, 'jk1.jpg', 10, 30),
-(32, 2, 'The quality of the product is guaranteed', 'jacket103 summers', 155, 'jk10.jpg', 10, 30),
-(33, 2, 'The quality of the product is guaranteed', 'jacket104 summers', 155, 'jk10.jpg', 10, 30),
-(34, 2, 'The quality of the product is guaranteed', 'jacket105 summers', 155, 'jk10.jpg', 10, 30),
-(35, 2, 'The quality of the product is guaranteed', 'jacket106 summers', 155, 'jk10.jpg', 10, 30),
-(36, 2, 'The quality of the product is guaranteed', 'jacket107 summers', 155, 'jk10.jpg', 10, 30),
-(37, 2, 'The quality of the product is guaranteed', 'jacket108 summers', 155, 'jk2.jpg', 10, 30),
-(38, 2, 'The quality of the product is guaranteed', 'jacket109 sping', 275, 'jk2.jpg', 10, 30),
-(39, 2, 'The quality of the product is guaranteed', 'jacket110 sping', 275, 'jk9.jpg', 10, 30),
-(40, 2, 'The quality of the product is guaranteed', 'jacket111 sping', 275, 'jk9.jpg', 10, 30),
-(41, 2, 'The quality of the product is guaranteed', 'jacket112 sping', 275, 'jk3.jpg', 10, 30),
-(42, 2, 'The quality of the product is guaranteed', 'jacket113 sping', 275, 'jk3.jpg', 10, 30),
-(43, 2, 'The quality of the product is guaranteed', 'jacket114 sping', 275, 'jk8.jpg', 10, 30),
-(44, 2, 'The quality of the product is guaranteed', 'jacket115 sping', 275, 'jk8.jpg', 10, 30),
-(45, 2, 'The quality of the product is guaranteed', 'jacket116 sping', 275, 'jk8.jpg', 10, 30),
-(46, 2, 'The quality of the product is guaranteed', 'jacket117 winter', 150, 'jk4.jpg', 10, 30),
-(47, 2, 'The quality of the product is guaranteed', 'jacket118 winter', 150, 'jk4.jpg', 10, 30),
-(48, 2, 'The quality of the product is guaranteed', 'jacket119 winter', 150, 'jk4.jpg', 10, 30),
-(49, 2, 'The quality of the product is guaranteed', 'jacket120 winter', 150, 'jk7.jpg', 10, 30),
-(50, 2, 'The quality of the product is guaranteed', 'jacket121 winter', 150, 'jk7.jpg', 10, 30),
-(51, 2, 'The quality of the product is guaranteed', 'jacket122 winter', 150, 'jk5.jpg', 10, 30),
-(52, 2, 'The quality of the product is guaranteed', 'jacket123 winter', 150, 'jk5.jpg', 10, 30),
-(53, 2, 'The quality of the product is guaranteed', 'jacket124 winter', 150, 'jk6.jpg', 10, 30),
-(54, 2, 'The quality of the product is guaranteed', 'jacket125 winter', 75, 'jk6.jpg', 10, 30),
-(55, 2, 'The quality of the product is guaranteed', 'jacket126 winter', 75, 'jk6.jpg', 10, 30),
+(29, 1, 'The quality of the product is guaranteed', 'jacket100 summers', 155, 'jk1.jpg', 10, 30),
+(30, 1, 'The quality of the product is guaranteed', 'jacket101 summers', 155, 'jk1.jpg', 10, 30),
+(31, 1, 'The quality of the product is guaranteed', 'jacket102 summers', 155, 'jk1.jpg', 10, 30),
+(32, 1, 'The quality of the product is guaranteed', 'jacket103 summers', 155, 'jk10.jpg', 10, 30),
+(33, 1, 'The quality of the product is guaranteed', 'jacket104 summers', 155, 'jk10.jpg', 10, 30),
+(34, 1, 'The quality of the product is guaranteed', 'jacket105 summers', 155, 'jk10.jpg', 10, 30),
+(35, 1, 'The quality of the product is guaranteed', 'jacket106 summers', 155, 'jk10.jpg', 10, 30),
+(36, 1, 'The quality of the product is guaranteed', 'jacket107 summers', 155, 'jk10.jpg', 10, 30),
+(37, 1, 'The quality of the product is guaranteed', 'jacket108 summers', 155, 'jk2.jpg', 10, 30),
+(38, 1, 'The quality of the product is guaranteed', 'jacket109 sping', 275, 'jk2.jpg', 10, 30),
+(39, 1, 'The quality of the product is guaranteed', 'jacket110 sping', 275, 'jk9.jpg', 10, 30),
+(40, 1, 'The quality of the product is guaranteed', 'jacket111 sping', 275, 'jk9.jpg', 10, 30),
+(41, 1, 'The quality of the product is guaranteed', 'jacket112 sping', 275, 'jk3.jpg', 10, 30),
+(42, 1, 'The quality of the product is guaranteed', 'jacket113 sping', 275, 'jk3.jpg', 10, 30),
+(43, 1, 'The quality of the product is guaranteed', 'jacket114 sping', 275, 'jk8.jpg', 10, 30),
+(44, 1, 'The quality of the product is guaranteed', 'jacket115 sping', 275, 'jk8.jpg', 10, 30),
+(45, 1, 'The quality of the product is guaranteed', 'jacket116 sping', 275, 'jk8.jpg', 10, 30),
+(46, 1, 'The quality of the product is guaranteed', 'jacket117 winter', 150, 'jk4.jpg', 10, 30),
+(47, 1, 'The quality of the product is guaranteed', 'jacket118 winter', 150, 'jk4.jpg', 10, 30),
+(48, 1, 'The quality of the product is guaranteed', 'jacket119 winter', 150, 'jk4.jpg', 10, 30),
+(49, 1, 'The quality of the product is guaranteed', 'jacket120 winter', 150, 'jk7.jpg', 10, 30),
+(50, 1, 'The quality of the product is guaranteed', 'jacket121 winter', 150, 'jk7.jpg', 10, 30),
+(51, 1, 'The quality of the product is guaranteed', 'jacket122 winter', 150, 'jk5.jpg', 10, 30),
+(52, 1, 'The quality of the product is guaranteed', 'jacket123 winter', 150, 'jk5.jpg', 10, 30),
+(53, 1, 'The quality of the product is guaranteed', 'jacket124 winter', 150, 'jk6.jpg', 10, 30),
+(54, 1, 'The quality of the product is guaranteed', 'jacket125 winter', 75, 'jk6.jpg', 10, 30),
+(55, 1, 'The quality of the product is guaranteed', 'jacket126 winter', 75, 'jk6.jpg', 10, 30),
 (65, 1, 'Fresh', 'tee3 autumn', 39, '20.1.jpg', 2, 3),
 (66, 1, 'The quality of the product is guaranteed', 'tee4 spring', 29, '17.1.jpg', 2, 3),
 (67, 2, 'Comfortable', 'jacket1 sping', 99, 'jk1.jpg', 2, 3),
@@ -232,7 +268,6 @@ INSERT INTO `sanpham` (`maSP`, `maloaiSP`, `thongtinSP`, `tenSP`, `giaSP`, `hinh
 (84, 1, 'The quality of the product is guaranteed', 'tee12 spring', 79, '14.1.jpg', 2, 3),
 (85, 1, 'The quality of the product is guaranteed', 'tee12 winter', 39, 'jk2.jpg', 2, 3),
 (86, 1, 'Nice', 'tee13 spring', 59, '5.1.jpg', 2, 3);
-
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -269,6 +304,12 @@ ALTER TABLE `loaisanpham`
   ADD PRIMARY KEY (`maloaiSP`);
 
 --
+-- Chỉ mục cho bảng `magiamgia`
+--
+ALTER TABLE `magiamgia`
+  ADD PRIMARY KEY (`magiam`);
+
+--
 -- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
@@ -283,7 +324,7 @@ ALTER TABLE `sanpham`
 -- AUTO_INCREMENT cho bảng `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `maDon` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `maDon` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT cho bảng `sanpham`
