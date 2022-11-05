@@ -265,7 +265,7 @@
                                                 </div>
                                                 <div class="w3-col s3 " style="font-size: 18px; "> Số lượng còn:<?= $row['soluong'] ?></div>
                                                 <div class="w3-col s3 " style="font-size: 16px; color: #333333 ;">HSD: <?= $row['ngayketthuc'] ?></div>
-                                                <div class="w3-col s3 ">   <input onclick=" handle_discount('<?= $row['value'] ?>','<?= $row['type'] ?>','<?= $row['dieukienapdung'] ?>')" type="radio" id="<?= $row['magiam'] ?>" name="giamgia" value="<?= $row['magiam'] ?>"></div>
+                                                <div class="w3-col s3 ">   <input onclick=" handle_discount('<?= $row['value'] ?>','<?= $row['type'] ?>','<?= $row['dieukienapdung'] ?>','<?= $row['magiam']  ?>')" type="radio" id="<?= $row['magiam'] ?>" name="giamgia" value="<?= $row['magiam'] ?>"></div>
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -276,7 +276,7 @@
 
                                 </div>
                                 <script>
-                                    function handle_discount(sotiengiam, type, dieukienapdung) {
+                                    function handle_discount(sotiengiam, type, dieukienapdung, magiam) {
                                         var gia = document.getElementById("price").innerText;
                                         var total = document.getElementById("price1").innerText;
                                         var price_decrease = parseFloat(sotiengiam);
@@ -296,7 +296,7 @@
 
                                             document.getElementById("cashdiscount").innerHTML = price_decrease;
                                             document.getElementById("price1").innerHTML = total;
-
+                                            document.getElementById("magiam5").value = magiam;
                                         }
 
                                     }
@@ -304,7 +304,7 @@
                             </div>
 
                             <div class="cart-total">
-
+                                <input id="magiam5" hidden>
                                 <i style="font-size: 20px;">Cash Delivery: $</i>
                                 <b style="color: #333333 ;" id="delivery_price"></b> <br>
                                 <i style="font-size: 20px;">Discount: $-</i>
@@ -345,7 +345,7 @@
                             <br>
                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey" id="cash">
                                 <button onclick="document.getElementById('checkout').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-                                <button class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>','cash')">Confirm</button>
+                                <button type="button" class="w3-button w3-red w3-right" name="Confirm" onclick="xulythanhtoan('<?= $_SESSION['username'] ?>','cash')">Confirm</button>
                             </div>
                         </div>
 

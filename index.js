@@ -247,6 +247,7 @@ function xulythanhtoan(user, payment) {
   var size = document.getElementsByClassName("size");
   var hoten = document.getElementById("name5").value;
   var sdt = document.getElementById("phone5").value;
+  var voucher = document.getElementById("magiam5").value;
 
   if (diachi == "") {
     alert("Please type your address");
@@ -313,21 +314,24 @@ function xulythanhtoan(user, payment) {
   alert("Buy successfully !");
   document.getElementById("checkout").style.display = "none";
   document.getElementById("shoppingcart").style.display = "none";
-  window.location.href =  "process/thanhtoan.php?totalprice=" +
-  gia +
-  "&soluongSP=" +
-  soluongSP +
-  "&userKH=" +
-  user +
-  "&Hoten=" +
-  hoten +
-  "&sdt=" +
-  sdt +
-  "&thanhtoan=" +
-  payment +
-  "&diachi=" +
-  diachi +
-  sanpham
+  window.location.href =
+    "process/thanhtoan.php?totalprice=" +
+    gia +
+    "&soluongSP=" +
+    soluongSP +
+    "&userKH=" +
+    user +
+    "&Hoten=" +
+    hoten +
+    "&sdt=" +
+    sdt +
+    "&thanhtoan=" +
+    payment +
+    "&diachi=" +
+    diachi +
+    "&magiam=" +
+    voucher +
+    sanpham;
 }
 //hàm lưu các thông số của sản phẩm thêm vào giỏ hàng
 function xulygiohang(title, price, img, soluong, soluongtonkho, size) {
@@ -399,7 +403,7 @@ function xulymavan(sodienthoai) {
   if (sdt == "") {
     alert("Please type your phone");
     return;
-  }else{
+  } else {
     window.location.href = "https://tracking.ghn.dev/?order_code=LLGAVX";
   }
 }

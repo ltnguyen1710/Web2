@@ -25,6 +25,13 @@ if (isset($_REQUEST['madon'])) {
     );
     $soluongSP = $_REQUEST['soluongSP'];
     $con->query($sql);
+    //xu ly voucher
+    if (isset($_REQUEST['magiam'])) {
+        if ($_REQUEST['magiam'] !== "") {
+            $sql = "UPDATE magiamgia SET soluong=soluong-1 WHERE magiam='" . $_REQUEST['magiam'] . "'";
+            $con->query($sql);
+        }
+    }
     //khoi tao mang
     $data = [
         'ten' => array(),
@@ -141,7 +148,7 @@ if (isset($_REQUEST['madon'])) {
         redirect: 'follow'
     };
 
-    async function createOrder  () {
+    async function createOrder() {
         await fetch("https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create", requestOptions)
             .then(response => response.text())
             .then(result => {
@@ -150,7 +157,7 @@ if (isset($_REQUEST['madon'])) {
                 console.log(data.data.order_code)
 
 
-                window.location.href = "thanhtoan.php?madon=" + <?php echo $madonhang; ?>+ `&mavandon=${data.data.order_code}` 
+                window.location.href = "thanhtoan.php?madon=" + <?php echo $madonhang; ?> + `&mavandon=${data.data.order_code}`
             })
             .catch(error => console.log('error', error));
     }
