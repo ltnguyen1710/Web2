@@ -1,4 +1,4 @@
-<br> 
+<br>
 <div class="w3-container">
   <div id="paymentpolicy" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width: 900px">
@@ -34,7 +34,7 @@
         <h4> <b> Nhằm giúp quý khách an tâm chọn lựa cho mình một sản phẩm ưng ý và phục vụ khách hàng chu đáo, <b>CHECKERVIET</b> thông báo đến quý khách hàng chính sách đổi trả chi tiết sau: </b></h4>
         <p> Những mặt hàng đã mua được quyền đổi không quá 7 (bảy) ngày từ ngày mua hàng với điều kiện những mặt hàng này chưa qua sử dụng, chưa giặt, không bị hư hại với các tem tag đính kèm, bản gốc hóa đơn mua hàng là bằng chứng mua phải được cung cấp.
           <br>
-          <br> <i> <b>• Bước 1:</b> khách liên lạc qua hotline 0123456789 hoặc <a href="https://www.facebook.com/profile.php?id=100087103316928">FANPAGE</a>   của <b>CHECKERVIET</b> để được hỗ trợ</i>
+          <br> <i> <b>• Bước 1:</b> khách liên lạc qua hotline 0123456789 hoặc <a href="https://www.facebook.com/profile.php?id=100087103316928">FANPAGE</a> của <b>CHECKERVIET</b> để được hỗ trợ</i>
           <br> <i> <b>• Bước 2:</b> nhận cuộc gọi từ <b>CHECKERVIET</b> và thời gian nhận hàng đổi trả</i>
           <br> <i> <b>• Bước 3:</b> ngay khi xác nhận <b>CHECKERVIET</b> sẽ gửi bạn đơn hàng mới (hoặc lấy hàng về), bạn chi cần đổi trả hàng cho shipper</i>
           <br><br> <b>CHECKERVIET</b> nhận sản phẩm trả lại trong trường hợp lỗi do nhà sản xuất như: ố màu, phai màu, lỗi chất liệu, lỗi đường may, lỗi kiểu dáng... Không theo đúng mô tả và tiêu chuẩn sản phẩm. Hoàn tiền lại sản phẩm gặp lỗi qua tài khoản ngân hàng đối với các đơn hàng trực tuyến (online). Chúng tôi miễn phí 100% chi phí vận chuyển trả hàng.
@@ -66,15 +66,28 @@
         Chúng tôi bảo lưu quyền thay đổi hoặc cập nhật các hướng dẫn mua hàng của chúng tôi bất kỳ lúc nào mà không cần thông báo.
         <br><br>
       </div>
-
-
-
     </div>
   </div>
+  <div id="billoflading" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width: 900px">
 
+      <div class="w3-container w3-padding-16 w3-light-grey">
+        <span class=" cart-header ">Bill of lading</span>
+        <span onclick="document.getElementById('billoflading').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+      </div>
+      <div style="margin: 20px; font:'Roboto condensed' ">
+        <form action="index.php" method="POST">
+          <label  for="username">Nhập sđt: </label>
+          <input  style="margin: 10px" type="text" name="sodienthoai" id="sodienthoai">
+          <input type="submit" name="submit_login" onclick="xulymavan(sodienthoai)" value="Confirm">
+
+        </form>
+      </div>
+    </div>
+  </div>
   <!-- Subscribe section -->
   <div class="w3-container w3-black w3-padding-32">
-    
+
   </div>
 
   <!-- Footer -->
@@ -93,6 +106,7 @@
         <h6><a href="javascript:void(0)" onclick="document.getElementById('paymentpolicy').style.display='block'"> Payment Policy</a></h6>
         <h6><a href="javascript:void(0)" onclick="document.getElementById('returnpolicy').style.display='block'">Return Policy</a></h6>
         <h6><a href="javascript:void(0)" onclick="document.getElementById('shoppingguide').style.display='block'">Shopping Guide</a></h6>
+        <h6><a href="javascript:void(0)" onclick="document.getElementById('billoflading').style.display='block'">Bill of lading</a></h6>
 
       </div>
 
@@ -140,8 +154,7 @@
     }
   }
 
-  // Click on the "Jeans" link on page load to open the accordion for demo purposes
-  document.getElementById("myBtn").click();
+
 
 
   // Open and close sidebar

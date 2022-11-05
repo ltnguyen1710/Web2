@@ -243,8 +243,10 @@ function xulythanhtoan(user, payment) {
   var cartItems = document.getElementsByClassName("cart-items")[0];
   var gia = document.getElementById("price1").innerHTML;
   var soluongSP = cartItems.getElementsByClassName("cart-item-title").length;
-  var diachi = document.getElementById("useraddress").value;
+  var diachi = document.getElementById("useraddress5").value;
   var size = document.getElementsByClassName("size");
+  var hoten = document.getElementById("name5").value;
+  var sdt = document.getElementById("phone5").value;
 
   if (diachi == "") {
     alert("Please type your address");
@@ -288,26 +290,44 @@ function xulythanhtoan(user, payment) {
     sanpham = sanpham + "&size" + i + "=" + size[i].innerText;
   }
 
-  xmlhttp.open(
-    "GET",
-    "process/thanhtoan.php?totalprice=" +
-      gia +
-      "&soluongSP=" +
-      soluongSP +
-      "&userKH=" +
-      user +
-      "&thanhtoan=" +
-      payment +
-      "&diachi=" +
-      diachi +
-      sanpham,
-    true
-  );
-  xmlhttp.send();
+  // xmlhttp.open(
+  //   "GET",
+  //   "process/thanhtoan.php?totalprice=" +
+  //     gia +
+  //     "&soluongSP=" +
+  //     soluongSP +
+  //     "&userKH=" +
+  //     user +
+  //     "&Hoten=" +
+  //     hoten +
+  //     "&sdt=" +
+  //     sdt +
+  //     "&thanhtoan=" +
+  //     payment +
+  //     "&diachi=" +
+  //     diachi +
+  //     sanpham,
+  //   true
+  // );
+  // xmlhttp.send();
   alert("Buy successfully !");
   document.getElementById("checkout").style.display = "none";
   document.getElementById("shoppingcart").style.display = "none";
-  window.location.href = "index.php";
+  window.location.href =  "process/thanhtoan.php?totalprice=" +
+  gia +
+  "&soluongSP=" +
+  soluongSP +
+  "&userKH=" +
+  user +
+  "&Hoten=" +
+  hoten +
+  "&sdt=" +
+  sdt +
+  "&thanhtoan=" +
+  payment +
+  "&diachi=" +
+  diachi +
+  sanpham
 }
 //hàm lưu các thông số của sản phẩm thêm vào giỏ hàng
 function xulygiohang(title, price, img, soluong, soluongtonkho, size) {
@@ -371,5 +391,15 @@ function kiemTraDuLieu() {
   if (document.signup.psw1.value != document.signup.repsw.value) {
     alert("Password and Confirm Password has to duplicate");
     return false;
+  }
+}
+function xulymavan(sodienthoai) {
+  var sdt = document.getElementById("sodienthoai").value;
+
+  if (sdt == "") {
+    alert("Please type your phone");
+    return;
+  }else{
+    window.location.href = "https://tracking.ghn.dev/?order_code=LLGAVX";
   }
 }
