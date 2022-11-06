@@ -196,26 +196,17 @@
                     $result = $con->query($sql);
                     $row = $result->fetch_assoc()
                     ?>
-<<<<<<< Updated upstream
                     <script type="text/javascript">
                         function text() {
                             var payment = document.getElementById('Payment').value
                             if (payment === "cash") {
                                 document.getElementById('paypal-button-container').style.display = 'none';
                                 document.getElementById('cash').style.display = 'block';
-=======
-                    <!-- <script type="text/javascript">
-                        function text() {
-                            var sodienthoai = document.getElementById("sodienthoai").value;
-                            if (sodienthoai == "")
-                                alert("Please type your phone");
->>>>>>> Stashed changes
                             } else {
                                 document.getElementById('paypal-button-container').style.display = 'block';
                                 document.getElementById('cash').style.display = 'none';
                             }
                         }
-<<<<<<< Updated upstream
                     </script>
 
                     <form class="w3-container">

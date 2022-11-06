@@ -253,18 +253,6 @@ function xulythanhtoan(user, payment) {
     alert("Please type your address");
     return;
   }
-  var xmlhttp;
-  if (window.XMLHttpRequest) {
-    // code for IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttp = new XMLHttpRequest();
-  } else {
-    // code for IE6, IE5
-    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange = function () {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    }
-  };
   var cartItems = document.getElementsByClassName("cart-items")[0];
   var cart_title = cartItems.getElementsByClassName("cart-item-title");
   var sanpham = "";
@@ -291,26 +279,6 @@ function xulythanhtoan(user, payment) {
     sanpham = sanpham + "&size" + i + "=" + size[i].innerText;
   }
 
-  // xmlhttp.open(
-  //   "GET",
-  //   "process/thanhtoan.php?totalprice=" +
-  //     gia +
-  //     "&soluongSP=" +
-  //     soluongSP +
-  //     "&userKH=" +
-  //     user +
-  //     "&Hoten=" +
-  //     hoten +
-  //     "&sdt=" +
-  //     sdt +
-  //     "&thanhtoan=" +
-  //     payment +
-  //     "&diachi=" +
-  //     diachi +
-  //     sanpham,
-  //   true
-  // );
-  // xmlhttp.send();
   alert("Buy successfully !");
   document.getElementById("checkout").style.display = "none";
   document.getElementById("shoppingcart").style.display = "none";
@@ -398,14 +366,4 @@ function kiemTraDuLieu() {
   }
 }
 
-function xulymavan(sodienthoai) {
-  var sdt = document.getElementById("sodienthoai").value;
-
-  if (sdt == "") {
-    alert("Please type your phone");
-    return;
-  } else {
-    window.location.href = "https://tracking.ghn.dev/?order_code=LLGAVX";
-  }
-}
 
