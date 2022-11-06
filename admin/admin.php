@@ -90,23 +90,23 @@ if (isLoginedAdmin()) {
       </header>
       <form style="padding-left: 15px;" onchange="reloadadmin()">
         <input type="radio" id="all" name="select" value="1" <?php if (isset($_REQUEST['select'])) {
-                                                  echo ($_REQUEST['select'] == 1) ? 'checked="checked"' : '';
-                                                }
-                                                echo 'checked="checked"'  ?>>
+                                                                echo ($_REQUEST['select'] == 1) ? 'checked="checked"' : '';
+                                                              }
+                                                              echo 'checked="checked"'  ?>>
         <label for="All">All</label>
         <input type="radio" id="pro" name="select" value="2" <?php if (isset($_REQUEST['select'])) {
-                                                  echo ($_REQUEST['select'] == 2) ? 'checked="checked"' : '';
-                                                } ?>>
+                                                                echo ($_REQUEST['select'] == 2) ? 'checked="checked"' : '';
+                                                              } ?>>
         <label for="Processed">Processed</label>
-        <input type="radio" id="nonepro" value="3" name="select"  <?php if (isset($_REQUEST['select'])) {
-                                                      echo ($_REQUEST['select'] == 3) ? 'checked="checked"' : '';
-                                                    } ?>>
+        <input type="radio" id="nonepro" value="3" name="select" <?php if (isset($_REQUEST['select'])) {
+                                                                    echo ($_REQUEST['select'] == 3) ? 'checked="checked"' : '';
+                                                                  } ?>>
         <label for="nonepro">None process</label>
         <div>
           <label for="searchOrder">Search order </label>
           <input type="text" id="textOrder" name="searchText" style="width: 20%" placeholder="Type Order ID or Username" value="<?php
-                                                                                                              echo isset($_REQUEST['searchText']) ? $_REQUEST['searchText'] : "";
-                                                                                                              ?>">
+                                                                                                                                echo isset($_REQUEST['searchText']) ? $_REQUEST['searchText'] : "";
+                                                                                                                                ?>">
           <button class="button" onclick="reloadadmin()">Search</button>
         </div>
       </form>

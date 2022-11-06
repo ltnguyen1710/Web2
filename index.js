@@ -397,6 +397,7 @@ function kiemTraDuLieu() {
     return false;
   }
 }
+
 function xulymavan(sodienthoai) {
   var sdt = document.getElementById("sodienthoai").value;
 
@@ -407,3 +408,4 @@ function xulymavan(sodienthoai) {
     window.location.href = "https://tracking.ghn.dev/?order_code=LLGAVX";
   }
 }
+

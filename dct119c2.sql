@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `dct119c2`
+-- Database: `dct119c2`
 --
 
 -- --------------------------------------------------------
@@ -82,23 +82,21 @@ CREATE TABLE `donhang` (
   `tinhtrang` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   `ngaydat` date NOT NULL,
   `userKH` varchar(64) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `Hoten` varchar(20) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `sdt` varchar(15) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `thanhtoan` varchar(10) COLLATE utf8mb4_vietnamese_ci NOT NULL,
-  `diachinhan` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL
+  `diachinhan` varchar(50) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `mavandon` varchar(20) COLLATE utf8mb4_vietnamese_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
--- Đang đổ dữ liệu cho bảng `donhang`
+-- Dumping data for table `donhang`
 --
 
-INSERT INTO `donhang` (`maDon`, `giaDon`, `soluongMua`, `tinhtrang`, `ngaydat`, `userKH`, `thanhtoan`, `diachinhan`) VALUES
-(21, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', '', 'ssss'),
-(22, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', '', 'sss'),
-(23, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', '', 'sss'),
-(24, 390, 1, 'Chua xu ly', '2022-10-23', 'ha', '', 'ssss'),
-(25, 157, 1, 'Chua xu ly', '2022-11-03', 'ha', 'paypal', 'some'),
-(26, 157, 1, 'Chua xu ly', '2022-11-03', 'ha', 'cash', 'hgf');
-
--- --------------------------------------------------------
+INSERT INTO `donhang` (`maDon`, `giaDon`, `soluongMua`, `tinhtrang`, `ngaydat`, `userKH`, `Hoten`, `sdt`, `thanhtoan`, `diachinhan`, `mavandon`) VALUES
+(127, 1, 1, 'Da xu ly', '2022-11-05', 'ha', 'le nguyen', '0939635455', 'paypal', '273 An Duong Vuong', ''),
+(128, 1, 1, 'Chua xu ly', '2022-11-05', 'ha', 'le nguyen', '0939635455', 'paypal', '273 An Duong Vuong', 'LLGANK'),
+(129, 1, 1, 'Chua xu ly', '2022-11-05', 'ha', 'le nguyen', '0939635455', 'paypal', '273 An Duong Vuong', 'LLGANW');
 
 --
 -- Cấu trúc bảng cho bảng `khachhang`
@@ -274,19 +272,7 @@ INSERT INTO `sanpham` (`maSP`, `maloaiSP`, `thongtinSP`, `tenSP`, `giaSP`, `hinh
 --
 
 --
--- Chỉ mục cho bảng `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`userAD`);
-
---
--- Chỉ mục cho bảng `chitiethoadon`
---
-ALTER TABLE `chitiethoadon`
-  ADD PRIMARY KEY (`maDon`,`maSP`);
-
---
--- Chỉ mục cho bảng `donhang`
+-- Indexes for table `donhang`
 --
 ALTER TABLE `donhang`
   ADD PRIMARY KEY (`maDon`);
@@ -321,7 +307,7 @@ ALTER TABLE `sanpham`
 --
 
 --
--- AUTO_INCREMENT cho bảng `donhang`
+-- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
   MODIFY `maDon` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;

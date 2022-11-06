@@ -191,7 +191,7 @@ if (isLoginedAdmin()) {
                                                 while ($row = mysqli_fetch_array($result)) {
                                                 ?>
                                                     <tr>
-                                                        <td align="center">
+                                                        <td alignment="center">
 
                                                             <?php
                                                             if ($row['trangthai'] == "Block") { ?>
