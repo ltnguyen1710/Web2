@@ -216,17 +216,21 @@ function thanhtoan(gia) {
   document.getElementById("checkout").style.display = "block";
 
   var delivery = document.getElementById("delivery").value;
+  gia = document.getElementById("price1").innerText;
   if (delivery === "hoatoc") {
     gia = parseInt(gia) + 30;
     document.getElementById("delivery_price").innerHTML = 30;
   } else if (delivery === "ghn") {
     gia = parseInt(gia) + 7;
     document.getElementById("delivery_price").innerHTML = 7;
+  }else{
+    gia = document.getElementById("price").innerText;
   }
 
   document.getElementById("price1").innerHTML = gia;
   var value = document.getElementById("delivery");
   value.addEventListener("change", function () {
+    gia = document.getElementById("price1").innerText;
     var value = document.getElementById("delivery").value;
     if (value === "hoatoc") {
       gia = parseInt(gia) + 30;
@@ -235,7 +239,11 @@ function thanhtoan(gia) {
       gia = parseInt(gia) + 7;
       document.getElementById("delivery_price").innerHTML = 7;
     }
+    else{
+      gia = document.getElementById("price").innerText;
+    }
     document.getElementById("price1").innerHTML = gia;
+    return gia;
   });
 }
 //hàm xử lý thanh toán, tạo đơn hàng và chi tiết hóa đơn

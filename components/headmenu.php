@@ -230,6 +230,7 @@
                                 <br>
                                 <label style="font-size: 20px;"><i>Delivery Method: </i></label>
                                 <select class="w3-right" name="delivery" id="delivery">
+                                    <option>--Choose method--</option>
                                     <option value="ghn">GHN 7$</option>
                                     <option value="hoatoc">In day(HCM Only) 30$</option>
 
@@ -277,8 +278,9 @@
                                 </div>
                                 <script>
                                     function handle_discount(sotiengiam, type, dieukienapdung, magiam) {
-                                        var gia = document.getElementById("price").innerText;
+                                        var gia = document.getElementById("price1").innerText;
                                         var total = document.getElementById("price1").innerText;
+                                        
                                         var price_decrease = parseFloat(sotiengiam);
                                         gia = parseFloat(gia);
                                         dieukienapdung = parseFloat(dieukienapdung);
@@ -292,10 +294,10 @@
                                             } else if (type === 'percent') {
                                                 price_decrease = gia * price_decrease / 100;
                                             }
-                                            total = total - price_decrease;
+                                         
 
                                             document.getElementById("cashdiscount").innerHTML = price_decrease;
-                                            document.getElementById("price1").innerHTML = total;
+                                            document.getElementById("price1").innerHTML = gia - price_decrease;                                         
                                             document.getElementById("magiam5").value = magiam;
                                         }
 
