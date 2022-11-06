@@ -103,7 +103,7 @@ if (isLoginedAdmin()) {
                                                                             } ?>>
                 <label for="nonepro">Block</label>
                 <div>
-                    <label for="searchOrder">Search order </label>
+                    <label for="searchOrder">Search user </label>
                     <input type="text" id="textOrder" name="searchText" style="width: 20%" placeholder="Type Order ID or Username" value="<?php
                                                                                                                                             echo isset($_REQUEST['searchText']) ? $_REQUEST['searchText'] : "";
                                                                                                                                             ?>">

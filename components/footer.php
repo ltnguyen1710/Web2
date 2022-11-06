@@ -96,10 +96,13 @@
                   <?php
                   $conn = createDbConnection();
                   if (isset($_REQUEST['sodienthoai'])) {
-                    $sodienthoai = $_REQUEST['sodienthoai'];
-                    echo '<script>document.getElementById("billofladinglink").style.display = "block";</script>';
+                    if ($_REQUEST['sodienthoai'] !== "") {
+                      $sodienthoai = $_REQUEST['sodienthoai'];
+                    } else {
+                      $sodienthoai = 's';
+                    }
                   } else {
-                    $sodienthoai = '';
+                    $sodienthoai = 's';
                   }
                   $sql = "SELECT maDon,giaDon,ngaydat,userKH,sdt,diachinhan,mavandon FROM donhang where sdt like '%$sodienthoai%'";
                   $result = $conn->query($sql);
@@ -227,6 +230,14 @@
   function w3_close() {
     document.getElementById("mySidebar").style.display = "none";
     document.getElementById("myOverlay").style.display = "none";
+  }
+</script>
+<script>
+  var sdt = document.getElementById('sodienthoai').value;
+  console.log(sdt)
+  if (sdt !== "") {
+    // document.getElementById("billofladinglink").style.display = 'block';
+    document.getElementById("billofladinglink").click()
   }
 </script>
 <script>
