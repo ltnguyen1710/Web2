@@ -66,6 +66,7 @@
         Chúng tôi bảo lưu quyền thay đổi hoặc cập nhật các hướng dẫn mua hàng của chúng tôi bất kỳ lúc nào mà không cần thông báo.
         <br><br>
       </div>
+<<<<<<< Updated upstream
     </div>
   </div>
   <div id="billoflading" class="w3-modal">
@@ -88,30 +89,125 @@
   <!-- Subscribe section -->
   <div class="w3-container w3-black w3-padding-32">
 
+=======
+    </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="w3-padding-64 w3-light-grey w3-small" id="footer">
-    <div class="w3-row-padding">
-      <div class="w3-col s4">
-        <h4>About Us</h4>
-        <p>
-          CHECKERVIET là một thương hiệu thời trang và là nhà sản xuất quần áo được thành lập và xây dựng tại Sài Gòn, việt nam vào tháng 11 năm 2022 bởi nhóm sinh viên trường Đại học Sài Gòn.
-          <br><br> CHECKERVIET đem đến phong cách thời trang đường phố cho mọi người bởi những sản phẩm chất lượng và có ý nghĩa lớn đối với cộng đồng những người yêu nghệ thuật đường phố cũng như văn hóa hiphop, rock,... Nói chung.
-        </p>
+  <div id="billoflading" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width: 900px">
+    <!-- Tra mã vận -->
+      <div class="w3-container w3-padding-16 w3-light-grey">
+        <span class=" cart-header ">Bill of lading</span>
+        <span onclick="document.getElementById('billoflading').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
       </div>
+      <div style="margin: 20px; font:'Roboto condensed' ">
+        <div>
+          <label for="username">Nhập sđt: </label>
+          <input style="margin: 10px" type="text" name="sodienthoai" id="sodienthoai" value="<?php echo isset($_REQUEST['sodienthoai']) ? $_REQUEST['sodienthoai'] : "" ?>">
+          <button type=submit onclick="xulymavan(sodienthoai)" name="Confirm"> Confirm</button>
+        </div>
+        <div class="w3-container  ">
+          <div class="row">
+            <div class="col-md-10 ">
+              <div class="panel panel-default panel-table">
+                <div class="panel-heading">
+                  <div class="row">
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <?php
+                  $conn = createDbConnection();
+                  if (isset($_REQUEST['sodienthoai']))
+                    $sodienthoai = $_REQUEST['sodienthoai'];
+                  $sql = "SELECT maDon,giaDon,ngaydat,userKH,sdt,diachinhan,mavandon FROM donhang where sdt like '%$sodienthoai%'";
+                  $result = $conn->query($sql);
+                  if ($result = mysqli_query($conn, $sql)) {
 
+                    if (mysqli_num_rows($result) > 0) {
+                  ?>
+                      <table class="table table-striped table-bordered table-list">
+                        <thead>
+                          <tr>
+                            <th width=40px>ID </th>
+                            <th width=40px>Price</th>
+                            <th width=150px>Date</th>
+                            <th width=100px>UserName</th>
+                            <th width=100px>Sđt</th>
+                            <th width=150px>Address</th>
+                            <th width=50px>Bill of lading</th>
+                          </tr>
+
+                        </thead>
+                        <tbody>
+                          <?php
+                          while ($row = mysqli_fetch_array($result)) {
+                          ?>
+                            <tr>
+                              <td><?php echo $row['maDon'] ?></td>
+                              <td><?php echo $row['giaDon'] ?></td>
+                              <td><?php echo $row['ngaydat'] ?></td>
+                              <td><?php echo $row['userKH'] ?></td>
+                              <td><?php echo $row['sdt'] ?></td>
+                              <td><?php echo $row['diachinhan'] ?></td>
+                              <td><a href="https://tracking.ghn.dev/?order_code= + <?= $row['mavandon'] ?>"><?php echo $row['mavandon'] ?> </a></td>
+                            </tr>
+                </div>
+              </div>
+        <?php
+
+                          }
+                        }
+                      }
+        ?>
+
+        </tbody>
+        </table>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+>>>>>>> Stashed changes
+  </div>
+</div>
+</div>
+
+
+<<<<<<< Updated upstream
       <div class="w3-col s4">
         <h4>Customer Support</h4>
         <h6><a href="javascript:void(0)" onclick="document.getElementById('paymentpolicy').style.display='block'"> Payment Policy</a></h6>
         <h6><a href="javascript:void(0)" onclick="document.getElementById('returnpolicy').style.display='block'">Return Policy</a></h6>
         <h6><a href="javascript:void(0)" onclick="document.getElementById('shoppingguide').style.display='block'">Shopping Guide</a></h6>
         <h6><a href="javascript:void(0)" onclick="document.getElementById('billoflading').style.display='block'">Bill of lading</a></h6>
+=======
+<!-- Subscribe section -->
+<div class="w3-container w3-black w3-padding-32">
+>>>>>>> Stashed changes
 
-      </div>
+</div>
 
+<!-- Footer -->
+<footer class="w3-padding-64 w3-light-grey w3-small" id="footer">
+  <div class="w3-row-padding">
+    <div class="w3-col s4">
+      <h4>About Us</h4>
+      <p>
+        CHECKERVIET là một thương hiệu thời trang và là nhà sản xuất quần áo được thành lập và xây dựng tại Sài Gòn, việt nam vào tháng 11 năm 2022 bởi nhóm sinh viên trường Đại học Sài Gòn.
+        <br><br> CHECKERVIET đem đến phong cách thời trang đường phố cho mọi người bởi những sản phẩm chất lượng và có ý nghĩa lớn đối với cộng đồng những người yêu nghệ thuật đường phố cũng như văn hóa hiphop, rock,... Nói chung.
+      </p>
+    </div>
 
+    <div class="w3-col s4">
+      <h4>Customer Support</h4>
+      <h6><a href="javascript:void(0)" onclick="document.getElementById('paymentpolicy').style.display='block'"> Payment Policy</a></h6>
+      <h6><a href="javascript:void(0)" onclick="document.getElementById('returnpolicy').style.display='block'">Return Policy</a></h6>
+      <h6><a href="javascript:void(0)" onclick="document.getElementById('shoppingguide').style.display='block'">Shopping Guide</a></h6>
+      <h6><a href="javascript:void(0)" onclick="document.getElementById('billoflading').style.display='block'">Bill of lading</a></h6>
 
+<<<<<<< Updated upstream
       <div class="w3-col s4 w3-justify">
         <h4>Store</h4>
         <h6><i class="fa fa-fw fa-map-marker"></i> <a href="https://bom.so/BuzcGM">273 An Dương Vương, P3, Q5</a> </h6>
@@ -122,13 +218,29 @@
         <h6><i class="fa fa-fw fa-credit-card"></i> Credit Card</h6>
         <h4>Visit us</h4>
         <a href="https://www.facebook.com/profile.php?id=100087103316928"><i class="fa fa-facebook-official w3-hover-opacity w3-large"></i></a>
-
-      </div>
+=======
     </div>
-  </footer>
 
 
-  <!-- End page content -->
+
+    <div class="w3-col s4 w3-justify">
+      <h4>Store</h4>
+      <h6><i class="fa fa-fw fa-map-marker"></i> <a href="https://bom.so/BuzcGM">273 An Dương Vương, P3, Q5</a> </h6>
+      <h6><i class="fa fa-fw fa-phone"></i> 0123456789</h6>
+      <h6><i class="fa fa-fw fa-envelope"></i> checkerviet@gmail.com</h6>
+      <h4>We accept</h4>
+      <h6><i class="fa fa-fw fa-cc-amex"></i> Amex</h6>
+      <h6><i class="fa fa-fw fa-credit-card"></i> Credit Card</h6>
+      <br>
+      <a href="https://www.facebook.com/profile.php?id=100087103316928"><i class="fa fa-facebook-official w3-hover-opacity w3-large"></i></a>
+>>>>>>> Stashed changes
+
+    </div>
+  </div>
+</footer>
+
+
+<!-- End page content -->
 </div>
 
 <!-- Newsletter Modal -->

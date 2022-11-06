@@ -193,17 +193,29 @@
                     $result = $con->query($sql);
                     $row = $result->fetch_assoc()
                     ?>
+<<<<<<< Updated upstream
                     <script type="text/javascript">
                         function text() {
                             var payment = document.getElementById('Payment').value
                             if (payment === "cash"){
                                 document.getElementById('paypal-button-container').style.display = 'none';
                                 document.getElementById('cash').style.display = 'block';}
+=======
+                    <!-- <script type="text/javascript">
+                        function text() {
+                            var sodienthoai = document.getElementById("sodienthoai").value;
+                            if (sodienthoai == "")
+                                alert("Please type your phone");
+>>>>>>> Stashed changes
                             else{
                                 document.getElementById('paypal-button-container').style.display = 'block';
                                 document.getElementById('cash').style.display = 'none';}
                         }
+<<<<<<< Updated upstream
                     </script>
+=======
+                    </script> -->
+>>>>>>> Stashed changes
                     <form class="w3-container">
                         <div class="w3-section">
                             <label><b>Full name</b></label>
@@ -211,7 +223,11 @@
                             <label><b>Phone number</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="tel" value="<?= $row['sdt'] ?>" id="phone5" name="phone" placeholder="Enter Phone" required >
                             <label><b>Address</b></label>
+<<<<<<< Updated upstream
                             <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['diachi'] ?>" name="useraddress5" id="useraddress5" placeholder="Enter Address" required>
+=======
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['diachi'] ?>" name="useraddress" id="useraddress5" placeholder="Enter Address" required>
+>>>>>>> Stashed changes
                             <label><b>Payment</b></label>
                             
                             <select name="Payment" id="Payment" onchange="text()">
@@ -219,6 +235,7 @@
                                 <option value="cash">Cash</option>
                                 <option selected value="card">Card</option>
                             
+<<<<<<< Updated upstream
                             </select>
                             <br>
                             <label><b>Delivery Method</b></label>
@@ -226,8 +243,9 @@
                                 <option value="ghn">GHN 7$</option>
                                 <option value="hoatoc">In day(HCM Only) 30$</option>
 
+=======
+>>>>>>> Stashed changes
                             </select>
-                            <br>
                             <div class="cart-total">
                                 <br>
                                 <i>Cash Delivery:</i> <b id="delivery_price"></b> <br>
@@ -256,7 +274,13 @@
                                         return actions.order.capture().then(function(details) {
                                             // This function shows a transaction success message to your buyer.
                                             alert('Transaction completed by ' + details.payer.name.given_name);
+<<<<<<< Updated upstream
                                             xulythanhtoan('<?= $_SESSION['username'] ?>', "paypal");
+=======
+                                            xulythanhtoan('<?= $_SESSION['username'] ?>', 'paypal');
+                                            
+
+>>>>>>> Stashed changes
                                         });
                                     }
                                 }).render('#paypal-button-container');

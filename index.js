@@ -313,6 +313,7 @@ function xulythanhtoan(user, payment) {
   alert("Buy successfully !");
   document.getElementById("checkout").style.display = "none";
   document.getElementById("shoppingcart").style.display = "none";
+<<<<<<< Updated upstream
   window.location.href =  "process/thanhtoan.php?totalprice=" +
   gia +
   "&soluongSP=" +
@@ -328,6 +329,24 @@ function xulythanhtoan(user, payment) {
   "&diachi=" +
   diachi +
   sanpham
+=======
+  window.location.href =
+    "process/thanhtoan.php?totalprice=" +
+    gia +
+    "&soluongSP=" +
+    soluongSP +
+    "&userKH=" +
+    user +
+    "&Hoten=" +
+    hoten +
+    "&sdt=" +
+    sdt +
+    "&thanhtoan=" +
+    payment +
+    "&diachi=" +
+    diachi +
+    sanpham;
+>>>>>>> Stashed changes
 }
 //hàm lưu các thông số của sản phẩm thêm vào giỏ hàng
 function xulygiohang(title, price, img, soluong, soluongtonkho, size) {
@@ -393,6 +412,7 @@ function kiemTraDuLieu() {
     return false;
   }
 }
+<<<<<<< Updated upstream
 function xulymavan(sodienthoai) {
   var sdt = document.getElementById("sodienthoai").value;
 
@@ -403,3 +423,6 @@ function xulymavan(sodienthoai) {
     window.location.href = "https://tracking.ghn.dev/?order_code=LLGAVX";
   }
 }
+=======
+
+>>>>>>> Stashed changes
