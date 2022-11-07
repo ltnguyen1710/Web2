@@ -289,18 +289,14 @@
                                             alert("Bạn cần mua thêm " + so_tien_conthieu + "$ để sử dụng Voucher này!!")
                                         } else {
                                             if (type === 'cash') {
-
                                                 price_decrease = price_decrease;
                                             } else if (type === 'percent') {
                                                 price_decrease = gia * price_decrease / 100;
-                                            }
-                                         
-
+                                            }                                       
                                             document.getElementById("cashdiscount").innerHTML = price_decrease;
                                             document.getElementById("price1").innerHTML = gia - price_decrease;                                         
                                             document.getElementById("magiam5").value = magiam;
                                         }
-
                                     }
                                 </script>
                             </div>
