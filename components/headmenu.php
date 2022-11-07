@@ -278,7 +278,7 @@
                                 </div>
                                 <script>
                                     function handle_discount(sotiengiam, type, dieukienapdung, magiam) {
-                                        var gia = document.getElementById("price1").innerText;
+                                        var gia = document.getElementById("price").innerText;
                                         var total = document.getElementById("price1").innerText;
                                         
                                         var price_decrease = parseFloat(sotiengiam);
