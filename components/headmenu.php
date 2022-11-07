@@ -72,32 +72,37 @@
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width: 900px">
 
                     <div class="w3-container w3-padding-16 w3-light-grey">
-                        <span class=" cart-header ">Cart</span>
+                        <span class="cart-header "><b>Cart</b></span>
                         <span onclick="document.getElementById('shoppingcart').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
                     </div>
 
-                    <div class="cart-row w3-container">
-                        <span class="cart-item cart-header cart-column">Items</span>
-                        <span class="cart-price cart-header cart-column">Price</span>
-                        <span class="cart-price cart-header cart-column">Size</span>
-                        <span class="cart-quantity cart-header cart-column">Quantity</span>
+                    <div class="w3-row cart-row w3-container">
+                        <span class="cart-item cart-header w3-col s4 cart-column" style="text-align: center;"><b>Items</b></span>
+                        <span class="cart-price cart-header w3-col s2 cart-column" style="text-align: center;"><b>Price</b></span>
+                        <span class="cart-price cart-header w3-col s3 cart-column" style="text-align: center;"><b>Size</b></span>
+                        <span class="cart-quantity cart-header w3-col s2 cart-column"><b>Quantity</b></span>
                     </div>
 
-                    <div class="cart-items w3-container">
-
-
-
+                    <div class="cart-items w3-container" style="overflow-y: scroll; height: 150px;">
+                        <p class="w3-center" id="noneproduct" style="padding-top: 50px;">
+                            <?php if (!isset($_SESSION['cart']['ten'][0])) { ?>
+                                Please choose your product
+                            <?php } ?>
+                        </p>
                     </div>
-                    <div class="cart-total">
-                        <strong class="cart-total-title">Total Price: $</strong>
-                        <strong class="cart-total-price" id="price"></strong>
-                    </div>
-                    <div class="w3-container w3-border-top w3-padding-24 ">
+
+                    <div class="w3-container w3-border-top w3-padding-24 w3-light-gray">
+                        <div class="cart-total w3-right">
+                            <strong class="cart-total-title">Total Price: $</strong>
+                            <strong class="cart-total-price" id="price"></strong>
+                        </div>
+                        <br>
                         <button onclick="<?= isLogined() ? "thanhtoan(document.getElementById('price').innerHTML)" : "document.getElementById('id01').style.display='block'" ?>" type="button" class="w3-button w3-red w3-transparent w3-right">Buy</button>
                     </div>
 
                 </div>
             </div>
+
 
             <!-- Account -->
             <!--login-->
@@ -184,7 +189,7 @@
 
             <!--check out-->
             <div id="checkout" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px" >
 
                     <div class="w3-center"><br>
                         <span onclick="document.getElementById('checkout').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
@@ -209,7 +214,7 @@
                         }
                     </script>
 
-                    <form class="w3-container">
+                    <form class="w3-container" style="overflow-y: scroll;height: 500px;">
                         <div class="w3-section">
                             <label><b>Full name</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="text" value="<?= $row['hoTen'] ?>" id="name5" name="adress" required>
@@ -220,7 +225,7 @@
                             <?php
                             $con->close();
                             ?>
-                            <div class="w3-border-top w3-border-bottom">
+                            <div class=" w3-border-top w3-border-bottom">
                                 <br>
                                 <label style="font-size: 20px;"><i>Payments:</i></label>
                                 <select class="w3-right" name="Payment" id="Payment" onchange="text()">
@@ -248,7 +253,7 @@
                                         <span onclick="document.getElementById('voucher_list').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
                                         <h1>Voucher List</h1>
                                     </div>
-                                    <div id="customers" class="w3-container w3-center w3-border" style="align-items: center;">
+                                    <div id="customers" class="w3-container w3-center w3-border" style="align-items: center;overflow-y: scroll;height: 250px;">
                                         <div style="display: none;">   <input onclick="handle_discount('','','')" type="radio" id="default" name="giamgia" value="default" checked="checked"></div>
 
                                         <?php
@@ -280,7 +285,7 @@
                                     function handle_discount(sotiengiam, type, dieukienapdung, magiam) {
                                         var gia = document.getElementById("price").innerText;
                                         var total = document.getElementById("price1").innerText;
-                                        
+
                                         var price_decrease = parseFloat(sotiengiam);
                                         gia = parseFloat(gia);
                                         dieukienapdung = parseFloat(dieukienapdung);
@@ -292,9 +297,9 @@
                                                 price_decrease = price_decrease;
                                             } else if (type === 'percent') {
                                                 price_decrease = gia * price_decrease / 100;
-                                            }                                       
+                                            }
                                             document.getElementById("cashdiscount").innerHTML = price_decrease;
-                                            document.getElementById("price1").innerHTML = gia - price_decrease;                                         
+                                            document.getElementById("price1").innerHTML = gia - price_decrease;
                                             document.getElementById("magiam5").value = magiam;
                                         }
                                     }

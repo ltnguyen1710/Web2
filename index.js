@@ -61,10 +61,15 @@ function showdetail(ten, gia, hinh, mota, sizeL, sizeXL) {
 function updatecart() {
   var cart_item = document.getElementsByClassName("cart-items")[0];
   var cart_rows = cart_item.getElementsByClassName("cart-row");
+  var cart_title = cart_item.getElementsByClassName("cart-item-title");
+  if(cart_title.length == 0){
+    document.getElementById("noneproduct").style.display = "block";
+    document.getElementById("noneproduct").innerText = "Please choose your product";
+  }
   var total = 0;
   for (var i = 0; i < cart_rows.length; i++) {
     var cart_row = cart_rows[i];
-    var price_item = cart_row.getElementsByClassName("cart-price ")[0];
+    var price_item = cart_row.getElementsByClassName("cart-price")[0];
     var quantity_item = cart_row.getElementsByClassName(
       "cart-quantity-input"
     )[0];
@@ -72,6 +77,7 @@ function updatecart() {
     var quantity = quantity_item.value; // lấy giá trị trong thẻ input
     total = total + price * quantity;
   }
+
   document.getElementsByClassName("cart-total-price")[0].innerText = total;
   // Thay đổi text = total trong .cart-total-price. Chỉ có một .cart-total-price nên mình sử dụng [0]
 }
@@ -106,8 +112,11 @@ for (var i = 0; i < add_cart.length; i++) {
 }*/
 // Thêm vào giỏ
 function addItemToCart(title, price, img, soluong, size) {
+  document.getElementById("noneproduct").style.display = "none";
   var cartRow = document.createElement("div");
   cartRow.classList.add("cart-row");
+  cartRow.classList.add("w3-row");
+  cartRow.classList.add("w3-border");
   var cartItems = document.getElementsByClassName("cart-items")[0];
   var cart_title = cartItems.getElementsByClassName("cart-item-title");
   var cartSize = document.getElementsByClassName("size");
@@ -117,26 +126,27 @@ function addItemToCart(title, price, img, soluong, size) {
       return;
     }
   }
+
   alert("Add successfully");
   xulygiohang(title, price, img, cart_title.length + 1, soluong, size);
   var cartRowContents = `
-<div class="cart-item cart-column">
-  <img class="cart-item-image" src="${img}" width="100" height="100">
-  <span class="cart-item-title">${title}</span>
+<div class="cart-item cart-column w3-col s4 w3-center" >
+  <img class="cart-item-image w3-row w3-margin-top w3-image" style="border-radius: 10%;"  src="${img}"   width="100" height="100">
+  <span class="cart-item-title w3-row">${title}</span>
 </div>
-<span class="cart-price cart-column">${price}</span>
-<span class="size cart-column">${size}</span>
-<div class="cart-quantity cart-column">
-  <input class="cart-quantity-input" type="number" value="1" max="${soluong}" >
-  <button class="btn btn-danger" type="button" onclick="">Delete</button>
-</div>`;
+<span class="cart-price cart-column w3-center w3-col s2" style="margin-top: 50px">${price}</span>
+<span class="size cart-column w3-col s3 w3-center" style="margin-top: 50px">${size}</span>
+<div class="cart-quantity cart-column w3-col s2 w3-center" style="margin-top: 50px">
+  <input class="w3-input w3-border w3-center cart-quantity-input w3-light-gray" style="width: 75%" type="number" value="1" max="${soluong}" >
+</div>
+<i class="w3-button fa fa-trash-o w3-col s1 btn btn-danger w3-bar-item" style="margin-top: 55px;padding-right:5px" type="button" onclick=""></i>`;
   cartRow.innerHTML = cartRowContents;
   cartItems.append(cartRow);
   cartRow
     .getElementsByClassName("btn-danger")[0]
     .addEventListener("click", function () {
       var button_remove = event.target;
-      button_remove.parentElement.parentElement.remove();
+      button_remove.parentElement.remove();
       xulyxoasanpham(title, size);
       updatecart();
     });
@@ -158,36 +168,39 @@ function addItemToCart(title, price, img, soluong, size) {
 }
 //tai lai gio hang khi reload trang
 function reload(title, price, img, soluong, size) {
+  document.getElementById("noneproduct").style.display = "none";
   var cartRow = document.createElement("div");
   cartRow.classList.add("cart-row");
+  cartRow.classList.add("w3-row");
+  cartRow.classList.add("w3-border");
   var cartItems = document.getElementsByClassName("cart-items")[0];
   var cart_title = cartItems.getElementsByClassName("cart-item-title");
   var cartSize = document.getElementsByClassName("size");
   for (var i = 0; i < cart_title.length; i++) {
     if (cart_title[i].innerText == title && cartSize[i].innerText == size) {
-      // alert("This product has already in cart");
+      alert("This product has already in cart");
       return;
     }
   }
   xulygiohang(title, price, img, cart_title.length + 1, soluong, size);
   var cartRowContents = `
-  <div class="cart-item cart-column">
-  <img class="cart-item-image" src="${img}" width="100" height="100">
-  <span class="cart-item-title">${title}</span>
+  <div class="cart-item cart-column w3-col s4 w3-center" >
+  <img class="cart-item-image w3-row w3-margin-top w3-image" style="border-radius: 10%;"  src="${img}"   width="100" height="100">
+  <span class="cart-item-title w3-row">${title}</span>
 </div>
-<span class="cart-price cart-column">${price}</span>
-<span class="size cart-column">${size}</span>
-<div class="cart-quantity cart-column">
-  <input class="cart-quantity-input" type="number" value="1" max="${soluong}" >
-  <button class="btn btn-danger" type="button" onclick="">Delete</button>
-</div>`;
+<span class="cart-price cart-column w3-center w3-col s2" style="margin-top: 50px">${price}</span>
+<span class="size cart-column w3-col s3 w3-center" style="margin-top: 50px">${size}</span>
+<div class="cart-quantity cart-column w3-col s2 w3-center" style="margin-top: 50px">
+  <input class="w3-input w3-border w3-center cart-quantity-input w3-light-gray" style="width: 75%" type="number" value="1" max="${soluong}" >
+</div>
+<i class="w3-button fa fa-trash-o w3-col s1 btn btn-danger w3-bar-item" style="margin-top: 55px;padding-right:5px" type="button" onclick=""></i>`;
   cartRow.innerHTML = cartRowContents;
   cartItems.append(cartRow);
   cartRow
     .getElementsByClassName("btn-danger")[0]
     .addEventListener("click", function () {
       var button_remove = event.target;
-      button_remove.parentElement.parentElement.remove();
+      button_remove.parentElement.remove();
       xulyxoasanpham(title, size);
       updatecart();
     });

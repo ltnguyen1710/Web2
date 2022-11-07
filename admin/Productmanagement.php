@@ -309,7 +309,7 @@ if (isLoginedAdmin()) {
                                 <input class="w3-input w3-input w3-border w3-margin-bottom " type="number" maxlength="100" min="1" name="sizeXL" required>
                             </li>
                             <li>
-                                <input type="submit" value="Insert" name="Insert" onclick="them()">
+                                <input class="w3-button w3-gray" type="submit" value="Insert" name="Insert" onclick="them()">
                             </li>
                         </ul>
                     </form>
@@ -374,8 +374,8 @@ if (isLoginedAdmin()) {
                                 <input class="w3-input w3-input w3-border w3-margin-bottom " id="sizeXL" type="number" maxlength="100" min="1" name="sizeXL" required>
                             </li>
                             <li>
-                                <input type="submit" value="Update" name="Update">
-                                <input type="submit" name="Delete" onclick="return xoasp()" value="Delete">
+                                <input class="w3-button w3-gray" type="submit" value="Update" name="Update">
+                                <input class="w3-button w3-gray" type="submit" name="Delete" onclick="return xoasp()" value="Delete">
                             </li>
                     </form>
 

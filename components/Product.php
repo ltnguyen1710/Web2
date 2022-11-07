@@ -17,23 +17,23 @@
     <div class="w3-modal-content  w3-card-4 w3-animate-zoom" style="max-width: 900px">
 
         <div class="w3-container w3-padding-16 w3-light-grey">
-            <span class=" cart-header " id='ten'></span>
+            <span class=" cart-header " id='ten' style="font-size: 30px;"></span>
             <span onclick="document.getElementById('detail5').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
         </div>
 
-        <div class="cart-row w3-container">
-            <span class="cart-item cart-header cart-column">Items</span>
-            <span class="cart-quantity cart-header cart-column">Infor</span>
+        <div class="cart-row w3-container w3-row w3-border">
+            <span class="w3-col s6"><h4><b>Items</b></h4></span>
+            <span class="w3-col s6"><h4><b>Infor</b></h4></span>
         </div>
 
-        <div class="cart-items w3-container">
+        <div class="w3-container">
 
-            <div class="cart-row">
-                <div class="cart-item cart-column">
-                    <img class="cart-item-image1" id='hinh' width="400" height="400">
+            <div class="w3-row ">
+                <div class="w3-col s6">
+                    <img class="cart-item-image1 w3-margin-top w3-image " id='hinh' width="100%" height="auto" style="max-width: 250px;">
                 </div>
-                <div class="cart-quantity cart-column">
-                    <p id='mota'></p>
+                <div class="cart-quantity cart-column w3-col s6" style="overflow-y: scroll;height:300">
+                    <h5 id='mota'></h5>
 
                 </div>
 
@@ -41,11 +41,9 @@
 
 
             <div class="cart-total">
-                <strong class="cart-total-title">Price: $</strong>
-                <strong class="cart-total-price" id='gia1'></strong>
-                <div class="w3-left">
+                <div class="w3-left w3-margin-top w3-margin-bottom">
                     <strong class="cart-total-title">Size</strong>
-                    <select name="size" id="size" style="width: 80px;height: 50px;">
+                    <select name="size" id="size" class="w3-select w3-border" style="width: 80px;height: auto; background-color: lightgray">
                         <option value="L">L</option>
                         <option value="XL">XL</option>
                     </select>
@@ -57,6 +55,12 @@
         </div>
 
         <div class="w3-container w3-border-top w3-padding-24 ">
+            <div class="w3-right">
+            <strong class="" style="font-size: 25px;">Price: $</strong>
+            <strong class="" id='gia1' style="font-size: 25px;"></strong>
+            </div>
+            <br>
+            <br>
             <button class="w3-button w3-red w3-transparent w3-right" id="addtoc" onclick="<?= LogCard() ?>">Add to cart
                 <i class="fa fa-shopping-cart"></i></button>
         </div>
