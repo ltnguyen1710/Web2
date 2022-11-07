@@ -213,37 +213,45 @@ function thanhtoan(gia) {
     alert("Please choose your items to buy");
     return;
   }
+  HOATOC = 0;
+  GHN = 0;
   document.getElementById("checkout").style.display = "block";
-
   var delivery = document.getElementById("delivery").value;
-  gia = document.getElementById("price1").innerText;
+  gia = document.getElementById("price").innerText;
+  var deliveryCost = 0;
   if (delivery === "hoatoc") {
-    gia = parseInt(gia) + 30;
+    // gia = parseInt(gia) + 30;
+    deliveryCost = 30;
     document.getElementById("delivery_price").innerHTML = 30;
   } else if (delivery === "ghn") {
-    gia = parseInt(gia) + 7;
+    // gia = parseInt(gia) + 7;
+    deliveryCost = 7;
     document.getElementById("delivery_price").innerHTML = 7;
-  }else{
+  } else {
     gia = document.getElementById("price").innerText;
   }
-
-  document.getElementById("price1").innerHTML = gia;
+  total = parseInt(gia) + deliveryCost;
+  document.getElementById("price1").innerHTML = total;
   var value = document.getElementById("delivery");
   value.addEventListener("change", function () {
-    gia = document.getElementById("price1").innerText;
+    gia = document.getElementById("price").innerText;
     var value = document.getElementById("delivery").value;
+    var deliveryCost = 0;
     if (value === "hoatoc") {
-      gia = parseInt(gia) + 30;
+      // gia = parseInt(gia) + 30;
+      deliveryCost = 30;
       document.getElementById("delivery_price").innerHTML = 30;
     } else if (value === "ghn") {
-      gia = parseInt(gia) + 7;
+      // gia = parseInt(gia) + 7;
+      deliveryCost = 7;
       document.getElementById("delivery_price").innerHTML = 7;
-    }
-    else{
+    } else {
       gia = document.getElementById("price").innerText;
     }
-    document.getElementById("price1").innerHTML = gia;
-    return gia;
+    // document.getElementById("price1").innerHTML = gia + deliveryCost;
+    total = parseInt(gia) + deliveryCost;
+    document.getElementById("price1").innerHTML = total;
+    return gia + deliveryCost;
   });
 }
 //hàm xử lý thanh toán, tạo đơn hàng và chi tiết hóa đơn
@@ -373,5 +381,3 @@ function kiemTraDuLieu() {
     return false;
   }
 }
-
-

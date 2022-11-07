@@ -194,7 +194,7 @@
 </footer>
 
 
-
+<script src="index.js"></script>
 <script>
   // Accordion 
   function myAccFunc() {
