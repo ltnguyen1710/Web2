@@ -118,13 +118,12 @@
                             <input class="w3-input w3-border" type="password" placeholder="Enter Password" name="psw" required value="12345">
                             <input class="w3-button w3-block w3-black w3-section w3-padding" type="submit" value="Log in">
                             <a class="w3-button w3-block w3-gray w3-section w3-padding" onclick="document.getElementById('id02').style.display='block'">Sign up</a>
-                            <input class="w3-check w3-margin-top " type="checkbox" checked="checked"> Remember me
                         </div>
                     </form>
 
                     <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                         <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-grey">Cancel</button>
-                        <span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>
+                        <span class="w3-right w3-padding w3-hide-small">Forgot <a onclick="document.getElementById('id01').style.display='none';document.getElementById('forgotpass').style.display='block'" href="#">password?</a></span>
                     </div>
 
                 </div>
@@ -178,7 +177,32 @@
                 </div>
                 </form>
             </div>
+            <!--forgotPass-->
 
+            <div id="forgotpass" class="w3-modal">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                    <div class="w3-center"><br>
+                        <span onclick="document.getElementById('forgotpass').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+                        <h1>Forgot password</h1>
+                    </div>
+
+                    <form action='index.php' method="post" class="w3-container">
+                        <div class="w3-section">
+                            <label><b>Email</b></label>
+                            <form method="post" action="sendmail/reset_pass.php">
+                                <input type="text" name="email" class="w3-input w3-border" placeholder="Enter your email" required>
+                                <a type="submit" name="submit_email" class="w3-button w3-block w3-gray w3-section w3-padding">Submit</a>
+                            </form>
+                        </div>
+                    </form>
+
+                    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                        <button onclick="document.getElementById('forgotpass').style.display='none';document.getElementById('id01').style.display='block'" type="button" class="w3-button w3-grey">Cancel</button>
+                    </div>
+
+                </div>
+            </div>
             <!--check out-->
             <div id="checkout" class="w3-modal">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
