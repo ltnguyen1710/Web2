@@ -63,7 +63,7 @@ function isLoginedAdmin()
 function logoutAdmin()
 {
     unset($_SESSION['admin']);
-    header('Location: admin.php');
+    header('Location: ../admin.php');
 }
 function isLogined()
 {

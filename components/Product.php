@@ -32,7 +32,7 @@
                 <div class="w3-col s6">
                     <img class="cart-item-image1 w3-margin-top w3-image " id='hinh' width="100%" height="auto" style="max-width: 250px;">
                 </div>
-                <div class="cart-quantity cart-column w3-col s6" style="overflow-y: scroll;height:300">
+                <div class="cart-quantity cart-column w3-col s6" style="overflow-y: scroll;height:auto;max-height:300">
                     <h5 id='mota'></h5>
 
                 </div>
@@ -61,7 +61,7 @@
             </div>
             <br>
             <br>
-            <button class="w3-button w3-red w3-transparent w3-right" id="addtoc" onclick="<?= LogCard() ?>">Add to cart
+            <button class="w3-button w3-red w3-transparent w3-right" id="addtoc" onclick="addItemToCart(document.getElementById('ten').innerHTML,document.getElementById('gia1').innerHTML,document.getElementById('hinh').src,document.getElementById('sl').innerHTML, document.getElementById('size').value)">Add to cart
                 <i class="fa fa-shopping-cart"></i></button>
         </div>
 

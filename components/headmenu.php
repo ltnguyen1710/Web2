@@ -83,7 +83,7 @@
                         <span class="cart-quantity cart-header w3-col s2 cart-column"><b>Quantity</b></span>
                     </div>
 
-                    <div class="cart-items w3-container" style="overflow-y: scroll; height: 150px;">
+                    <div class="cart-items w3-container" style="overflow-y: scroll; height:auto;max-height: 300px;">
                         <p class="w3-center" id="noneproduct" style="padding-top: 50px;">
                             <?php if (!isset($_SESSION['cart']['ten'][0])) { ?>
                                 Please choose your product

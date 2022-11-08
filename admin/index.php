@@ -1,120 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<?php
-require_once('../process/login.php');
-if (isset($_POST['admin'])) {
-    if (adminlogin($_POST['admin'], $_POST['psw']) == "") {
-        echo '<script>alert("Wrong password")</script>';
-    } else {
-        echo '<script>alert("Login successfully")</script>';
-    }
-}
-?>
-<?php $con = createDbConnection();
-$sql = "select count(maDon) as daxuly from donhang where tinhtrang='Da xu ly'";
-$result = mysqli_query($con, $sql);
-$row = mysqli_fetch_assoc($result);
-$processed = $row['daxuly'];
-$sql = "select count(maDon) as chuaxuly from donhang where tinhtrang='Chua xu ly'";
-$result = mysqli_query($con, $sql);
-$row = mysqli_fetch_assoc($result);
-$nonprocessed = $row['chuaxuly'];
-$sql = "select sum(sanpham.sizeL) as sumofsizeL, sum(sanpham.sizeXL) as sumofsizeXL, loaisanpham.loaiSP from sanpham,loaisanpham where sanpham.maloaiSP = loaisanpham.maloaiSP GROUP BY loaisanpham.maloaiSP";
-$result = mysqli_query($con, $sql);
-$product = [
-    'category' => array(),
-    'sizeL' => array(),
-    'sizeXL' => array()
-];
-while ($row = mysqli_fetch_assoc($result)) {
-    array_push($product['category'], $row['loaiSP']);
-    array_push($product['sizeL'], $row['sumofsizeL']);
-    array_push($product['sizeXL'], $row['sumofsizeXL']);
-}
-?>
-
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../SOURCE.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>CHECKERVIET</title>
-    <style>
-        .w3-sidebar a,
-        form {
-            font-family: "Roboto", sans-serif
-        }
-
-        body,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        .w3-wide {
-            font-family: "Montserrat", sans-serif;
-        }
-    </style>
-
-</head>
+<?php include 'components/header.php'; ?>
+<?php include 'process/statistical.php'?>
 <?php
 if (isLoginedAdmin()) {
 ?>
 
     <body class="w3-content" style="max-width:1200px">
-        <!-- Sidebar/menu -->
-        <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
-            <div class="w3-container w3-display-container w3-padding-16">
-                <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-                <a href="#"><img src="../Images/ANHNEN/logocheck.jpg" alt="LOGO" width="40%"></a>
-            </div>
-            <div class="w3-padding-64 w3-large w3-text-gray" style="font-weight:bold">
-                <a href="#" class="w3-button w3-block w3-light-grey w3-left-align">Home</a>
-                <a href="admin.php" class="w3-bar-item w3-button w3-white">Order management</a>
-                <a href="Productmanagement.php" class="w3-bar-item w3-button w3-white">Product management</a>
-                <a href="user.php" class="w3-button w3-block w3-white w3-left-align">User management</a>
-            </div>
-        </nav>
+        <?php include 'components/nav.php'; ?>
 
-        <!-- Top menu on small screens -->
-        <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
-            <div class="w3-bar-item w3-wide"><a href="demo.html" class="w3-button">CHECKERVIET</div>
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-10 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-        </header>
+        <div class="w3-container">
+            <h5><b>Order Status</b></h5>
+            <div id="pie-chart"></div>
 
-        <!-- Overlay effect when opening sidebar on small screens -->
-        <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-        <!-- !PAGE CONTENT! -->
-        <div class="w3-main" style="margin-left:250px">
-
-            <!-- Push down content on small screens -->
-            <div class="w3-hide-large" style="margin-top:83px"></div>
-
-            <!-- Top header -->
-            <header class="w3-container w3-xlarge w3-padding-24">
-                <p class="w3-left">Hi admin</p>
-                <p class="w3-right">
-
-                    <!-- Log out icon -->
-                    <a href="logoutadmin.php" class="w3-bar-item w3-button  w3-right">
-                        <i class="fa fa-sign-out  "></i>
-                    </a>
-
-                </p>
-            </header>
-
-            <div class="w3-container">
-                <h5><b>Order Status</b></h5>
-                <div id="pie-chart"></div>
-
-                <h5><b>Product Quantity</b></h5>
-                <div id="product-chart"></div>
-            </div>
+            <h5><b>Product Quantity</b></h5>
+            <div id="product-chart"></div>
+        </div>
         </div>
 
 

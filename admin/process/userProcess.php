@@ -1,4 +1,4 @@
-<?php require_once('../process/login.php'); ?>
+<?php require_once('../../process/login.php'); ?>
 <?php
 $con = createDBConnection();
 if ($_REQUEST['trangthai'] == "Active") {
@@ -8,5 +8,6 @@ else{
     $sql = "UPDATE khachhang set trangthai='Active' where userKH='" . $_REQUEST['userKH']."'";
 }
 $result = $con->query($sql);
+sleep(1);
 $con->close();
 ?>
