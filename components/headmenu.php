@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<?php require ('sendmail/reset_pass.php') ?>
+<?php
+require ('sendmail/reset_pass.php') ;
+require ('process/user.php');
+?>
 <body>
     <!-- Top menu on small screens -->
     <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
@@ -138,7 +141,7 @@
                         <h1>Create account</h1>
                     </div>
 
-                    <form class="w3-container" action="index.php" method="POST" name="signup" onsubmit="return kiemTraDuLieu()">
+                    <form class="w3-container" action="index.php" method="POST" name="signup" onsubmit="return kiemTraDuLieu(<?php mangUsername() ?>,<?php mangMail() ?>)">
                         <div class="w3-section">
 
                             <label><b>Full name</b></label>
@@ -147,7 +150,7 @@
                             <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="Enter your phone number" pattern="[0][2,7,9]{1}[0-9]{4}[0-9]{4}" name="phone" required>
                             <label><b>Email:</b></label>
                             <br>
-                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" id="useremail" placeholder="Enter email" required>
                             <label><b>User name</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" required>
                             <label><b>Password</b></label>
