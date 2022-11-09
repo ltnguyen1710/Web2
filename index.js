@@ -393,10 +393,12 @@ function kiemTraDuLieu(mangUsername, mangMail) {
     alert("Password and Confirm Password has to duplicate");
     return false;
   }
+
   for (let i = 0; i < mangMail.length; i++) {
     if (document.signup.useremail.value ==mangMail[i]) {
       alert("Email has existed");
       return false;
     }
   }
+
 }

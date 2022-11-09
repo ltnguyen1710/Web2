@@ -34,7 +34,7 @@
         <h4> <b> Nhằm giúp quý khách an tâm chọn lựa cho mình một sản phẩm ưng ý và phục vụ khách hàng chu đáo, <b>CHECKERVIET</b> thông báo đến quý khách hàng chính sách đổi trả chi tiết sau: </b></h4>
         <p> Những mặt hàng đã mua được quyền đổi không quá 7 (bảy) ngày từ ngày mua hàng với điều kiện những mặt hàng này chưa qua sử dụng, chưa giặt, không bị hư hại với các tem tag đính kèm, bản gốc hóa đơn mua hàng là bằng chứng mua phải được cung cấp.
           <br>
-          <br> <i> <b>• Bước 1:</b> khách liên lạc qua hotline 0123456789 hoặc <a href="https://www.facebook.com/profile.php?id=100087103316928">FANPAGE</a> của <b>CHECKERVIET</b> để được hỗ trợ</i>
+          <br> <i> <b>• Bước 1:</b> khách liên lạc qua hotline 0123456789 hoặc <a href="https://www.facebook.com/profile.php?id=100087103316928" target="_blank"=>FANPAGE</a> của <b>CHECKERVIET</b> để được hỗ trợ</i>
           <br> <i> <b>• Bước 2:</b> nhận cuộc gọi từ <b>CHECKERVIET</b> và thời gian nhận hàng đổi trả</i>
           <br> <i> <b>• Bước 3:</b> ngay khi xác nhận <b>CHECKERVIET</b> sẽ gửi bạn đơn hàng mới (hoặc lấy hàng về), bạn chi cần đổi trả hàng cho shipper</i>
           <br><br> <b>CHECKERVIET</b> nhận sản phẩm trả lại trong trường hợp lỗi do nhà sản xuất như: ố màu, phai màu, lỗi chất liệu, lỗi đường may, lỗi kiểu dáng... Không theo đúng mô tả và tiêu chuẩn sản phẩm. Hoàn tiền lại sản phẩm gặp lỗi qua tài khoản ngân hàng đối với các đơn hàng trực tuyến (online). Chúng tôi miễn phí 100% chi phí vận chuyển trả hàng.
@@ -81,7 +81,7 @@
           <form action="index.php">
             <label for="username">Nhập sđt: </label>
             <input style="margin: 10px" type="text" name="sodienthoai" id="sodienthoai" value="<?php echo isset($_REQUEST['sodienthoai']) ? $_REQUEST['sodienthoai'] : "" ?>">
-            <button type="submit" name="Confirm"> Confirm</button>
+            <button type="submit" onclick="document.getElementById('billoflading').style.display='none'" name="Confirm"> Confirm</button>
           </form>
         </div>
         <div class="w3-container  ">
@@ -92,108 +92,51 @@
                   <div class="row">
                   </div>
                 </div>
-                <div class="panel-body">
-                  <?php
-                  $conn = createDbConnection();
-                  if (isset($_REQUEST['sodienthoai'])) {
-                    if ($_REQUEST['sodienthoai'] !== "") {
-                      $sodienthoai = $_REQUEST['sodienthoai'];
-                    } else {
-                      $sodienthoai = 's';
-                    }
-                  } else {
-                    $sodienthoai = 's';
-                  }
-                  $sql = "SELECT maDon,giaDon,ngaydat,userKH,sdt,diachinhan,mavandon FROM donhang where sdt like '%$sodienthoai%'";
-                  $result = $conn->query($sql);
-                  if ($result = mysqli_query($conn, $sql)) {
-
-                    if (mysqli_num_rows($result) > 0) {
-                  ?>
-                      <table class="table table-striped table-bordered table-list">
-                        <thead>
-                          <tr>
-                            <th width=40px>ID </th>
-                            <th width=40px>Price</th>
-                            <th width=150px>Date</th>
-                            <th width=100px>UserName</th>
-                            <th width=100px>Sđt</th>
-                            <th width=150px>Address</th>
-                            <th width=50px>Bill of lading</th>
-                          </tr>
-
-                        </thead>
-                        <tbody>
-                          <?php
-                          while ($row = mysqli_fetch_array($result)) {
-                          ?>
-                            <tr>
-                              <td><?php echo $row['maDon'] ?></td>
-                              <td><?php echo $row['giaDon'] ?></td>
-                              <td><?php echo $row['ngaydat'] ?></td>
-                              <td><?php echo $row['userKH'] ?></td>
-                              <td><?php echo $row['sdt'] ?></td>
-                              <td><?php echo $row['diachinhan'] ?></td>
-                              <td><a href="https://tracking.ghn.dev/?order_code= + <?= $row['mavandon'] ?>" target="_blank"><?php echo $row['mavandon'] ?> </a></td>
-                            </tr>
-                </div>
               </div>
-        <?php
-
-                          }
-                        }
-                      }
-        ?>
-
-        </tbody>
-        </table>
             </div>
-
-
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+
+
+
+  <!-- Footer -->
+  <footer class="w3-padding-64 w3-light-grey w3-small" id="footer">
+    <div class="w3-row-padding">
+      <div class="w3-col s4">
+        <h4>About Us</h4>
+        <p>
+          CHECKERVIET là một thương hiệu thời trang và là nhà sản xuất quần áo được thành lập và xây dựng tại Sài Gòn, việt nam vào tháng 11 năm 2022 bởi nhóm sinh viên trường Đại học Sài Gòn.
+          <br><br> CHECKERVIET đem đến phong cách thời trang đường phố cho mọi người bởi những sản phẩm chất lượng và có ý nghĩa lớn đối với cộng đồng những người yêu nghệ thuật đường phố cũng như văn hóa hiphop, rock,... Nói chung.
+        </p>
+      </div>
+
+      <div class="w3-col s4">
+        <h4>Customer Support</h4>
+        <h6><a href="javascript:void(0)" onclick="document.getElementById('paymentpolicy').style.display='block'"> Payment Policy</a></h6>
+        <h6><a href="javascript:void(0)" onclick="document.getElementById('returnpolicy').style.display='block'">Return Policy</a></h6>
+        <h6><a href="javascript:void(0)" onclick="document.getElementById('shoppingguide').style.display='block'">Shopping Guide</a></h6>
+        <!-- đang check -->
+        <h6><a href="javascript:void(0)" onclick="<?= isLogined() ? "Billoflading()" : "document.getElementById('id01').style.display='block'" ?>">Bill of lading</a></h6>
+      </div>
+      <div class="w3-col s4 w3-justify">
+        <h4>Store</h4>
+        <h6><i class="fa fa-fw fa-map-marker"></i> <a href="https://bom.so/BuzcGM">273 An Dương Vương, P3, Q5</a> </h6>
+        <h6><i class="fa fa-fw fa-phone"></i> 0123456789</h6>
+        <h6><i class="fa fa-fw fa-envelope"></i> checkerviet@gmail.com</h6>
+        <h4>We accept</h4>
+        <h6><i class="fa fa-fw fa-cc-amex"></i> Amex</h6>
+        <h6><i class="fa fa-fw fa-credit-card"></i> Credit Card</h6>
+        <h4>Visit us</h4>
+        <a href="https://www.facebook.com/profile.php?id=100087103316928" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity w3-large"></i></a>
+
+      </div>
+    </div>
 </div>
-</div>
-
-
-
-
-
-<!-- Footer -->
-<footer class="w3-padding-64 w3-light-grey w3-small" id="footer">
-  <div class="w3-row-padding">
-    <div class="w3-col s4">
-      <h4>About Us</h4>
-      <p>
-        CHECKERVIET là một thương hiệu thời trang và là nhà sản xuất quần áo được thành lập và xây dựng tại Sài Gòn, việt nam vào tháng 11 năm 2022 bởi nhóm sinh viên trường Đại học Sài Gòn.
-        <br><br> CHECKERVIET đem đến phong cách thời trang đường phố cho mọi người bởi những sản phẩm chất lượng và có ý nghĩa lớn đối với cộng đồng những người yêu nghệ thuật đường phố cũng như văn hóa hiphop, rock,... Nói chung.
-      </p>
-    </div>
-
-    <div class="w3-col s4">
-      <h4>Customer Support</h4>
-      <h6><a href="javascript:void(0)" onclick="document.getElementById('paymentpolicy').style.display='block'"> Payment Policy</a></h6>
-      <h6><a href="javascript:void(0)" onclick="document.getElementById('returnpolicy').style.display='block'">Return Policy</a></h6>
-      <h6><a href="javascript:void(0)" onclick="document.getElementById('shoppingguide').style.display='block'">Shopping Guide</a></h6>
-      <h6><a href="javascript:void(0)" id="billofladinglink" onclick="document.getElementById('billoflading').style.display='block'">Bill of lading</a></h6>
-    </div>
-    <div class="w3-col s4 w3-justify">
-      <h4>Store</h4>
-      <h6><i class="fa fa-fw fa-map-marker"></i> <a href="https://bom.so/BuzcGM">273 An Dương Vương, P3, Q5</a> </h6>
-      <h6><i class="fa fa-fw fa-phone"></i> 0123456789</h6>
-      <h6><i class="fa fa-fw fa-envelope"></i> checkerviet@gmail.com</h6>
-      <h4>We accept</h4>
-      <h6><i class="fa fa-fw fa-cc-amex"></i> Amex</h6>
-      <h6><i class="fa fa-fw fa-credit-card"></i> Credit Card</h6>
-      <h4>Visit us</h4>
-      <a href="https://www.facebook.com/profile.php?id=100087103316928" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity w3-large"></i></a>
-
-    </div>
-  </div>
-  </div>
 </footer>
 
 
@@ -233,11 +176,19 @@
   }
 </script>
 <script>
-  var sdt = document.getElementById('sodienthoai').value;
-  console.log(sdt)
-  if (sdt !== "") {
-    // document.getElementById("billofladinglink").style.display = 'block';
-    document.getElementById("billofladinglink").click()
+  function Billoflading() {
+    window.location.href = " http://localhost/Web2/components/billoflading.php";
+  }
+</script>
+<script>
+  function CheckPhone(sdt) {
+    sdt = document.getElementById('sodienthoai').value;
+    console.log(sdt)
+    if (sdt !== "") {
+      // document.getElementById("billofladinglink").style.display = 'block';
+      // document.getElementById("billofladinglink").click()
+      window.location.replace = " http://localhost/Web2/components/billoflading.php";
+    }
   }
 </script>
 <script>

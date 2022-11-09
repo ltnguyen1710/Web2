@@ -2,7 +2,6 @@
     <div class="w3-container">
         <div class="w3-display-container">
             <img src="Images/T-SHIRT/<?= $row['hinhanhSP'] ?>" style="width:100%">
-            <span class="w3-tag w3-display-topleft">Sale</span>
             <div class="w3-display-middle w3-display-hover">
                 <a href="javascript:void(0)" class="w3-bar-item  w3-right w3-white" onclick="showdetail('<?= $row['tenSP'] ?>','<?= $row['giaSP'] ?>','Images/T-SHIRT/<?= $row['hinhanhSP'] ?>','<?= $row['thongtinSP'] ?>','<?= $row['sizeL'] ?>','<?= $row['sizeXL'] ?>')">
                     <button class="w3-button w3-black"> Detail <i class=" fa fa-info-circle"></i></button>
