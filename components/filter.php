@@ -10,8 +10,14 @@
     Type
     <select name="loaisp" id="loaisp" style="width: 125px;height: 40px;" onchange="reload1()">
         <option value="0"></option>
-        <option value="1">T-shirt</option>
-        <option value="2">Jacket</option>
+        <?php
+        $con = createDBConnection();
+        $sql = "SELECT * FROM loaisanpham";
+        $result = mysqli_query($con, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+            <option value="<?= $row['maloaiSP'] ?>"><?= $row['loaiSP'] ?></option>
+        <?php } ?>
     </select>
 </div>
 

@@ -10,6 +10,7 @@
          <a href="Productmanagement.php" class="w3-bar-item w3-button w3-white">Product management</a>
          <a href="userManagement.php" class="w3-button w3-block w3-white w3-left-align">User management</a>
          <a href="orderHistory.php" class="w3-button w3-block w3-white w3-left-align">History management</a>
+         <a href="categoryManagement.php" class="w3-button w3-block w3-white w3-left-align">Category management</a>
      </div>
  </nav>
  <!-- Top menu on small screens -->

@@ -193,7 +193,6 @@ if (isLoginedAdmin()) {
       function myFunction(madon) {
         var cof = confirm("Are you sure ?");
         if (cof) {
-
           var xmlhttp;
           if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
             xmlhttp = new XMLHttpRequest();

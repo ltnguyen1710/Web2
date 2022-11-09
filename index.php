@@ -35,7 +35,7 @@ require('process/register_submit.php');
 </style>
 
 
-<body class="w3-content" style="max-width:1200px" onload="reloadgiohang()">
+<body class="w3-content" style="max-width:1200px" onload="reloadgiohang()" >
     <!-- Sidebar/menu -->
     <?php include 'components/nav.php'; ?>
     <!-- Head menu -->
