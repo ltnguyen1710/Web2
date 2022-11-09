@@ -384,7 +384,7 @@ function xulyxoasanpham(ten, size) {
   xmlhttp.send();
 }
 
-function kiemTraDuLieu() {
+function kiemTraDuLieu(mangUsername, mangMail) {
   if (document.signup.psw1.value.length < 6) {
     alert("Weak password(At least 6 character)");
     return false;
@@ -392,5 +392,11 @@ function kiemTraDuLieu() {
   if (document.signup.psw1.value != document.signup.repsw.value) {
     alert("Password and Confirm Password has to duplicate");
     return false;
+  }
+  for (let i = 0; i < mangMail.length; i++) {
+    if (document.signup.useremail.value ==mangMail[i]) {
+      alert("Email has existed");
+      return false;
+    }
   }
 }
