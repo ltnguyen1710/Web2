@@ -61,6 +61,15 @@ function showdetail(ten, gia, hinh, mota, sizeL, sizeXL) {
 function updatecart() {
   var cart_item = document.getElementsByClassName("cart-items")[0];
   var cart_rows = cart_item.getElementsByClassName("cart-row");
+<<<<<<< Updated upstream
+=======
+  var cart_title = cart_item.getElementsByClassName("cart-item-title");
+  if (cart_title.length == 0) {
+    document.getElementById("noneproduct").style.display = "block";
+    document.getElementById("noneproduct").innerText =
+      "Please choose your product";
+  }
+>>>>>>> Stashed changes
   var total = 0;
   for (var i = 0; i < cart_rows.length; i++) {
     var cart_row = cart_rows[i];
@@ -363,7 +372,7 @@ function xulyxoasanpham(ten, size) {
   xmlhttp.send();
 }
 
-function kiemTraDuLieu(mangUsername, mangMail) {
+function kiemTraDuLieu(mangUsername, mangMail,verifycode) {
   if (document.signup.psw1.value.length < 6) {
     alert("Weak password(At least 6 character)");
     return false;
@@ -372,9 +381,17 @@ function kiemTraDuLieu(mangUsername, mangMail) {
     alert("Password and Confirm Password has to duplicate");
     return false;
   }
+  if (document.signup.verify.value != verifycode && document.signup.verify.value != '') {
+    alert("Verifycode is not correct");
+    return false;
+  }
   for (let i = 0; i < mangMail.length; i++) {
-    if (document.signup.useremail.value ==mangMail[i]) {
+    if (document.signup.useremail.value == mangMail[i]) {
       alert("Email has existed");
+      return false;
+    }
+    if (document.signup.useremail.value == mangUsername[i]) {
+      alert("User name has existed");
       return false;
     }
   }

@@ -3,7 +3,7 @@ require('PHPMailer.php');
 require('SMTP.php');
 require('Exception.php');
 
-function createSMTPconnection($mail_receiver,$name_receiver,$message){
+function createSMTPconnection($mail_receiver,$name_receiver,$subject,$message){
     $mail = new PHPMailer\PHPMailer\PHPMailer();
     $mail->CharSet =  "utf-8";
     $mail->IsSMTP();
@@ -22,7 +22,7 @@ function createSMTPconnection($mail_receiver,$name_receiver,$message){
     $mail->From = 'checkerVNnamm@gmail.com';
     $mail->FromName = 'checkerVN';
     $mail->AddAddress($mail_receiver, $name_receiver);
-    $mail->Subject  =  'Reset Password';
+    $mail->Subject  =  $subject;
     $mail->IsHTML(true);
     $mail->Body    = $message;
     if ($mail->Send()) {

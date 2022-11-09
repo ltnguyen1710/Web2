@@ -8,9 +8,10 @@
     <title>Document</title>
 </head>
 <?php
-require ('sendmail/reset_pass.php') ;
-require ('process/user.php');
+require('sendmail/reset_pass.php');
+require('process/user.php');
 ?>
+
 <body>
     <!-- Top menu on small screens -->
     <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
@@ -131,6 +132,13 @@ require ('process/user.php');
 
                 </div>
             </div>
+            <script>
+                var mangUser = [];
+                var mangEmail = [];
+                var verifycode = <?php echo $_SESSION['code_verify'] ?>
+                mangUser = <?php echo mangUsername(); ?>;
+                mangEmail = <?php echo mangMail(); ?>;
+            </script>
 
             <!--Sign up-->
             <div id="id02" class="w3-modal w3-padding-24">
@@ -141,23 +149,33 @@ require ('process/user.php');
                         <h1>Create account</h1>
                     </div>
 
-                    <form class="w3-container" action="index.php" method="POST" name="signup" onsubmit="return kiemTraDuLieu(<?php mangUsername() ?>,<?php mangMail() ?>)">
+                    <form class="w3-container" action="index.php" method="POST" name="signup" onsubmit="return kiemTraDuLieu(mangUser,mangEmail,verifycode)">
                         <div class="w3-section">
 
                             <label><b>Full name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Full name" name="fullname" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Full name" name="fullname" value="<?= isset($_SESSION['fullname']) ? $_SESSION['fullname'] : ''  ?>" required>
                             <label><b>Phone number</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="Enter your phone number" pattern="[0][2,7,9]{1}[0-9]{4}[0-9]{4}" name="phone" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="Enter your phone number" pattern="[0][2,7,9]{1}[0-9]{4}[0-9]{4}" name="phone" value="<?= isset($_SESSION['phone']) ? $_SESSION['phone'] : ''  ?>" required>
                             <label><b>Email:</b></label>
                             <br>
+<<<<<<< Updated upstream
                             <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" id="useremail" placeholder="Enter email" required>
+=======
+                            <input class="w3-input w3-border w3-margin-bottom" id="email" type="email" name="useremail" placeholder="Enter email" value="<?= isset($_SESSION['useremail']) ? $_SESSION['useremail'] : ''  ?>" required>
+                            <label><b>Verify email:</b></label>
+                            <input class="w3-input w3-border w3-margin-bottom"  type="text" placeholder="Verify code" name="verify">
+                            <input class="w3-button  w3-grey w3-left" name="submitcode" value="Get code" href="#" type="Submit" onclick=""> <br>
+                            <br>
+                            <label><b>Adress</b></label>
+                            <br>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" name="useradress" placeholder="Enter adress" value="<?= isset($_SESSION['useradress']) ? $_SESSION['useradress'] : ''  ?>" required>
+>>>>>>> Stashed changes
                             <label><b>User name</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter User name" name="username1" value="<?= isset($_SESSION['username1']) ? $_SESSION['username1'] : ''  ?>" required>
                             <label><b>Password</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="psw1" id="psw1" required>
+                            <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Enter Password" name="psw1" id="psw1" value="<?= isset($_SESSION['psw1']) ? $_SESSION['psw1'] : ''  ?>" required>
                             <label><b>Confirm password</b></label>
-                            <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Confirm Password" name="repsw" id="repsw" required>
-
+                            <input class="w3-input w3-border w3-margin-bottom" type="password" placeholder="Confirm Password" name="repsw" id="repsw" value="<?= isset($_SESSION['repsw']) ? $_SESSION['repsw'] : ''  ?>" required>
                         </div>
 
 
@@ -169,36 +187,41 @@ require ('process/user.php');
                 </div>
                 </form>
             </div>
-            <!--forgotPass-->
 
+            <script>
+                if (document.getElementById('email').value != '') {
+                    document.getElementById('id02').style.display = 'block';
+                }
+            </script>
+
+            <!--forgotPass-->
             <div id="forgotpass" class="w3-modal">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
                     <div class="w3-center"><br>
-                        <span onclick="document.getElementById('forgotpass').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+                        <span onclick="document.getElementById('forgotpass').style.display='none';document.getElementById('emailForgot').value=''" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
                         <h1>Forgot password</h1>
                     </div>
 
-                    <form method="post" action="index.php" class="w3-container" >
+                    <form method="post" action="index.php" class="w3-container">
                         <div class="w3-section">
                             <label><b>Email</b></label>
-                            <input type="email" name="email" id="emailForgot" class="w3-input w3-border" placeholder="Enter your email" value=" <?= isset ($_SESSION['typemail']) ? $_SESSION['typemail'] : ''  ?>" required>
+                            <input type="email" name="email" id="emailForgot" class="w3-input w3-border" placeholder="Enter your email" value=" <?= isset($_SESSION['typemail']) ? $_SESSION['typemail'] : ''  ?>" required>
                             <button type="submit" name="submit_email" class="w3-button w3-block w3-gray w3-section w3-padding">Submit</button>
 
                         </div>
                     </form>
 
                     <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                        <button onclick="document.getElementById('forgotpass').style.display='none';document.getElementById('id01').style.display='block'" type="button" class="w3-button w3-grey">Cancel</button>
+                        <button onclick="document.getElementById('forgotpass').style.display='none';document.getElementById('id01').style.display='block';document.getElementById('emailForgot').value=''" type="button" class="w3-button w3-grey">Cancel</button>
                     </div>
 
                 </div>
             </div>
             <script>
-                if(document.getElementById('emailForgot').value != ''){
-                    document.getElementById('forgotpass').style.display='block';
+                if (document.getElementById('emailForgot').value != '') {
+                    document.getElementById('forgotpass').style.display = 'block';
                 }
-                
             </script>
             <!--check out-->
             <div id="checkout" class="w3-modal">

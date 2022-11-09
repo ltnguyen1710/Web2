@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 require('process/login.php');
+<<<<<<< Updated upstream
 if (isset($_POST['username'])) {
     if (login($_POST['username'], $_POST['psw']) == "") {
         echo '<script>alert("Wrong password")</script>';
@@ -10,6 +11,10 @@ if (isset($_POST['username'])) {
 }
 ?>
 <?php
+=======
+require('sendmail/send_link.php');
+
+>>>>>>> Stashed changes
 require('process/register_submit.php');
 if (isset($_POST["username1"])) {
     Register($_POST["username1"], $_POST["psw1"], $_POST["repsw"], $_POST["phone"], $_POST["fullname"]);

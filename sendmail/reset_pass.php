@@ -1,5 +1,5 @@
 <?php
-require('send_link.php');
+
 
 function reset_pass()
 {
@@ -22,13 +22,14 @@ function reset_pass()
         }
     }
 }
-function get_pass(){
+function get_pass()
+{
     if (isset($_POST['submit_email']) && isset($_POST['email'])) {
         $email = $_SESSION['typemail'] = $_POST['email'];
         $con = createDBConnection();
         $sql = "select userKH,email,passKH from khachhang where email='$email'";
         $result = $con->query($sql);
-    
+
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $userKH = $row['userKH'];
@@ -37,19 +38,18 @@ function get_pass(){
             }
             $mail_receiver = $email;
             $name_receiver = $userKH;
-            $message = "Đây là mật khẩu của bạn: <b>$pass</b>" ;
-            createSMTPconnection($mail_receiver,$name_receiver,$message);
+            $subject = 'Reset Password';
+            $message = "Đây là mật khẩu của bạn: <b>$pass</b>";
+            createSMTPconnection($mail_receiver, $name_receiver, $subject, $message);
             unset($_SESSION['typemail']);
             echo '<script>alert("Check Your Email!!")</script>';
-        }else{
+        } else {
             echo '<script>alert("Mail is not exist..")</script>';
-            
-           
         }
-
     }
-    
 }
-
 get_pass();
+
+
+
 ?>
