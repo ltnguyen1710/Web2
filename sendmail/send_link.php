@@ -1,5 +1,4 @@
 <?php
-require('../process/login.php');
 require('PHPMailer.php');
 require('SMTP.php');
 require('Exception.php');
@@ -27,7 +26,7 @@ function createSMTPconnection($mail_receiver,$name_receiver,$message){
     $mail->IsHTML(true);
     $mail->Body    = $message;
     if ($mail->Send()) {
-        echo "Check Your Email and Click on the link sent to your email";
+        // echo '<script>window.location.href="index.php"</script>';
     } else {
         echo "Mail Error - >" . $mail->ErrorInfo;
     }

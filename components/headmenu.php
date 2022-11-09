@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
+<?php require ('sendmail/reset_pass.php') ?>
 <body>
     <!-- Top menu on small screens -->
     <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
@@ -145,17 +145,6 @@
                             <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Full name" name="fullname" required>
                             <label><b>Phone number</b></label>
                             <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="Enter your phone number" pattern="[0][2,7,9]{1}[0-9]{4}[0-9]{4}" name="phone" required>
-
-                            <label><b>Sex: </b></label>
-                            Male <input class="" type="radio" name="radsex" required>
-                            Female <input class="" type="radio" name="radsex" required>
-
-                            <br>
-
-                            <label><b>Birthday:</b></label>
-                            <input type="date" name="bday">
-
-                            <br>
                             <label><b>Email:</b></label>
                             <br>
                             <input class="w3-input w3-border w3-margin-bottom" type="email" name="useremail" placeholder="Enter email" required>
@@ -187,13 +176,12 @@
                         <h1>Forgot password</h1>
                     </div>
 
-                    <form action='index.php' method="post" class="w3-container">
+                    <form method="post" action="index.php" class="w3-container" >
                         <div class="w3-section">
                             <label><b>Email</b></label>
-                            <form method="post" action="sendmail/reset_pass.php">
-                                <input type="text" name="email" class="w3-input w3-border" placeholder="Enter your email" required>
-                                <a type="submit" name="submit_email" class="w3-button w3-block w3-gray w3-section w3-padding">Submit</a>
-                            </form>
+                            <input type="email" name="email" id="emailForgot" class="w3-input w3-border" placeholder="Enter your email" value=" <?= isset ($_SESSION['typemail']) ? $_SESSION['typemail'] : ''  ?>" required>
+                            <button type="submit" name="submit_email" class="w3-button w3-block w3-gray w3-section w3-padding">Submit</button>
+
                         </div>
                     </form>
 
@@ -203,6 +191,12 @@
 
                 </div>
             </div>
+            <script>
+                if(document.getElementById('emailForgot').value != ''){
+                    document.getElementById('forgotpass').style.display='block';
+                }
+                
+            </script>
             <!--check out-->
             <div id="checkout" class="w3-modal">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">

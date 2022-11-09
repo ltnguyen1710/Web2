@@ -13,5 +13,4 @@ function Register($username,$password,$repassword,$sdt,$hoten){
       }
      }
 
-
 ?>
